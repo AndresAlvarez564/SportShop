@@ -46,6 +46,16 @@ Clothing store web application designed to showcase products to customers and se
 - Storage: S3 + CloudFront
 - Authentication: AWS Cognito
 
+### 📐 Architecture Diagram
+
+For a detailed view of the system architecture, please open the `Architecture_L0.drawio` file using the [draw.io extension](https://marketplace.visualstudio.com/items?itemName=hediet.vscode-drawio) in VS Code or visit [draw.io](https://app.diagrams.net/) online.
+
+The L0 diagram shows:
+- Complete serverless architecture flow
+- AWS services integration
+- User interaction patterns
+- Security and scalability design
+
 ## 🔒 Security
 
 - Mandatory HTTPS traffic
