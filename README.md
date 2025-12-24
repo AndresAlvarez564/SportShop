@@ -1,121 +1,120 @@
-# TiendaRopa - E-commerce Web Application
+# SportShop - E-commerce Web Application
 
-## 📋 Descripción del Proyecto
+## 📋 Project Description
 
-Aplicación web tipo tienda de ropa diseñada para mostrar productos a clientes y servir como proyecto de aprendizaje para Solutions Architect en AWS.
+Clothing store web application designed to showcase products to customers and serve as a real-world project for learning Solutions Architect work.
 
-## 🎯 Objetivos
+## 🎯 Objectives
 
-- Construir una tienda online funcional
-- Implementar arquitectura escalable en AWS
-- Aplicar mejores prácticas de Solutions Architecture
-- Mantener costos optimizados
+- Build a functional online store
+- Implement scalable AWS architecture
+- Apply Solutions Architecture best practices
+- Maintain optimized costs
 
-## 👥 Usuarios y Roles
+## 👥 Users and Roles
 
-- **Visitante/Cliente**: Ver catálogo, buscar productos, ver detalles, contactar
-- **Cliente Autenticado**: Realizar compras y dejar reseñas
-- **Administrador**: Gestionar productos, precios, pedidos y mensajes
+- **Visitor/Customer**: View catalog, search products, view details, contact
+- **Authenticated Customer**: Make purchases and leave reviews
+- **Administrator**: Manage products, prices, orders and messages
 
-## ⚡ Funcionalidades MVP
+## ⚡ MVP Features
 
-- ✅ Catálogo de productos (visualización pública)
-- ✅ Carrito de compras
-- ✅ Sistema de login/registro
-- ✅ Formulario de contacto
-- ✅ Sistema de reseñas
+- ✅ Product catalog (public viewing)
+- ✅ Shopping cart
+- ✅ Login/Registration system
+- ✅ Contact form
+- ✅ Review system
 
-## 💳 Modelo de Compra
+## 💳 Purchase Model
 
-- Registro de pedidos sin pago online
-- Derivación a WhatsApp para coordinación directa
-- Gestión de pago fuera de la plataforma web
+- Order registration without online payment
+- WhatsApp redirection for direct coordination
+- Payment management outside the web platform
 
-## 🏗️ Arquitectura
+## 🏗️ Architecture
 
-### Principios de Diseño
-- **Escalabilidad automática**
-- **Servicios administrados** (evitar gestión de servidores)
-- **Alta disponibilidad** con enfoque en costo-beneficio
-- **Seguridad** con HTTPS y autenticación
+### Design Principles
+- **Automatic scalability**
+- **Managed services** (avoid server management)
+- **High availability** with cost-benefit focus
+- **Security** with HTTPS and authentication
 
-### Tecnologías Planificadas
+### Planned Technologies
 - Frontend: React/Next.js
 - Backend: AWS Lambda + API Gateway
-- Base de datos: DynamoDB
-- Almacenamiento: S3 + CloudFront
-- Autenticación: AWS Cognito
+- Database: DynamoDB
+- Storage: S3 + CloudFront
+- Authentication: AWS Cognito
 
-## 🔒 Seguridad
+## 🔒 Security
 
-- Tráfico HTTPS obligatorio
-- Autenticación para compras y reseñas
-- Separación de roles (Admin vs Cliente)
-- Protección de datos sensibles
+- Mandatory HTTPS traffic
+- Authentication for purchases and reviews
+- Role separation (Admin vs Customer)
+- Sensitive data protection
 
-## 📊 Observabilidad
+## 📊 Observability
 
-- ✅ Monitoreo con CloudWatch
-- ✅ Logs centralizados
-- ✅ Alertas críticas (email/WhatsApp)
-- ❌ Backups automáticos (desactivados por costo)
+- ✅ CloudWatch monitoring
+- ✅ Centralized logs
+- ✅ Critical alerts (email/WhatsApp)
+- ❌ Automatic backups (disabled for cost)
 
-## 💰 Enfoque de Costos
+## 💰 Cost Approach
 
-- Prioridad en **costo mínimo**
-- Uso de **Free Tier** cuando sea posible
-- Escalabilidad sin sobrecostos innecesarios
-- Servicios pay-per-use
+- Priority on **minimum cost**
+- Use **Free Tier** when possible
+- Scalability without unnecessary overhead
+- Pay-per-use services
 
 ## 🚀 Roadmap
 
-### Fase 1: MVP
-- [ ] Configuración de infraestructura básica
-- [ ] Frontend con catálogo
-- [ ] Sistema de autenticación
-- [ ] Carrito básico
+### Phase 1: MVP
+- [ ] Basic infrastructure setup
+- [ ] Frontend with catalog
+- [ ] Authentication system
+- [ ] Basic cart
 
-### Fase 2: Funcionalidades Core
-- [ ] Sistema de pedidos
-- [ ] Integración con WhatsApp
-- [ ] Panel de administración
-- [ ] Sistema de reseñas
+### Phase 2: Core Features
+- [ ] Order system
+- [ ] WhatsApp integration
+- [ ] Administration panel
+- [ ] Review system
 
-### Fase 3: Optimización
-- [ ] CDN para imágenes
-- [ ] Optimización de performance
-- [ ] Monitoreo avanzado
-- [ ] Pruebas de carga
+### Phase 3: Optimization
+- [ ] CDN for images
+- [ ] Performance optimization
+- [ ] Advanced monitoring
+- [ ] Load testing
 
-## 📁 Estructura del Proyecto
+## 📁 Project Structure
 
 ```
-TiendaRopa/
-├── contexto              # Documentación de requisitos
-├── frontend/            # Aplicación React/Next.js
-├── backend/             # Funciones Lambda
-├── infrastructure/      # Código IaC (CloudFormation/CDK)
-└── docs/               # Documentación adicional
+SportShop/
+├── frontend/            # React/Next.js application
+├── backend/             # Lambda functions
+├── infrastructure/      # IaC code (CloudFormation/CDK)
+└── docs/               # Additional documentation
 ```
 
-## 🛠️ Instalación y Desarrollo
+## 🛠️ Installation and Development
 
 ```bash
-# Clonar repositorio
-git clone https://github.com/AndresAlvarez564/TiendaRopa.git
-cd TiendaRopa
+# Clone repository
+git clone https://github.com/AndresAlvarez564/SportShop.git
+cd SportShop
 
-# Instalar dependencias (cuando se agreguen)
+# Install dependencies (when added)
 npm install
 
-# Ejecutar en desarrollo
+# Run in development
 npm run dev
 ```
 
-## 📝 Contribución
+## 📝 Contributing
 
-Este es un proyecto de aprendizaje. Las contribuciones son bienvenidas siguiendo las mejores prácticas de desarrollo.
+This is a learning project. Contributions are welcome following development best practices.
 
-## 📄 Licencia
+## 📄 License
 
-MIT License - Ver archivo LICENSE para más detalles.
+MIT License - See LICENSE file for more details.

@@ -26,6 +26,9 @@ Thumbs.db
 # Amazon Q
 .amazonq/
 
+# Project specific - exclude requirements file
+contexto
+
 # Logs
 *.log
 
