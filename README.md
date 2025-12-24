@@ -102,7 +102,7 @@ TiendaRopa/
 
 ```bash
 # Clonar repositorio
-git clone https://github.com/[usuario]/TiendaRopa.git
+git clone https://github.com/AndresAlvarez564/TiendaRopa.git
 cd TiendaRopa
 
 # Instalar dependencias (cuando se agreguen)
