@@ -48,6 +48,8 @@ Clothing store web application designed to showcase products to customers and se
 
 ### 📐 Architecture Diagram
 
+![SportShop L0 Architecture](pictures/Architecture_L0.png)
+
 For a detailed view of the system architecture, please open the `Architecture_L0.drawio` file using the [draw.io extension](https://marketplace.visualstudio.com/items?itemName=hediet.vscode-drawio) in VS Code or visit [draw.io](https://app.diagrams.net/) online.
 
 The L0 diagram shows:
@@ -55,6 +57,30 @@ The L0 diagram shows:
 - AWS services integration
 - User interaction patterns
 - Security and scalability design
+
+### 🏗️ Infrastructure as Code
+
+This project uses **AWS CDK with TypeScript** for infrastructure management:
+
+```
+infrastructure/
+├── bin/sportshop.ts           # Entry point
+├── lib/stacks/                # Domain-separated stacks
+│   ├── data-stack.ts          # DynamoDB tables
+│   ├── compute-stack.ts       # Lambda functions
+│   ├── api-stack.ts           # API Gateway
+│   ├── frontend-stack.ts      # S3 + CloudFront
+│   └── auth-stack.ts          # Cognito authentication
+├── lib/config/                # Environment configurations
+└── lib/constructs/            # Reusable components
+```
+
+**Benefits of this approach:**
+- ✅ **Professional structure** with domain separation
+- ✅ **Type safety** with TypeScript
+- ✅ **Reusable components** and best practices
+- ✅ **Multi-environment** support (dev/prod)
+- ✅ **Version control** for infrastructure
 
 ## 🔒 Security
 
