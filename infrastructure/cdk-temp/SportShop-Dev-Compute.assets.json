@@ -1,7 +1,49 @@
 {
   "version": "32.0.0",
   "files": {
-    "2ff932d58f4dc1d86c6ee4aa8bb22afc4f6b34b1eb5a81aefc7198af31df2176": {
+    "81a785fe371040f546e7a6291291b545bfb7cddef47f851cece972866bf4ebf7": {
+      "source": {
+        "path": "asset.81a785fe371040f546e7a6291291b545bfb7cddef47f851cece972866bf4ebf7",
+        "packaging": "zip"
+      },
+      "destinations": {
+        "851725386264-us-east-1": {
+          "bucketName": "cdk-hnb659fds-assets-851725386264-us-east-1",
+          "objectKey": "81a785fe371040f546e7a6291291b545bfb7cddef47f851cece972866bf4ebf7.zip",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::851725386264:role/cdk-hnb659fds-file-publishing-role-851725386264-us-east-1"
+        }
+      }
+    },
+    "6eedfcc579bbddaadbcf7048b993d7e1e021af09e9ca5d0e0df94da98388fb5e": {
+      "source": {
+        "path": "asset.6eedfcc579bbddaadbcf7048b993d7e1e021af09e9ca5d0e0df94da98388fb5e",
+        "packaging": "zip"
+      },
+      "destinations": {
+        "851725386264-us-east-1": {
+          "bucketName": "cdk-hnb659fds-assets-851725386264-us-east-1",
+          "objectKey": "6eedfcc579bbddaadbcf7048b993d7e1e021af09e9ca5d0e0df94da98388fb5e.zip",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::851725386264:role/cdk-hnb659fds-file-publishing-role-851725386264-us-east-1"
+        }
+      }
+    },
+    "2a0fca70c520f1d636446f2b268be5dd703cfb8c5000fa98888d8259af631c4f": {
+      "source": {
+        "path": "asset.2a0fca70c520f1d636446f2b268be5dd703cfb8c5000fa98888d8259af631c4f",
+        "packaging": "zip"
+      },
+      "destinations": {
+        "851725386264-us-east-1": {
+          "bucketName": "cdk-hnb659fds-assets-851725386264-us-east-1",
+          "objectKey": "2a0fca70c520f1d636446f2b268be5dd703cfb8c5000fa98888d8259af631c4f.zip",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::851725386264:role/cdk-hnb659fds-file-publishing-role-851725386264-us-east-1"
+        }
+      }
+    },
+    "f25d35f3f2a6a3505c60fd2eb7df7306b7680d73f1c6f3a40b908661ed63c049": {
       "source": {
         "path": "SportShop-Dev-Compute.template.json",
         "packaging": "file"
@@ -9,7 +51,7 @@
       "destinations": {
         "851725386264-us-east-1": {
           "bucketName": "cdk-hnb659fds-assets-851725386264-us-east-1",
-          "objectKey": "2ff932d58f4dc1d86c6ee4aa8bb22afc4f6b34b1eb5a81aefc7198af31df2176.json",
+          "objectKey": "f25d35f3f2a6a3505c60fd2eb7df7306b7680d73f1c6f3a40b908661ed63c049.json",
           "region": "us-east-1",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::851725386264:role/cdk-hnb659fds-file-publishing-role-851725386264-us-east-1"
         }

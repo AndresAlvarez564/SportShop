@@ -32,11 +32,7 @@ def handler(event, context):
             'body': json.dumps({
                 'message': 'Products retrieved successfully',
                 'products': products,
-                'count': len(products),
-                'schema': {
-                    'fields': ['id', 'category', 'name', 'price', 'stock', 'gender', 'description', 'imageUrl'],
-                    'required': ['id', 'category', 'name', 'price', 'stock', 'gender']
-                }
+                'count': len(products)
             }, default=decimal_default)
         }
         

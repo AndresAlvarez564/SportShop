@@ -1,7 +1,6 @@
 import json
 import boto3
 import os
-from boto3.dynamodb.conditions import Key
 from decimal import Decimal
 
 # Inicializar cliente DynamoDB
@@ -17,9 +16,46 @@ def decimal_default(obj):
 
 def handler(event, context):
     try:
-        # Obtener todos los productos
-        response = table.scan()
+        # Obtener ID del producto desde path parameters
+        product_id = event.get('pathParameters', {}).get('id')
+        
+        if not product_id:
+            return {
+                'statusCode': 400,
+                'headers': {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*'
+                },
+                'body': json.dumps({
+                    'message': 'Product ID is required',
+                    'error': 'Missing path parameter: id'
+                })
+            }
+        
+        # Buscar producto por ID (necesitamos category también para composite key)
+        # Por ahora usamos scan con filter, después optimizaremos
+        response = table.scan(
+            FilterExpression='id = :id',
+            ExpressionAttributeValues={':id': product_id}
+        )
+        
         products = response.get('Items', [])
+        
+        if not products:
+            return {
+                'statusCode': 404,
+                'headers': {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*'
+                },
+                'body': json.dumps({
+                    'message': 'Product not found',
+                    'productId': product_id
+                })
+            }
+        
+        # Retornar el primer producto encontrado
+        product = products[0]
         
         return {
             'statusCode': 200,
@@ -30,9 +66,8 @@ def handler(event, context):
                 'Access-Control-Allow-Headers': 'Content-Type'
             },
             'body': json.dumps({
-                'message': 'Products retrieved successfully',
-                'products': products,
-                'count': len(products),
+                'message': 'Product retrieved successfully',
+                'product': product,
                 'schema': {
                     'fields': ['id', 'category', 'name', 'price', 'stock', 'gender', 'description', 'imageUrl'],
                     'required': ['id', 'category', 'name', 'price', 'stock', 'gender']

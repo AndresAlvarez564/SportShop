@@ -18,6 +18,8 @@ interface ComputeStackProps extends StackProps {
 export class ComputeStack extends Stack {
   // Propiedades públicas para que otros stacks usen las funciones
   public readonly getProductsFunction: SportShopLambda;
+  public readonly getProductDetailFunction: SportShopLambda;
+  public readonly getProductsFilteredFunction: SportShopLambda;
 
   constructor(scope: Construct, id: string, props: ComputeStackProps) {
     super(scope, id, props);
@@ -36,6 +38,30 @@ export class ComputeStack extends Stack {
 
     // Dar permisos a Lambda para leer DynamoDB
     props.productsTable.grantReadData(this.getProductsFunction.function);
+
+    // Lambda function para obtener detalle de producto específico
+    this.getProductDetailFunction = new SportShopLambda(this, 'GetProductDetailLambda', {
+      functionName: `${env.prefix}-get-product-detail`,
+      code: Code.fromAsset('lambda-functions/get-product-detail'),
+      environment: {
+        'PRODUCTS_TABLE': props.productsTable.tableName
+      }
+    });
+
+    // Dar permisos a Lambda para leer DynamoDB
+    props.productsTable.grantReadData(this.getProductDetailFunction.function);
+
+    // Lambda function para filtrar productos por categoría y género
+    this.getProductsFilteredFunction = new SportShopLambda(this, 'GetProductsFilteredLambda', {
+      functionName: `${env.prefix}-get-products-filtered`,
+      code: Code.fromAsset('lambda-functions/get-products-filtered'),
+      environment: {
+        'PRODUCTS_TABLE': props.productsTable.tableName
+      }
+    });
+
+    // Dar permisos a Lambda para leer DynamoDB
+    props.productsTable.grantReadData(this.getProductsFilteredFunction.function);
 
     // Aplicar tags
     Object.entries(env.tags).forEach(([key, value]) => {

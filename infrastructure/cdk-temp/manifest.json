@@ -165,7 +165,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::851725386264:role/cdk-hnb659fds-deploy-role-851725386264-us-east-1",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::851725386264:role/cdk-hnb659fds-cfn-exec-role-851725386264-us-east-1",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-851725386264-us-east-1/2ff932d58f4dc1d86c6ee4aa8bb22afc4f6b34b1eb5a81aefc7198af31df2176.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-851725386264-us-east-1/f25d35f3f2a6a3505c60fd2eb7df7306b7680d73f1c6f3a40b908661ed63c049.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -225,6 +225,42 @@
           {
             "type": "aws:cdk:logicalId",
             "data": "GetProductsLambdaFunction217CDD7C"
+          }
+        ],
+        "/SportShop-Dev-Compute/GetProductDetailLambda/Function/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "GetProductDetailLambdaFunctionServiceRoleDEAA609C"
+          }
+        ],
+        "/SportShop-Dev-Compute/GetProductDetailLambda/Function/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "GetProductDetailLambdaFunctionServiceRoleDefaultPolicy84206013"
+          }
+        ],
+        "/SportShop-Dev-Compute/GetProductDetailLambda/Function/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "GetProductDetailLambdaFunction1D68EDEE"
+          }
+        ],
+        "/SportShop-Dev-Compute/GetProductsFilteredLambda/Function/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "GetProductsFilteredLambdaFunctionServiceRole8AA8ADB2"
+          }
+        ],
+        "/SportShop-Dev-Compute/GetProductsFilteredLambda/Function/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "GetProductsFilteredLambdaFunctionServiceRoleDefaultPolicy0AB93C5D"
+          }
+        ],
+        "/SportShop-Dev-Compute/GetProductsFilteredLambda/Function/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "GetProductsFilteredLambdaFunctionFF99BF8B"
           }
         ],
         "/SportShop-Dev-Compute/CDKMetadata/Default": [
