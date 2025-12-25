@@ -4,6 +4,7 @@
 import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
 import { DataStack } from '../lib/stacks/data-stack';
+import { ComputeStack } from '../lib/stacks/compute-stack';
 
 // Crear la aplicación CDK
 const app = new cdk.App();
@@ -12,7 +13,7 @@ const app = new cdk.App();
 app.node.setContext('@aws-cdk/core:defaultRemovalPolicy', 'destroy');
 
 // Crear stack de datos para desarrollo
-new DataStack(app, 'SportShop-Dev-Data', {
+const dataStack = new DataStack(app, 'SportShop-Dev-Data', {
   stage: 'dev',
   env: {
     region: 'us-east-1',
@@ -21,12 +22,13 @@ new DataStack(app, 'SportShop-Dev-Data', {
   description: 'SportShop DynamoDB tables for development environment - v2'
 });
 
-// Opcional: Stack para producción (comentado por ahora)
-// new DataStack(app, 'SportShop-Prod-Data', {
-//   stage: 'prod',
-//   env: {
-//     region: 'us-east-1',
-//     account: '851725386264',
-//   },
-//   description: 'SportShop DynamoDB tables for production environment'
-// });
+// Crear stack de compute para desarrollo
+const computeStack = new ComputeStack(app, 'SportShop-Dev-Compute', {
+  stage: 'dev',
+  productsTable: dataStack.productsTable, // ← Conectar tabla con Lambda
+  env: {
+    region: 'us-east-1',
+    account: '851725386264',
+  },
+  description: 'SportShop Lambda functions for development environment'
+});
