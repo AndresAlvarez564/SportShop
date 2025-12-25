@@ -1,0 +1,112 @@
+{
+  "version": "32.0.0",
+  "artifacts": {
+    "SportShop-Dev-Data.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "SportShop-Dev-Data.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "SportShop-Dev-Data": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://851725386264/us-east-1",
+      "properties": {
+        "templateFile": "SportShop-Dev-Data.template.json",
+        "tags": {
+          "Component": "development",
+          "CostCenter": "learning",
+          "Environment": "dev",
+          "Owner": "Andres",
+          "Project": "sportshop"
+        },
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::851725386264:role/cdk-hnb659fds-deploy-role-851725386264-us-east-1",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::851725386264:role/cdk-hnb659fds-cfn-exec-role-851725386264-us-east-1",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-851725386264-us-east-1/3522454e319f9abed98941ed5eb264fc053b336f508a1ff5fa848d510cd1aaa0.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "SportShop-Dev-Data.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::851725386264:role/cdk-hnb659fds-lookup-role-851725386264-us-east-1",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "SportShop-Dev-Data.assets"
+      ],
+      "metadata": {
+        "/SportShop-Dev-Data": [
+          {
+            "type": "aws:cdk:stack-tags",
+            "data": [
+              {
+                "Key": "Component",
+                "Value": "development"
+              },
+              {
+                "Key": "CostCenter",
+                "Value": "learning"
+              },
+              {
+                "Key": "Environment",
+                "Value": "dev"
+              },
+              {
+                "Key": "Owner",
+                "Value": "Andres"
+              },
+              {
+                "Key": "Project",
+                "Value": "sportshop"
+              }
+            ]
+          }
+        ],
+        "/SportShop-Dev-Data/ProductsTable": [
+          {
+            "type": "aws:cdk:hasPhysicalName",
+            "data": {
+              "Ref": "ProductsTable241ADBFF"
+            }
+          }
+        ],
+        "/SportShop-Dev-Data/ProductsTable/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ProductsTable241ADBFF"
+          }
+        ],
+        "/SportShop-Dev-Data/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/SportShop-Dev-Data/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/SportShop-Dev-Data/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "SportShop-Dev-Data"
+    },
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    }
+  }
+}

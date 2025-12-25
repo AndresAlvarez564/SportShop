@@ -1,0 +1,132 @@
+{
+  "version": "tree-0.1",
+  "tree": {
+    "id": "App",
+    "path": "",
+    "children": {
+      "SportShop-Dev-Data": {
+        "id": "SportShop-Dev-Data",
+        "path": "SportShop-Dev-Data",
+        "children": {
+          "ProductsTable": {
+            "id": "ProductsTable",
+            "path": "SportShop-Dev-Data/ProductsTable",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "SportShop-Dev-Data/ProductsTable/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::DynamoDB::Table",
+                  "aws:cdk:cloudformation:props": {
+                    "keySchema": [
+                      {
+                        "attributeName": "id",
+                        "keyType": "HASH"
+                      }
+                    ],
+                    "attributeDefinitions": [
+                      {
+                        "attributeName": "id",
+                        "attributeType": "S"
+                      }
+                    ],
+                    "billingMode": "PAY_PER_REQUEST",
+                    "tableName": "sportshop-dev-products",
+                    "tags": [
+                      {
+                        "key": "Component",
+                        "value": "development"
+                      },
+                      {
+                        "key": "CostCenter",
+                        "value": "learning"
+                      },
+                      {
+                        "key": "Environment",
+                        "value": "dev"
+                      },
+                      {
+                        "key": "Owner",
+                        "value": "Andres"
+                      },
+                      {
+                        "key": "Project",
+                        "value": "sportshop"
+                      }
+                    ]
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_dynamodb.CfnTable",
+                  "version": "2.87.0"
+                }
+              },
+              "ScalingRole": {
+                "id": "ScalingRole",
+                "path": "SportShop-Dev-Data/ProductsTable/ScalingRole",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.87.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_dynamodb.Table",
+              "version": "2.87.0"
+            }
+          },
+          "CDKMetadata": {
+            "id": "CDKMetadata",
+            "path": "SportShop-Dev-Data/CDKMetadata",
+            "children": {
+              "Default": {
+                "id": "Default",
+                "path": "SportShop-Dev-Data/CDKMetadata/Default",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnResource",
+                  "version": "2.87.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "constructs.Construct",
+              "version": "10.4.4"
+            }
+          },
+          "BootstrapVersion": {
+            "id": "BootstrapVersion",
+            "path": "SportShop-Dev-Data/BootstrapVersion",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnParameter",
+              "version": "2.87.0"
+            }
+          },
+          "CheckBootstrapVersion": {
+            "id": "CheckBootstrapVersion",
+            "path": "SportShop-Dev-Data/CheckBootstrapVersion",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnRule",
+              "version": "2.87.0"
+            }
+          }
+        },
+        "constructInfo": {
+          "fqn": "aws-cdk-lib.Stack",
+          "version": "2.87.0"
+        }
+      },
+      "Tree": {
+        "id": "Tree",
+        "path": "Tree",
+        "constructInfo": {
+          "fqn": "constructs.Construct",
+          "version": "10.4.4"
+        }
+      }
+    },
+    "constructInfo": {
+      "fqn": "aws-cdk-lib.App",
+      "version": "2.87.0"
+    }
+  }
+}
