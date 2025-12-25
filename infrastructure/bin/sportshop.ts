@@ -8,6 +8,9 @@ import { DataStack } from '../lib/stacks/data-stack';
 // Crear la aplicación CDK
 const app = new cdk.App();
 
+// Configurar RemovalPolicy para TODA la aplicación
+app.node.setContext('@aws-cdk/core:defaultRemovalPolicy', 'destroy');
+
 // Crear stack de datos para desarrollo
 new DataStack(app, 'SportShop-Dev-Data', {
   stage: 'dev',
