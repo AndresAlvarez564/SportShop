@@ -25,7 +25,8 @@ const dataStack = new DataStack(app, 'SportShop-Dev-Data', {
 // Crear stack de compute para desarrollo
 const computeStack = new ComputeStack(app, 'SportShop-Dev-Compute', {
   stage: 'dev',
-  productsTable: dataStack.productsTable, // ← Conectar tabla con Lambda
+  productsTable: dataStack.productsTable,
+  cartTable: dataStack.cartTable, // ← Agregar tabla cart
   env: {
     region: 'us-east-1',
     account: '851725386264',
