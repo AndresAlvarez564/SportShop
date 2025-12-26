@@ -5,6 +5,8 @@ import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
 import { DataStack } from '../lib/stacks/data-stack';
 import { ComputeStack } from '../lib/stacks/compute-stack';
+import { AuthStack } from '../lib/stacks/auth-stack';
+import { ApiStack } from '../lib/stacks/api-stack';
 
 // Crear la aplicación CDK
 const app = new cdk.App();
@@ -27,10 +29,31 @@ const computeStack = new ComputeStack(app, 'SportShop-Dev-Compute', {
   stage: 'dev',
   productsTable: dataStack.productsTable,
   cartTable: dataStack.cartTable,
-  ordersTable: dataStack.ordersTable, // ← Agregar tabla orders
+  ordersTable: dataStack.ordersTable,
   env: {
     region: 'us-east-1',
     account: '851725386264',
   },
   description: 'SportShop Lambda functions for development environment'
+});
+
+// Crear stack de autenticación para desarrollo
+const authStack = new AuthStack(app, 'SportShop-Dev-Auth', {
+  stage: 'dev',
+  env: {
+    region: 'us-east-1',
+    account: '851725386264',
+  },
+  description: 'SportShop Cognito User Pool for development environment'
+});
+
+// Crear stack de API para desarrollo
+const apiStack = new ApiStack(app, 'SportShop-Dev-Api', {
+  stage: 'dev',
+  computeStack: computeStack,
+  env: {
+    region: 'us-east-1',
+    account: '851725386264',
+  },
+  description: 'SportShop REST API Gateway for development environment'
 });
