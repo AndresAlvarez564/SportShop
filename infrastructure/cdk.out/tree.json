@@ -286,6 +286,22 @@
                   "fqn": "aws-cdk-lib.CfnOutput",
                   "version": "2.87.0"
                 }
+              },
+              "Output{\"Fn::GetAtt\":[\"OrdersTable315BB997\",\"Arn\"]}": {
+                "id": "Output{\"Fn::GetAtt\":[\"OrdersTable315BB997\",\"Arn\"]}",
+                "path": "SportShop-Dev-Data/Exports/Output{\"Fn::GetAtt\":[\"OrdersTable315BB997\",\"Arn\"]}",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnOutput",
+                  "version": "2.87.0"
+                }
+              },
+              "Output{\"Ref\":\"OrdersTable315BB997\"}": {
+                "id": "Output{\"Ref\":\"OrdersTable315BB997\"}",
+                "path": "SportShop-Dev-Data/Exports/Output{\"Ref\":\"OrdersTable315BB997\"}",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnOutput",
+                  "version": "2.87.0"
+                }
               }
             },
             "constructInfo": {
@@ -1993,6 +2009,1736 @@
                           }
                         },
                         "functionName": "sportshop-dev-update-cart-quantity",
+                        "handler": "index.handler",
+                        "memorySize": 256,
+                        "runtime": "python3.10",
+                        "tags": [
+                          {
+                            "key": "Component",
+                            "value": "development"
+                          },
+                          {
+                            "key": "CostCenter",
+                            "value": "learning"
+                          },
+                          {
+                            "key": "Environment",
+                            "value": "dev"
+                          },
+                          {
+                            "key": "Owner",
+                            "value": "Andres"
+                          },
+                          {
+                            "key": "Project",
+                            "value": "sportshop"
+                          }
+                        ],
+                        "timeout": 30
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_lambda.CfnFunction",
+                      "version": "2.87.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_lambda.Function",
+                  "version": "2.87.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "constructs.Construct",
+              "version": "10.4.4"
+            }
+          },
+          "CreateOrderLambda": {
+            "id": "CreateOrderLambda",
+            "path": "SportShop-Dev-Compute/CreateOrderLambda",
+            "children": {
+              "Function": {
+                "id": "Function",
+                "path": "SportShop-Dev-Compute/CreateOrderLambda/Function",
+                "children": {
+                  "ServiceRole": {
+                    "id": "ServiceRole",
+                    "path": "SportShop-Dev-Compute/CreateOrderLambda/Function/ServiceRole",
+                    "children": {
+                      "ImportServiceRole": {
+                        "id": "ImportServiceRole",
+                        "path": "SportShop-Dev-Compute/CreateOrderLambda/Function/ServiceRole/ImportServiceRole",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.Resource",
+                          "version": "2.87.0"
+                        }
+                      },
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "SportShop-Dev-Compute/CreateOrderLambda/Function/ServiceRole/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                          "aws:cdk:cloudformation:props": {
+                            "assumeRolePolicyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": "sts:AssumeRole",
+                                  "Effect": "Allow",
+                                  "Principal": {
+                                    "Service": "lambda.amazonaws.com"
+                                  }
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            },
+                            "managedPolicyArns": [
+                              {
+                                "Fn::Join": [
+                                  "",
+                                  [
+                                    "arn:",
+                                    {
+                                      "Ref": "AWS::Partition"
+                                    },
+                                    ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                                  ]
+                                ]
+                              }
+                            ],
+                            "tags": [
+                              {
+                                "key": "Component",
+                                "value": "development"
+                              },
+                              {
+                                "key": "CostCenter",
+                                "value": "learning"
+                              },
+                              {
+                                "key": "Environment",
+                                "value": "dev"
+                              },
+                              {
+                                "key": "Owner",
+                                "value": "Andres"
+                              },
+                              {
+                                "key": "Project",
+                                "value": "sportshop"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                          "version": "2.87.0"
+                        }
+                      },
+                      "DefaultPolicy": {
+                        "id": "DefaultPolicy",
+                        "path": "SportShop-Dev-Compute/CreateOrderLambda/Function/ServiceRole/DefaultPolicy",
+                        "children": {
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "SportShop-Dev-Compute/CreateOrderLambda/Function/ServiceRole/DefaultPolicy/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                              "aws:cdk:cloudformation:props": {
+                                "policyDocument": {
+                                  "Statement": [
+                                    {
+                                      "Action": [
+                                        "dynamodb:BatchGetItem",
+                                        "dynamodb:BatchWriteItem",
+                                        "dynamodb:ConditionCheckItem",
+                                        "dynamodb:DeleteItem",
+                                        "dynamodb:DescribeTable",
+                                        "dynamodb:GetItem",
+                                        "dynamodb:GetRecords",
+                                        "dynamodb:GetShardIterator",
+                                        "dynamodb:PutItem",
+                                        "dynamodb:Query",
+                                        "dynamodb:Scan",
+                                        "dynamodb:UpdateItem"
+                                      ],
+                                      "Effect": "Allow",
+                                      "Resource": [
+                                        {
+                                          "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputFnGetAttCartTableD1105F87Arn1BE6510E"
+                                        },
+                                        {
+                                          "Ref": "AWS::NoValue"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "Action": [
+                                        "dynamodb:BatchWriteItem",
+                                        "dynamodb:DeleteItem",
+                                        "dynamodb:DescribeTable",
+                                        "dynamodb:PutItem",
+                                        "dynamodb:UpdateItem"
+                                      ],
+                                      "Effect": "Allow",
+                                      "Resource": [
+                                        {
+                                          "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputFnGetAttOrdersTable315BB997ArnB3A07C42"
+                                        },
+                                        {
+                                          "Ref": "AWS::NoValue"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "Action": [
+                                        "dynamodb:BatchGetItem",
+                                        "dynamodb:ConditionCheckItem",
+                                        "dynamodb:DescribeTable",
+                                        "dynamodb:GetItem",
+                                        "dynamodb:GetRecords",
+                                        "dynamodb:GetShardIterator",
+                                        "dynamodb:Query",
+                                        "dynamodb:Scan"
+                                      ],
+                                      "Effect": "Allow",
+                                      "Resource": [
+                                        {
+                                          "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputFnGetAttProductsTable241ADBFFArn55D06E2D"
+                                        },
+                                        {
+                                          "Ref": "AWS::NoValue"
+                                        }
+                                      ]
+                                    }
+                                  ],
+                                  "Version": "2012-10-17"
+                                },
+                                "policyName": "CreateOrderLambdaFunctionServiceRoleDefaultPolicy79321542",
+                                "roles": [
+                                  {
+                                    "Ref": "CreateOrderLambdaFunctionServiceRole837C6EC3"
+                                  }
+                                ]
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                              "version": "2.87.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.Policy",
+                          "version": "2.87.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.Role",
+                      "version": "2.87.0"
+                    }
+                  },
+                  "Code": {
+                    "id": "Code",
+                    "path": "SportShop-Dev-Compute/CreateOrderLambda/Function/Code",
+                    "children": {
+                      "Stage": {
+                        "id": "Stage",
+                        "path": "SportShop-Dev-Compute/CreateOrderLambda/Function/Code/Stage",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.AssetStaging",
+                          "version": "2.87.0"
+                        }
+                      },
+                      "AssetBucket": {
+                        "id": "AssetBucket",
+                        "path": "SportShop-Dev-Compute/CreateOrderLambda/Function/Code/AssetBucket",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_s3.BucketBase",
+                          "version": "2.87.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_s3_assets.Asset",
+                      "version": "2.87.0"
+                    }
+                  },
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "SportShop-Dev-Compute/CreateOrderLambda/Function/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
+                      "aws:cdk:cloudformation:props": {
+                        "code": {
+                          "s3Bucket": "cdk-hnb659fds-assets-851725386264-us-east-1",
+                          "s3Key": "11ede0af81129d28ed2cd29f38073e9817587fb64f9aa766af48b6c1ac62c807.zip"
+                        },
+                        "role": {
+                          "Fn::GetAtt": [
+                            "CreateOrderLambdaFunctionServiceRole837C6EC3",
+                            "Arn"
+                          ]
+                        },
+                        "environment": {
+                          "variables": {
+                            "CART_TABLE": {
+                              "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputRefCartTableD1105F87A71B6139"
+                            },
+                            "ORDERS_TABLE": {
+                              "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputRefOrdersTable315BB997F7C1D27E"
+                            },
+                            "PRODUCTS_TABLE": {
+                              "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputRefProductsTable241ADBFF4DFBD40D"
+                            }
+                          }
+                        },
+                        "functionName": "sportshop-dev-create-order",
+                        "handler": "index.handler",
+                        "memorySize": 256,
+                        "runtime": "python3.10",
+                        "tags": [
+                          {
+                            "key": "Component",
+                            "value": "development"
+                          },
+                          {
+                            "key": "CostCenter",
+                            "value": "learning"
+                          },
+                          {
+                            "key": "Environment",
+                            "value": "dev"
+                          },
+                          {
+                            "key": "Owner",
+                            "value": "Andres"
+                          },
+                          {
+                            "key": "Project",
+                            "value": "sportshop"
+                          }
+                        ],
+                        "timeout": 30
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_lambda.CfnFunction",
+                      "version": "2.87.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_lambda.Function",
+                  "version": "2.87.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "constructs.Construct",
+              "version": "10.4.4"
+            }
+          },
+          "GetUserOrdersLambda": {
+            "id": "GetUserOrdersLambda",
+            "path": "SportShop-Dev-Compute/GetUserOrdersLambda",
+            "children": {
+              "Function": {
+                "id": "Function",
+                "path": "SportShop-Dev-Compute/GetUserOrdersLambda/Function",
+                "children": {
+                  "ServiceRole": {
+                    "id": "ServiceRole",
+                    "path": "SportShop-Dev-Compute/GetUserOrdersLambda/Function/ServiceRole",
+                    "children": {
+                      "ImportServiceRole": {
+                        "id": "ImportServiceRole",
+                        "path": "SportShop-Dev-Compute/GetUserOrdersLambda/Function/ServiceRole/ImportServiceRole",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.Resource",
+                          "version": "2.87.0"
+                        }
+                      },
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "SportShop-Dev-Compute/GetUserOrdersLambda/Function/ServiceRole/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                          "aws:cdk:cloudformation:props": {
+                            "assumeRolePolicyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": "sts:AssumeRole",
+                                  "Effect": "Allow",
+                                  "Principal": {
+                                    "Service": "lambda.amazonaws.com"
+                                  }
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            },
+                            "managedPolicyArns": [
+                              {
+                                "Fn::Join": [
+                                  "",
+                                  [
+                                    "arn:",
+                                    {
+                                      "Ref": "AWS::Partition"
+                                    },
+                                    ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                                  ]
+                                ]
+                              }
+                            ],
+                            "tags": [
+                              {
+                                "key": "Component",
+                                "value": "development"
+                              },
+                              {
+                                "key": "CostCenter",
+                                "value": "learning"
+                              },
+                              {
+                                "key": "Environment",
+                                "value": "dev"
+                              },
+                              {
+                                "key": "Owner",
+                                "value": "Andres"
+                              },
+                              {
+                                "key": "Project",
+                                "value": "sportshop"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                          "version": "2.87.0"
+                        }
+                      },
+                      "DefaultPolicy": {
+                        "id": "DefaultPolicy",
+                        "path": "SportShop-Dev-Compute/GetUserOrdersLambda/Function/ServiceRole/DefaultPolicy",
+                        "children": {
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "SportShop-Dev-Compute/GetUserOrdersLambda/Function/ServiceRole/DefaultPolicy/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                              "aws:cdk:cloudformation:props": {
+                                "policyDocument": {
+                                  "Statement": [
+                                    {
+                                      "Action": [
+                                        "dynamodb:BatchGetItem",
+                                        "dynamodb:ConditionCheckItem",
+                                        "dynamodb:DescribeTable",
+                                        "dynamodb:GetItem",
+                                        "dynamodb:GetRecords",
+                                        "dynamodb:GetShardIterator",
+                                        "dynamodb:Query",
+                                        "dynamodb:Scan"
+                                      ],
+                                      "Effect": "Allow",
+                                      "Resource": [
+                                        {
+                                          "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputFnGetAttOrdersTable315BB997ArnB3A07C42"
+                                        },
+                                        {
+                                          "Ref": "AWS::NoValue"
+                                        }
+                                      ]
+                                    }
+                                  ],
+                                  "Version": "2012-10-17"
+                                },
+                                "policyName": "GetUserOrdersLambdaFunctionServiceRoleDefaultPolicyEE0D7790",
+                                "roles": [
+                                  {
+                                    "Ref": "GetUserOrdersLambdaFunctionServiceRole71CF0BCC"
+                                  }
+                                ]
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                              "version": "2.87.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.Policy",
+                          "version": "2.87.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.Role",
+                      "version": "2.87.0"
+                    }
+                  },
+                  "Code": {
+                    "id": "Code",
+                    "path": "SportShop-Dev-Compute/GetUserOrdersLambda/Function/Code",
+                    "children": {
+                      "Stage": {
+                        "id": "Stage",
+                        "path": "SportShop-Dev-Compute/GetUserOrdersLambda/Function/Code/Stage",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.AssetStaging",
+                          "version": "2.87.0"
+                        }
+                      },
+                      "AssetBucket": {
+                        "id": "AssetBucket",
+                        "path": "SportShop-Dev-Compute/GetUserOrdersLambda/Function/Code/AssetBucket",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_s3.BucketBase",
+                          "version": "2.87.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_s3_assets.Asset",
+                      "version": "2.87.0"
+                    }
+                  },
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "SportShop-Dev-Compute/GetUserOrdersLambda/Function/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
+                      "aws:cdk:cloudformation:props": {
+                        "code": {
+                          "s3Bucket": "cdk-hnb659fds-assets-851725386264-us-east-1",
+                          "s3Key": "96fd510409a3e7c0d0fb9080e998ebaf0d203cffcb7e6a27667361f9f0d9a537.zip"
+                        },
+                        "role": {
+                          "Fn::GetAtt": [
+                            "GetUserOrdersLambdaFunctionServiceRole71CF0BCC",
+                            "Arn"
+                          ]
+                        },
+                        "environment": {
+                          "variables": {
+                            "ORDERS_TABLE": {
+                              "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputRefOrdersTable315BB997F7C1D27E"
+                            }
+                          }
+                        },
+                        "functionName": "sportshop-dev-get-user-orders",
+                        "handler": "index.handler",
+                        "memorySize": 256,
+                        "runtime": "python3.10",
+                        "tags": [
+                          {
+                            "key": "Component",
+                            "value": "development"
+                          },
+                          {
+                            "key": "CostCenter",
+                            "value": "learning"
+                          },
+                          {
+                            "key": "Environment",
+                            "value": "dev"
+                          },
+                          {
+                            "key": "Owner",
+                            "value": "Andres"
+                          },
+                          {
+                            "key": "Project",
+                            "value": "sportshop"
+                          }
+                        ],
+                        "timeout": 30
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_lambda.CfnFunction",
+                      "version": "2.87.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_lambda.Function",
+                  "version": "2.87.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "constructs.Construct",
+              "version": "10.4.4"
+            }
+          },
+          "CreateReviewLambda": {
+            "id": "CreateReviewLambda",
+            "path": "SportShop-Dev-Compute/CreateReviewLambda",
+            "children": {
+              "Function": {
+                "id": "Function",
+                "path": "SportShop-Dev-Compute/CreateReviewLambda/Function",
+                "children": {
+                  "ServiceRole": {
+                    "id": "ServiceRole",
+                    "path": "SportShop-Dev-Compute/CreateReviewLambda/Function/ServiceRole",
+                    "children": {
+                      "ImportServiceRole": {
+                        "id": "ImportServiceRole",
+                        "path": "SportShop-Dev-Compute/CreateReviewLambda/Function/ServiceRole/ImportServiceRole",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.Resource",
+                          "version": "2.87.0"
+                        }
+                      },
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "SportShop-Dev-Compute/CreateReviewLambda/Function/ServiceRole/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                          "aws:cdk:cloudformation:props": {
+                            "assumeRolePolicyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": "sts:AssumeRole",
+                                  "Effect": "Allow",
+                                  "Principal": {
+                                    "Service": "lambda.amazonaws.com"
+                                  }
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            },
+                            "managedPolicyArns": [
+                              {
+                                "Fn::Join": [
+                                  "",
+                                  [
+                                    "arn:",
+                                    {
+                                      "Ref": "AWS::Partition"
+                                    },
+                                    ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                                  ]
+                                ]
+                              }
+                            ],
+                            "tags": [
+                              {
+                                "key": "Component",
+                                "value": "development"
+                              },
+                              {
+                                "key": "CostCenter",
+                                "value": "learning"
+                              },
+                              {
+                                "key": "Environment",
+                                "value": "dev"
+                              },
+                              {
+                                "key": "Owner",
+                                "value": "Andres"
+                              },
+                              {
+                                "key": "Project",
+                                "value": "sportshop"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                          "version": "2.87.0"
+                        }
+                      },
+                      "DefaultPolicy": {
+                        "id": "DefaultPolicy",
+                        "path": "SportShop-Dev-Compute/CreateReviewLambda/Function/ServiceRole/DefaultPolicy",
+                        "children": {
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "SportShop-Dev-Compute/CreateReviewLambda/Function/ServiceRole/DefaultPolicy/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                              "aws:cdk:cloudformation:props": {
+                                "policyDocument": {
+                                  "Statement": [
+                                    {
+                                      "Action": [
+                                        "dynamodb:BatchGetItem",
+                                        "dynamodb:BatchWriteItem",
+                                        "dynamodb:ConditionCheckItem",
+                                        "dynamodb:DeleteItem",
+                                        "dynamodb:DescribeTable",
+                                        "dynamodb:GetItem",
+                                        "dynamodb:GetRecords",
+                                        "dynamodb:GetShardIterator",
+                                        "dynamodb:PutItem",
+                                        "dynamodb:Query",
+                                        "dynamodb:Scan",
+                                        "dynamodb:UpdateItem"
+                                      ],
+                                      "Effect": "Allow",
+                                      "Resource": [
+                                        {
+                                          "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputFnGetAttProductsTable241ADBFFArn55D06E2D"
+                                        },
+                                        {
+                                          "Ref": "AWS::NoValue"
+                                        }
+                                      ]
+                                    }
+                                  ],
+                                  "Version": "2012-10-17"
+                                },
+                                "policyName": "CreateReviewLambdaFunctionServiceRoleDefaultPolicy48225507",
+                                "roles": [
+                                  {
+                                    "Ref": "CreateReviewLambdaFunctionServiceRole3AE44F77"
+                                  }
+                                ]
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                              "version": "2.87.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.Policy",
+                          "version": "2.87.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.Role",
+                      "version": "2.87.0"
+                    }
+                  },
+                  "Code": {
+                    "id": "Code",
+                    "path": "SportShop-Dev-Compute/CreateReviewLambda/Function/Code",
+                    "children": {
+                      "Stage": {
+                        "id": "Stage",
+                        "path": "SportShop-Dev-Compute/CreateReviewLambda/Function/Code/Stage",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.AssetStaging",
+                          "version": "2.87.0"
+                        }
+                      },
+                      "AssetBucket": {
+                        "id": "AssetBucket",
+                        "path": "SportShop-Dev-Compute/CreateReviewLambda/Function/Code/AssetBucket",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_s3.BucketBase",
+                          "version": "2.87.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_s3_assets.Asset",
+                      "version": "2.87.0"
+                    }
+                  },
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "SportShop-Dev-Compute/CreateReviewLambda/Function/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
+                      "aws:cdk:cloudformation:props": {
+                        "code": {
+                          "s3Bucket": "cdk-hnb659fds-assets-851725386264-us-east-1",
+                          "s3Key": "7f80aeeaaec927846147119c2f0e66a6f201c05a1c53530aa38b0586839e53a0.zip"
+                        },
+                        "role": {
+                          "Fn::GetAtt": [
+                            "CreateReviewLambdaFunctionServiceRole3AE44F77",
+                            "Arn"
+                          ]
+                        },
+                        "environment": {
+                          "variables": {
+                            "PRODUCTS_TABLE": {
+                              "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputRefProductsTable241ADBFF4DFBD40D"
+                            }
+                          }
+                        },
+                        "functionName": "sportshop-dev-create-review",
+                        "handler": "index.handler",
+                        "memorySize": 256,
+                        "runtime": "python3.10",
+                        "tags": [
+                          {
+                            "key": "Component",
+                            "value": "development"
+                          },
+                          {
+                            "key": "CostCenter",
+                            "value": "learning"
+                          },
+                          {
+                            "key": "Environment",
+                            "value": "dev"
+                          },
+                          {
+                            "key": "Owner",
+                            "value": "Andres"
+                          },
+                          {
+                            "key": "Project",
+                            "value": "sportshop"
+                          }
+                        ],
+                        "timeout": 30
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_lambda.CfnFunction",
+                      "version": "2.87.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_lambda.Function",
+                  "version": "2.87.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "constructs.Construct",
+              "version": "10.4.4"
+            }
+          },
+          "GetProductReviewsLambda": {
+            "id": "GetProductReviewsLambda",
+            "path": "SportShop-Dev-Compute/GetProductReviewsLambda",
+            "children": {
+              "Function": {
+                "id": "Function",
+                "path": "SportShop-Dev-Compute/GetProductReviewsLambda/Function",
+                "children": {
+                  "ServiceRole": {
+                    "id": "ServiceRole",
+                    "path": "SportShop-Dev-Compute/GetProductReviewsLambda/Function/ServiceRole",
+                    "children": {
+                      "ImportServiceRole": {
+                        "id": "ImportServiceRole",
+                        "path": "SportShop-Dev-Compute/GetProductReviewsLambda/Function/ServiceRole/ImportServiceRole",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.Resource",
+                          "version": "2.87.0"
+                        }
+                      },
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "SportShop-Dev-Compute/GetProductReviewsLambda/Function/ServiceRole/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                          "aws:cdk:cloudformation:props": {
+                            "assumeRolePolicyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": "sts:AssumeRole",
+                                  "Effect": "Allow",
+                                  "Principal": {
+                                    "Service": "lambda.amazonaws.com"
+                                  }
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            },
+                            "managedPolicyArns": [
+                              {
+                                "Fn::Join": [
+                                  "",
+                                  [
+                                    "arn:",
+                                    {
+                                      "Ref": "AWS::Partition"
+                                    },
+                                    ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                                  ]
+                                ]
+                              }
+                            ],
+                            "tags": [
+                              {
+                                "key": "Component",
+                                "value": "development"
+                              },
+                              {
+                                "key": "CostCenter",
+                                "value": "learning"
+                              },
+                              {
+                                "key": "Environment",
+                                "value": "dev"
+                              },
+                              {
+                                "key": "Owner",
+                                "value": "Andres"
+                              },
+                              {
+                                "key": "Project",
+                                "value": "sportshop"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                          "version": "2.87.0"
+                        }
+                      },
+                      "DefaultPolicy": {
+                        "id": "DefaultPolicy",
+                        "path": "SportShop-Dev-Compute/GetProductReviewsLambda/Function/ServiceRole/DefaultPolicy",
+                        "children": {
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "SportShop-Dev-Compute/GetProductReviewsLambda/Function/ServiceRole/DefaultPolicy/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                              "aws:cdk:cloudformation:props": {
+                                "policyDocument": {
+                                  "Statement": [
+                                    {
+                                      "Action": [
+                                        "dynamodb:BatchGetItem",
+                                        "dynamodb:ConditionCheckItem",
+                                        "dynamodb:DescribeTable",
+                                        "dynamodb:GetItem",
+                                        "dynamodb:GetRecords",
+                                        "dynamodb:GetShardIterator",
+                                        "dynamodb:Query",
+                                        "dynamodb:Scan"
+                                      ],
+                                      "Effect": "Allow",
+                                      "Resource": [
+                                        {
+                                          "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputFnGetAttProductsTable241ADBFFArn55D06E2D"
+                                        },
+                                        {
+                                          "Ref": "AWS::NoValue"
+                                        }
+                                      ]
+                                    }
+                                  ],
+                                  "Version": "2012-10-17"
+                                },
+                                "policyName": "GetProductReviewsLambdaFunctionServiceRoleDefaultPolicy0B5EEC60",
+                                "roles": [
+                                  {
+                                    "Ref": "GetProductReviewsLambdaFunctionServiceRoleA4812893"
+                                  }
+                                ]
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                              "version": "2.87.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.Policy",
+                          "version": "2.87.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.Role",
+                      "version": "2.87.0"
+                    }
+                  },
+                  "Code": {
+                    "id": "Code",
+                    "path": "SportShop-Dev-Compute/GetProductReviewsLambda/Function/Code",
+                    "children": {
+                      "Stage": {
+                        "id": "Stage",
+                        "path": "SportShop-Dev-Compute/GetProductReviewsLambda/Function/Code/Stage",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.AssetStaging",
+                          "version": "2.87.0"
+                        }
+                      },
+                      "AssetBucket": {
+                        "id": "AssetBucket",
+                        "path": "SportShop-Dev-Compute/GetProductReviewsLambda/Function/Code/AssetBucket",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_s3.BucketBase",
+                          "version": "2.87.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_s3_assets.Asset",
+                      "version": "2.87.0"
+                    }
+                  },
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "SportShop-Dev-Compute/GetProductReviewsLambda/Function/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
+                      "aws:cdk:cloudformation:props": {
+                        "code": {
+                          "s3Bucket": "cdk-hnb659fds-assets-851725386264-us-east-1",
+                          "s3Key": "3fc0d99cd3bccd26a1cd0dddbfe27ea62de8e109571ae873a44c9abdec71c670.zip"
+                        },
+                        "role": {
+                          "Fn::GetAtt": [
+                            "GetProductReviewsLambdaFunctionServiceRoleA4812893",
+                            "Arn"
+                          ]
+                        },
+                        "environment": {
+                          "variables": {
+                            "PRODUCTS_TABLE": {
+                              "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputRefProductsTable241ADBFF4DFBD40D"
+                            }
+                          }
+                        },
+                        "functionName": "sportshop-dev-get-product-reviews",
+                        "handler": "index.handler",
+                        "memorySize": 256,
+                        "runtime": "python3.10",
+                        "tags": [
+                          {
+                            "key": "Component",
+                            "value": "development"
+                          },
+                          {
+                            "key": "CostCenter",
+                            "value": "learning"
+                          },
+                          {
+                            "key": "Environment",
+                            "value": "dev"
+                          },
+                          {
+                            "key": "Owner",
+                            "value": "Andres"
+                          },
+                          {
+                            "key": "Project",
+                            "value": "sportshop"
+                          }
+                        ],
+                        "timeout": 30
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_lambda.CfnFunction",
+                      "version": "2.87.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_lambda.Function",
+                  "version": "2.87.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "constructs.Construct",
+              "version": "10.4.4"
+            }
+          },
+          "CreateProductLambda": {
+            "id": "CreateProductLambda",
+            "path": "SportShop-Dev-Compute/CreateProductLambda",
+            "children": {
+              "Function": {
+                "id": "Function",
+                "path": "SportShop-Dev-Compute/CreateProductLambda/Function",
+                "children": {
+                  "ServiceRole": {
+                    "id": "ServiceRole",
+                    "path": "SportShop-Dev-Compute/CreateProductLambda/Function/ServiceRole",
+                    "children": {
+                      "ImportServiceRole": {
+                        "id": "ImportServiceRole",
+                        "path": "SportShop-Dev-Compute/CreateProductLambda/Function/ServiceRole/ImportServiceRole",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.Resource",
+                          "version": "2.87.0"
+                        }
+                      },
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "SportShop-Dev-Compute/CreateProductLambda/Function/ServiceRole/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                          "aws:cdk:cloudformation:props": {
+                            "assumeRolePolicyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": "sts:AssumeRole",
+                                  "Effect": "Allow",
+                                  "Principal": {
+                                    "Service": "lambda.amazonaws.com"
+                                  }
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            },
+                            "managedPolicyArns": [
+                              {
+                                "Fn::Join": [
+                                  "",
+                                  [
+                                    "arn:",
+                                    {
+                                      "Ref": "AWS::Partition"
+                                    },
+                                    ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                                  ]
+                                ]
+                              }
+                            ],
+                            "tags": [
+                              {
+                                "key": "Component",
+                                "value": "development"
+                              },
+                              {
+                                "key": "CostCenter",
+                                "value": "learning"
+                              },
+                              {
+                                "key": "Environment",
+                                "value": "dev"
+                              },
+                              {
+                                "key": "Owner",
+                                "value": "Andres"
+                              },
+                              {
+                                "key": "Project",
+                                "value": "sportshop"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                          "version": "2.87.0"
+                        }
+                      },
+                      "DefaultPolicy": {
+                        "id": "DefaultPolicy",
+                        "path": "SportShop-Dev-Compute/CreateProductLambda/Function/ServiceRole/DefaultPolicy",
+                        "children": {
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "SportShop-Dev-Compute/CreateProductLambda/Function/ServiceRole/DefaultPolicy/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                              "aws:cdk:cloudformation:props": {
+                                "policyDocument": {
+                                  "Statement": [
+                                    {
+                                      "Action": [
+                                        "dynamodb:BatchGetItem",
+                                        "dynamodb:BatchWriteItem",
+                                        "dynamodb:ConditionCheckItem",
+                                        "dynamodb:DeleteItem",
+                                        "dynamodb:DescribeTable",
+                                        "dynamodb:GetItem",
+                                        "dynamodb:GetRecords",
+                                        "dynamodb:GetShardIterator",
+                                        "dynamodb:PutItem",
+                                        "dynamodb:Query",
+                                        "dynamodb:Scan",
+                                        "dynamodb:UpdateItem"
+                                      ],
+                                      "Effect": "Allow",
+                                      "Resource": [
+                                        {
+                                          "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputFnGetAttProductsTable241ADBFFArn55D06E2D"
+                                        },
+                                        {
+                                          "Ref": "AWS::NoValue"
+                                        }
+                                      ]
+                                    }
+                                  ],
+                                  "Version": "2012-10-17"
+                                },
+                                "policyName": "CreateProductLambdaFunctionServiceRoleDefaultPolicy20E3ED2D",
+                                "roles": [
+                                  {
+                                    "Ref": "CreateProductLambdaFunctionServiceRole13086EA9"
+                                  }
+                                ]
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                              "version": "2.87.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.Policy",
+                          "version": "2.87.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.Role",
+                      "version": "2.87.0"
+                    }
+                  },
+                  "Code": {
+                    "id": "Code",
+                    "path": "SportShop-Dev-Compute/CreateProductLambda/Function/Code",
+                    "children": {
+                      "Stage": {
+                        "id": "Stage",
+                        "path": "SportShop-Dev-Compute/CreateProductLambda/Function/Code/Stage",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.AssetStaging",
+                          "version": "2.87.0"
+                        }
+                      },
+                      "AssetBucket": {
+                        "id": "AssetBucket",
+                        "path": "SportShop-Dev-Compute/CreateProductLambda/Function/Code/AssetBucket",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_s3.BucketBase",
+                          "version": "2.87.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_s3_assets.Asset",
+                      "version": "2.87.0"
+                    }
+                  },
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "SportShop-Dev-Compute/CreateProductLambda/Function/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
+                      "aws:cdk:cloudformation:props": {
+                        "code": {
+                          "s3Bucket": "cdk-hnb659fds-assets-851725386264-us-east-1",
+                          "s3Key": "0d113bf97cc110d9b8c45f5125e185efe51825426e98a10b2044bd2390e64873.zip"
+                        },
+                        "role": {
+                          "Fn::GetAtt": [
+                            "CreateProductLambdaFunctionServiceRole13086EA9",
+                            "Arn"
+                          ]
+                        },
+                        "environment": {
+                          "variables": {
+                            "PRODUCTS_TABLE": {
+                              "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputRefProductsTable241ADBFF4DFBD40D"
+                            }
+                          }
+                        },
+                        "functionName": "sportshop-dev-create-product",
+                        "handler": "index.handler",
+                        "memorySize": 256,
+                        "runtime": "python3.10",
+                        "tags": [
+                          {
+                            "key": "Component",
+                            "value": "development"
+                          },
+                          {
+                            "key": "CostCenter",
+                            "value": "learning"
+                          },
+                          {
+                            "key": "Environment",
+                            "value": "dev"
+                          },
+                          {
+                            "key": "Owner",
+                            "value": "Andres"
+                          },
+                          {
+                            "key": "Project",
+                            "value": "sportshop"
+                          }
+                        ],
+                        "timeout": 30
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_lambda.CfnFunction",
+                      "version": "2.87.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_lambda.Function",
+                  "version": "2.87.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "constructs.Construct",
+              "version": "10.4.4"
+            }
+          },
+          "UpdateProductLambda": {
+            "id": "UpdateProductLambda",
+            "path": "SportShop-Dev-Compute/UpdateProductLambda",
+            "children": {
+              "Function": {
+                "id": "Function",
+                "path": "SportShop-Dev-Compute/UpdateProductLambda/Function",
+                "children": {
+                  "ServiceRole": {
+                    "id": "ServiceRole",
+                    "path": "SportShop-Dev-Compute/UpdateProductLambda/Function/ServiceRole",
+                    "children": {
+                      "ImportServiceRole": {
+                        "id": "ImportServiceRole",
+                        "path": "SportShop-Dev-Compute/UpdateProductLambda/Function/ServiceRole/ImportServiceRole",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.Resource",
+                          "version": "2.87.0"
+                        }
+                      },
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "SportShop-Dev-Compute/UpdateProductLambda/Function/ServiceRole/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                          "aws:cdk:cloudformation:props": {
+                            "assumeRolePolicyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": "sts:AssumeRole",
+                                  "Effect": "Allow",
+                                  "Principal": {
+                                    "Service": "lambda.amazonaws.com"
+                                  }
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            },
+                            "managedPolicyArns": [
+                              {
+                                "Fn::Join": [
+                                  "",
+                                  [
+                                    "arn:",
+                                    {
+                                      "Ref": "AWS::Partition"
+                                    },
+                                    ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                                  ]
+                                ]
+                              }
+                            ],
+                            "tags": [
+                              {
+                                "key": "Component",
+                                "value": "development"
+                              },
+                              {
+                                "key": "CostCenter",
+                                "value": "learning"
+                              },
+                              {
+                                "key": "Environment",
+                                "value": "dev"
+                              },
+                              {
+                                "key": "Owner",
+                                "value": "Andres"
+                              },
+                              {
+                                "key": "Project",
+                                "value": "sportshop"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                          "version": "2.87.0"
+                        }
+                      },
+                      "DefaultPolicy": {
+                        "id": "DefaultPolicy",
+                        "path": "SportShop-Dev-Compute/UpdateProductLambda/Function/ServiceRole/DefaultPolicy",
+                        "children": {
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "SportShop-Dev-Compute/UpdateProductLambda/Function/ServiceRole/DefaultPolicy/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                              "aws:cdk:cloudformation:props": {
+                                "policyDocument": {
+                                  "Statement": [
+                                    {
+                                      "Action": [
+                                        "dynamodb:BatchGetItem",
+                                        "dynamodb:BatchWriteItem",
+                                        "dynamodb:ConditionCheckItem",
+                                        "dynamodb:DeleteItem",
+                                        "dynamodb:DescribeTable",
+                                        "dynamodb:GetItem",
+                                        "dynamodb:GetRecords",
+                                        "dynamodb:GetShardIterator",
+                                        "dynamodb:PutItem",
+                                        "dynamodb:Query",
+                                        "dynamodb:Scan",
+                                        "dynamodb:UpdateItem"
+                                      ],
+                                      "Effect": "Allow",
+                                      "Resource": [
+                                        {
+                                          "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputFnGetAttProductsTable241ADBFFArn55D06E2D"
+                                        },
+                                        {
+                                          "Ref": "AWS::NoValue"
+                                        }
+                                      ]
+                                    }
+                                  ],
+                                  "Version": "2012-10-17"
+                                },
+                                "policyName": "UpdateProductLambdaFunctionServiceRoleDefaultPolicyCC51A4A6",
+                                "roles": [
+                                  {
+                                    "Ref": "UpdateProductLambdaFunctionServiceRoleC4737EC7"
+                                  }
+                                ]
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                              "version": "2.87.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.Policy",
+                          "version": "2.87.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.Role",
+                      "version": "2.87.0"
+                    }
+                  },
+                  "Code": {
+                    "id": "Code",
+                    "path": "SportShop-Dev-Compute/UpdateProductLambda/Function/Code",
+                    "children": {
+                      "Stage": {
+                        "id": "Stage",
+                        "path": "SportShop-Dev-Compute/UpdateProductLambda/Function/Code/Stage",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.AssetStaging",
+                          "version": "2.87.0"
+                        }
+                      },
+                      "AssetBucket": {
+                        "id": "AssetBucket",
+                        "path": "SportShop-Dev-Compute/UpdateProductLambda/Function/Code/AssetBucket",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_s3.BucketBase",
+                          "version": "2.87.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_s3_assets.Asset",
+                      "version": "2.87.0"
+                    }
+                  },
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "SportShop-Dev-Compute/UpdateProductLambda/Function/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
+                      "aws:cdk:cloudformation:props": {
+                        "code": {
+                          "s3Bucket": "cdk-hnb659fds-assets-851725386264-us-east-1",
+                          "s3Key": "4af6ec96407ce61708e6e7f79677eac246205c754b584d9cb454cf61ddf27278.zip"
+                        },
+                        "role": {
+                          "Fn::GetAtt": [
+                            "UpdateProductLambdaFunctionServiceRoleC4737EC7",
+                            "Arn"
+                          ]
+                        },
+                        "environment": {
+                          "variables": {
+                            "PRODUCTS_TABLE": {
+                              "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputRefProductsTable241ADBFF4DFBD40D"
+                            }
+                          }
+                        },
+                        "functionName": "sportshop-dev-update-product",
+                        "handler": "index.handler",
+                        "memorySize": 256,
+                        "runtime": "python3.10",
+                        "tags": [
+                          {
+                            "key": "Component",
+                            "value": "development"
+                          },
+                          {
+                            "key": "CostCenter",
+                            "value": "learning"
+                          },
+                          {
+                            "key": "Environment",
+                            "value": "dev"
+                          },
+                          {
+                            "key": "Owner",
+                            "value": "Andres"
+                          },
+                          {
+                            "key": "Project",
+                            "value": "sportshop"
+                          }
+                        ],
+                        "timeout": 30
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_lambda.CfnFunction",
+                      "version": "2.87.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_lambda.Function",
+                  "version": "2.87.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "constructs.Construct",
+              "version": "10.4.4"
+            }
+          },
+          "DeleteProductLambda": {
+            "id": "DeleteProductLambda",
+            "path": "SportShop-Dev-Compute/DeleteProductLambda",
+            "children": {
+              "Function": {
+                "id": "Function",
+                "path": "SportShop-Dev-Compute/DeleteProductLambda/Function",
+                "children": {
+                  "ServiceRole": {
+                    "id": "ServiceRole",
+                    "path": "SportShop-Dev-Compute/DeleteProductLambda/Function/ServiceRole",
+                    "children": {
+                      "ImportServiceRole": {
+                        "id": "ImportServiceRole",
+                        "path": "SportShop-Dev-Compute/DeleteProductLambda/Function/ServiceRole/ImportServiceRole",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.Resource",
+                          "version": "2.87.0"
+                        }
+                      },
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "SportShop-Dev-Compute/DeleteProductLambda/Function/ServiceRole/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                          "aws:cdk:cloudformation:props": {
+                            "assumeRolePolicyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": "sts:AssumeRole",
+                                  "Effect": "Allow",
+                                  "Principal": {
+                                    "Service": "lambda.amazonaws.com"
+                                  }
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            },
+                            "managedPolicyArns": [
+                              {
+                                "Fn::Join": [
+                                  "",
+                                  [
+                                    "arn:",
+                                    {
+                                      "Ref": "AWS::Partition"
+                                    },
+                                    ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                                  ]
+                                ]
+                              }
+                            ],
+                            "tags": [
+                              {
+                                "key": "Component",
+                                "value": "development"
+                              },
+                              {
+                                "key": "CostCenter",
+                                "value": "learning"
+                              },
+                              {
+                                "key": "Environment",
+                                "value": "dev"
+                              },
+                              {
+                                "key": "Owner",
+                                "value": "Andres"
+                              },
+                              {
+                                "key": "Project",
+                                "value": "sportshop"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                          "version": "2.87.0"
+                        }
+                      },
+                      "DefaultPolicy": {
+                        "id": "DefaultPolicy",
+                        "path": "SportShop-Dev-Compute/DeleteProductLambda/Function/ServiceRole/DefaultPolicy",
+                        "children": {
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "SportShop-Dev-Compute/DeleteProductLambda/Function/ServiceRole/DefaultPolicy/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                              "aws:cdk:cloudformation:props": {
+                                "policyDocument": {
+                                  "Statement": [
+                                    {
+                                      "Action": [
+                                        "dynamodb:BatchGetItem",
+                                        "dynamodb:BatchWriteItem",
+                                        "dynamodb:ConditionCheckItem",
+                                        "dynamodb:DeleteItem",
+                                        "dynamodb:DescribeTable",
+                                        "dynamodb:GetItem",
+                                        "dynamodb:GetRecords",
+                                        "dynamodb:GetShardIterator",
+                                        "dynamodb:PutItem",
+                                        "dynamodb:Query",
+                                        "dynamodb:Scan",
+                                        "dynamodb:UpdateItem"
+                                      ],
+                                      "Effect": "Allow",
+                                      "Resource": [
+                                        {
+                                          "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputFnGetAttCartTableD1105F87Arn1BE6510E"
+                                        },
+                                        {
+                                          "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputFnGetAttProductsTable241ADBFFArn55D06E2D"
+                                        },
+                                        {
+                                          "Ref": "AWS::NoValue"
+                                        }
+                                      ]
+                                    }
+                                  ],
+                                  "Version": "2012-10-17"
+                                },
+                                "policyName": "DeleteProductLambdaFunctionServiceRoleDefaultPolicy4AEDC89A",
+                                "roles": [
+                                  {
+                                    "Ref": "DeleteProductLambdaFunctionServiceRole8DED9C30"
+                                  }
+                                ]
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                              "version": "2.87.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.Policy",
+                          "version": "2.87.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.Role",
+                      "version": "2.87.0"
+                    }
+                  },
+                  "Code": {
+                    "id": "Code",
+                    "path": "SportShop-Dev-Compute/DeleteProductLambda/Function/Code",
+                    "children": {
+                      "Stage": {
+                        "id": "Stage",
+                        "path": "SportShop-Dev-Compute/DeleteProductLambda/Function/Code/Stage",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.AssetStaging",
+                          "version": "2.87.0"
+                        }
+                      },
+                      "AssetBucket": {
+                        "id": "AssetBucket",
+                        "path": "SportShop-Dev-Compute/DeleteProductLambda/Function/Code/AssetBucket",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_s3.BucketBase",
+                          "version": "2.87.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_s3_assets.Asset",
+                      "version": "2.87.0"
+                    }
+                  },
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "SportShop-Dev-Compute/DeleteProductLambda/Function/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
+                      "aws:cdk:cloudformation:props": {
+                        "code": {
+                          "s3Bucket": "cdk-hnb659fds-assets-851725386264-us-east-1",
+                          "s3Key": "3bfb359d4640d98ae830d7ea8b3d48bab3faeb3c737c98a619b9d688e0671446.zip"
+                        },
+                        "role": {
+                          "Fn::GetAtt": [
+                            "DeleteProductLambdaFunctionServiceRole8DED9C30",
+                            "Arn"
+                          ]
+                        },
+                        "environment": {
+                          "variables": {
+                            "PRODUCTS_TABLE": {
+                              "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputRefProductsTable241ADBFF4DFBD40D"
+                            },
+                            "CART_TABLE": {
+                              "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputRefCartTableD1105F87A71B6139"
+                            }
+                          }
+                        },
+                        "functionName": "sportshop-dev-delete-product",
                         "handler": "index.handler",
                         "memorySize": 256,
                         "runtime": "python3.10",

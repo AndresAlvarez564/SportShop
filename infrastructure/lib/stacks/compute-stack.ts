@@ -13,6 +13,7 @@ interface ComputeStackProps extends StackProps {
   stage: string;
   productsTable: Table;
   cartTable: Table;
+  ordersTable: Table;
 }
 
 // Clase principal del stack de compute
@@ -25,6 +26,13 @@ export class ComputeStack extends Stack {
   public readonly getCartFunction: SportShopLambda;
   public readonly removeFromCartFunction: SportShopLambda;
   public readonly updateCartQuantityFunction: SportShopLambda;
+  public readonly createOrderFunction: SportShopLambda;
+  public readonly getUserOrdersFunction: SportShopLambda;
+  public readonly createReviewFunction: SportShopLambda;
+  public readonly getProductReviewsFunction: SportShopLambda;
+  public readonly createProductFunction: SportShopLambda;
+  public readonly updateProductFunction: SportShopLambda;
+  public readonly deleteProductFunction: SportShopLambda;
 
   constructor(scope: Construct, id: string, props: ComputeStackProps) {
     super(scope, id, props);
@@ -119,6 +127,102 @@ export class ComputeStack extends Stack {
     // Dar permisos a Lambda para leer productos y escribir en carrito
     props.productsTable.grantReadData(this.updateCartQuantityFunction.function);
     props.cartTable.grantReadWriteData(this.updateCartQuantityFunction.function);
+
+    // === LAMBDAS DE PEDIDOS ===
+    
+    // Lambda function para crear pedidos desde carrito
+    this.createOrderFunction = new SportShopLambda(this, 'CreateOrderLambda', {
+      functionName: `${env.prefix}-create-order`,
+      code: Code.fromAsset('lambda-functions/create-order'),
+      environment: {
+        'CART_TABLE': props.cartTable.tableName,
+        'ORDERS_TABLE': props.ordersTable.tableName,
+        'PRODUCTS_TABLE': props.productsTable.tableName
+      }
+    });
+
+    // Dar permisos para leer carrito y productos, escribir pedidos
+    props.cartTable.grantReadWriteData(this.createOrderFunction.function);
+    props.ordersTable.grantWriteData(this.createOrderFunction.function);
+    props.productsTable.grantReadData(this.createOrderFunction.function);
+
+    // Lambda function para obtener pedidos del usuario
+    this.getUserOrdersFunction = new SportShopLambda(this, 'GetUserOrdersLambda', {
+      functionName: `${env.prefix}-get-user-orders`,
+      code: Code.fromAsset('lambda-functions/get-user-orders'),
+      environment: {
+        'ORDERS_TABLE': props.ordersTable.tableName
+      }
+    });
+
+    // Dar permisos para leer pedidos
+    props.ordersTable.grantReadData(this.getUserOrdersFunction.function);
+
+    // === LAMBDAS DE RESEÑAS ===
+    
+    // Lambda function para crear reseñas
+    this.createReviewFunction = new SportShopLambda(this, 'CreateReviewLambda', {
+      functionName: `${env.prefix}-create-review`,
+      code: Code.fromAsset('lambda-functions/create-review'),
+      environment: {
+        'PRODUCTS_TABLE': props.productsTable.tableName
+      }
+    });
+
+    // Dar permisos para leer y escribir productos (para agregar reseñas)
+    props.productsTable.grantReadWriteData(this.createReviewFunction.function);
+
+    // Lambda function para obtener reseñas de producto (público)
+    this.getProductReviewsFunction = new SportShopLambda(this, 'GetProductReviewsLambda', {
+      functionName: `${env.prefix}-get-product-reviews`,
+      code: Code.fromAsset('lambda-functions/get-product-reviews'),
+      environment: {
+        'PRODUCTS_TABLE': props.productsTable.tableName
+      }
+    });
+
+    // Dar permisos para leer productos
+    props.productsTable.grantReadData(this.getProductReviewsFunction.function);
+
+    // === LAMBDAS DE ADMIN ===
+    
+    // Lambda function para crear productos (admin)
+    this.createProductFunction = new SportShopLambda(this, 'CreateProductLambda', {
+      functionName: `${env.prefix}-create-product`,
+      code: Code.fromAsset('lambda-functions/create-product'),
+      environment: {
+        'PRODUCTS_TABLE': props.productsTable.tableName
+      }
+    });
+
+    // Dar permisos para leer y escribir productos
+    props.productsTable.grantReadWriteData(this.createProductFunction.function);
+
+    // Lambda function para actualizar productos (admin)
+    this.updateProductFunction = new SportShopLambda(this, 'UpdateProductLambda', {
+      functionName: `${env.prefix}-update-product`,
+      code: Code.fromAsset('lambda-functions/update-product'),
+      environment: {
+        'PRODUCTS_TABLE': props.productsTable.tableName
+      }
+    });
+
+    // Dar permisos para leer y escribir productos
+    props.productsTable.grantReadWriteData(this.updateProductFunction.function);
+
+    // Lambda function para eliminar productos (admin)
+    this.deleteProductFunction = new SportShopLambda(this, 'DeleteProductLambda', {
+      functionName: `${env.prefix}-delete-product`,
+      code: Code.fromAsset('lambda-functions/delete-product'),
+      environment: {
+        'PRODUCTS_TABLE': props.productsTable.tableName,
+        'CART_TABLE': props.cartTable.tableName
+      }
+    });
+
+    // Dar permisos para leer y escribir productos y carrito
+    props.productsTable.grantReadWriteData(this.deleteProductFunction.function);
+    props.cartTable.grantReadWriteData(this.deleteProductFunction.function);
 
     // Aplicar tags
     Object.entries(env.tags).forEach(([key, value]) => {

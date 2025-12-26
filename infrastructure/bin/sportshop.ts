@@ -26,7 +26,8 @@ const dataStack = new DataStack(app, 'SportShop-Dev-Data', {
 const computeStack = new ComputeStack(app, 'SportShop-Dev-Compute', {
   stage: 'dev',
   productsTable: dataStack.productsTable,
-  cartTable: dataStack.cartTable, // ← Agregar tabla cart
+  cartTable: dataStack.cartTable,
+  ordersTable: dataStack.ordersTable, // ← Agregar tabla orders
   env: {
     region: 'us-east-1',
     account: '851725386264',

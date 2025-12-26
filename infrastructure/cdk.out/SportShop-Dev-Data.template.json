@@ -211,6 +211,25 @@
    "Export": {
     "Name": "SportShop-Dev-Data:ExportsOutputRefCartTableD1105F87A71B6139"
    }
+  },
+  "ExportsOutputFnGetAttOrdersTable315BB997ArnB3A07C42": {
+   "Value": {
+    "Fn::GetAtt": [
+     "OrdersTable315BB997",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "SportShop-Dev-Data:ExportsOutputFnGetAttOrdersTable315BB997ArnB3A07C42"
+   }
+  },
+  "ExportsOutputRefOrdersTable315BB997F7C1D27E": {
+   "Value": {
+    "Ref": "OrdersTable315BB997"
+   },
+   "Export": {
+    "Name": "SportShop-Dev-Data:ExportsOutputRefOrdersTable315BB997F7C1D27E"
+   }
   }
  },
  "Parameters": {
