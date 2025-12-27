@@ -86,10 +86,24 @@
     "aws:cdk:path": "SportShop-Dev-Auth/SportShopUserPoolClient/Resource"
    }
   },
+  "AdminGroup": {
+   "Type": "AWS::Cognito::UserPoolGroup",
+   "Properties": {
+    "UserPoolId": {
+     "Ref": "SportShopUserPoolB481A20B"
+    },
+    "Description": "Administrators with full access to manage products and orders",
+    "GroupName": "admin",
+    "Precedence": 1
+   },
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Auth/AdminGroup"
+   }
+  },
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/02JQQqDMBAA3+I9WUMu7d0PiKXnksatrMZdyEY9iH8vRVp6mmHGw/UCrgqb2thPNtET9lsJcTJh00eUgakI7HfF3Iok07z4519pEiGX/3WW45M6VFlyxMOw9Aij1qv34B24alQimxcuNCN0J9/ly8lQkAAAAA=="
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/2WJsQrCMBBAv6V7coYsundwlYpziekp18Y7ySV2KP13EVEEp/d4z8NuC64Js9o4TDbRGZZjCXEyYdY+ypWpCCwnxXwQSaa98Nc/0iZCLr/rv+yz1Pv6Kh2q1BxxNSwDwqibh/fgHbhmVCKbKxe6IXRvPgHIFef8oQAAAA=="
    },
    "Metadata": {
     "aws:cdk:path": "SportShop-Dev-Auth/CDKMetadata/Default"

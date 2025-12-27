@@ -17,8 +17,11 @@ def decimal_default(obj):
 
 def handler(event, context):
     try:
-        # Obtener userId desde Cognito (JWT token) - IGUAL QUE CREATE-PRODUCT
-        user_id = event.get('requestContext', {}).get('authorizer', {}).get('claims', {}).get('sub')
+        print(f"Event received: {json.dumps(event)}")
+        
+        # Obtener información del usuario desde Cognito (JWT token)
+        claims = event.get('requestContext', {}).get('authorizer', {}).get('claims', {})
+        user_id = claims.get('sub')
         
         if not user_id:
             return {
@@ -33,8 +36,28 @@ def handler(event, context):
                 })
             }
         
+        # Verificar que el usuario esté en el grupo admin
+        user_groups = claims.get('cognito:groups', [])
+        if isinstance(user_groups, str):
+            user_groups = [user_groups]  # Convertir a lista si es string
+        
+        if 'admin' not in user_groups:
+            return {
+                'statusCode': 403,
+                'headers': {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*'
+                },
+                'body': json.dumps({
+                    'message': 'Forbidden - Admin access required',
+                    'error': 'User is not in admin group',
+                    'userGroups': user_groups
+                })
+            }
+        
         # Obtener productId desde path parameters
-        product_id = event.get('pathParameters', {}).get('productId')
+        product_id = event.get('pathParameters', {}).get('id')
+        print(f"Product ID: {product_id}")
         
         if not product_id:
             return {
@@ -45,17 +68,24 @@ def handler(event, context):
                 },
                 'body': json.dumps({
                     'message': 'Product ID is required',
-                    'error': 'Missing path parameter: productId'
+                    'error': 'Missing path parameter: id'
                 })
             }
         
+        # Parsear body de la request
+        body = json.loads(event.get('body', '{}'))
+        print(f"Request body: {body}")
+        
         # Verificar que el producto existe
+        print("Scanning for existing product...")
         existing_product_response = products_table.scan(
             FilterExpression='id = :id',
             ExpressionAttributeValues={':id': product_id}
         )
         
         existing_products = existing_product_response.get('Items', [])
+        print(f"Found products: {len(existing_products)}")
+        
         if not existing_products:
             return {
                 'statusCode': 404,
@@ -70,11 +100,9 @@ def handler(event, context):
             }
         
         existing_product = existing_products[0]
+        print(f"Existing product category: {existing_product.get('category')}")
         
-        # Parsear body de la request
-        body = json.loads(event.get('body', '{}'))
-        
-        # Campos que se pueden actualizar
+        # Campos que se pueden actualizar (category NO se puede cambiar porque es sort key)
         updatable_fields = ['name', 'price', 'stock', 'gender', 'description', 'imageUrl', 'isActive']
         updates = {}
         
@@ -82,6 +110,7 @@ def handler(event, context):
         for field in updatable_fields:
             if field in body:
                 value = body[field]
+                print(f"Processing field {field}: {value}")
                 
                 # Validaciones específicas por campo
                 if field == 'price' and value <= 0:
@@ -153,15 +182,28 @@ def handler(event, context):
         updates['updatedAt'] = datetime.utcnow().isoformat()
         updates['updatedBy'] = user_id
         
-        # Construir expresión de actualización
+        print(f"Final updates: {updates}")
+        
+        # Construir expresión de actualización con ExpressionAttributeNames
         update_expression = 'SET '
         expression_values = {}
+        expression_names = {}
         
         for i, (field, value) in enumerate(updates.items()):
             if i > 0:
                 update_expression += ', '
-            update_expression += f'{field} = :{field}'
-            expression_values[f':{field}'] = value
+            
+            # Usar ExpressionAttributeNames para palabras reservadas
+            field_name = f'#{field}'
+            value_name = f':{field}'
+            
+            update_expression += f'{field_name} = {value_name}'
+            expression_names[field_name] = field
+            expression_values[value_name] = value
+        
+        print(f"Update expression: {update_expression}")
+        print(f"Expression names: {expression_names}")
+        print(f"Expression values: {expression_values}")
         
         # Actualizar producto
         products_table.update_item(
@@ -170,8 +212,11 @@ def handler(event, context):
                 'category': existing_product.get('category')
             },
             UpdateExpression=update_expression,
+            ExpressionAttributeNames=expression_names,
             ExpressionAttributeValues=expression_values
         )
+        
+        print("Update successful!")
         
         # Preparar respuesta con cambios
         changes = {}
@@ -205,7 +250,8 @@ def handler(event, context):
             }, default=decimal_default)
         }
         
-    except json.JSONDecodeError:
+    except json.JSONDecodeError as e:
+        print(f"JSON decode error: {str(e)}")
         return {
             'statusCode': 400,
             'headers': {
@@ -213,11 +259,14 @@ def handler(event, context):
                 'Access-Control-Allow-Origin': '*'
             },
             'body': json.dumps({
-                'message': 'Invalid JSON in request body'
+                'message': 'Invalid JSON in request body',
+                'error': str(e)
             })
         }
     except Exception as e:
-        print(f"Error: {str(e)}")
+        print(f"Unexpected error: {str(e)}")
+        import traceback
+        print(f"Traceback: {traceback.format_exc()}")
         return {
             'statusCode': 500,
             'headers': {
@@ -226,6 +275,7 @@ def handler(event, context):
             },
             'body': json.dumps({
                 'message': 'Internal server error',
-                'error': str(e)
+                'error': str(e),
+                'type': type(e).__name__
             })
         }

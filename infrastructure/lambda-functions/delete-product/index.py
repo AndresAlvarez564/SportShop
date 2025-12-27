@@ -18,8 +18,9 @@ def decimal_default(obj):
 
 def handler(event, context):
     try:
-        # Obtener userId desde Cognito (JWT token) - IGUAL QUE CREATE-PRODUCT
-        user_id = event.get('requestContext', {}).get('authorizer', {}).get('claims', {}).get('sub')
+        # Obtener información del usuario desde Cognito (JWT token)
+        claims = event.get('requestContext', {}).get('authorizer', {}).get('claims', {})
+        user_id = claims.get('sub')
         
         if not user_id:
             return {
@@ -31,6 +32,25 @@ def handler(event, context):
                 'body': json.dumps({
                     'message': 'Unauthorized - User authentication required',
                     'error': 'Missing or invalid JWT token'
+                })
+            }
+        
+        # Verificar que el usuario esté en el grupo admin
+        user_groups = claims.get('cognito:groups', [])
+        if isinstance(user_groups, str):
+            user_groups = [user_groups]  # Convertir a lista si es string
+        
+        if 'admin' not in user_groups:
+            return {
+                'statusCode': 403,
+                'headers': {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*'
+                },
+                'body': json.dumps({
+                    'message': 'Forbidden - Admin access required',
+                    'error': 'User is not in admin group',
+                    'userGroups': user_groups
                 })
             }
         

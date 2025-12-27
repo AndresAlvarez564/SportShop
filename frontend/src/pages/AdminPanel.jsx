@@ -10,6 +10,7 @@ function AdminPanel({ user }) {
   const [editingProduct, setEditingProduct] = useState(null)
   const [uploadingImage, setUploadingImage] = useState(false)
   const [selectedFile, setSelectedFile] = useState(null)
+  const [accessDenied, setAccessDenied] = useState(false)
   const [formData, setFormData] = useState({
     name: '',
     description: '',
@@ -30,6 +31,16 @@ function AdminPanel({ user }) {
     return {
       Authorization: `Bearer ${token}`
     }
+  }
+
+  // Función para manejar errores de autorización
+  const handleAuthError = (error, action = 'realizar esta acción') => {
+    if (error.response?.status === 403) {
+      setAccessDenied(true)
+      alert('❌ Acceso Denegado: Solo los administradores pueden ' + action + '. Contacta al administrador del sistema para obtener permisos.')
+      return true
+    }
+    return false
   }
 
   // Función para manejar selección de archivo
@@ -176,6 +187,9 @@ function AdminPanel({ user }) {
     } catch (err) {
       console.error('Error creating product - Full error:', err)
       
+      // Verificar si es error de autorización
+      if (handleAuthError(err, 'crear productos')) return
+      
       // Verificar si es un error de respuesta HTTP
       if (err.response) {
         try {
@@ -233,6 +247,9 @@ function AdminPanel({ user }) {
     } catch (err) {
       console.error('Error updating product - Full error:', err)
       
+      // Verificar si es error de autorización
+      if (handleAuthError(err, 'actualizar productos')) return
+      
       // Verificar si es un error de respuesta HTTP
       if (err.response) {
         try {
@@ -277,6 +294,9 @@ function AdminPanel({ user }) {
     } catch (err) {
       console.error('Error deleting product - Full error:', err)
       
+      // Verificar si es error de autorización
+      if (handleAuthError(err, 'eliminar productos')) return
+      
       // Verificar si es un error de respuesta HTTP
       if (err.response) {
         try {
@@ -320,6 +340,21 @@ function AdminPanel({ user }) {
     return (
       <div className="container">
         <div className="loading">Cargando panel de administración...</div>
+      </div>
+    )
+  }
+
+  if (accessDenied) {
+    return (
+      <div className="container">
+        <div className="access-denied">
+          <h2>🚫 Acceso Denegado</h2>
+          <p>Solo los administradores pueden acceder a este panel.</p>
+          <p>Si necesitas permisos de administrador, contacta al administrador del sistema.</p>
+          <button onClick={() => window.location.href = '/'} className="btn btn-primary">
+            Volver al Inicio
+          </button>
+        </div>
       </div>
     )
   }

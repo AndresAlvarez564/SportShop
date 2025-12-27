@@ -1,0 +1,261 @@
+{
+ "Description": "SportShop S3 buckets for development environment",
+ "Resources": {
+  "ProductImagesBucket03BDA4C8": {
+   "Type": "AWS::S3::Bucket",
+   "Properties": {
+    "BucketName": "sportshop-dev-product-images",
+    "CorsConfiguration": {
+     "CorsRules": [
+      {
+       "AllowedHeaders": [
+        "*"
+       ],
+       "AllowedMethods": [
+        "GET",
+        "PUT",
+        "POST",
+        "DELETE",
+        "HEAD"
+       ],
+       "AllowedOrigins": [
+        "*"
+       ],
+       "ExposedHeaders": [
+        "ETag"
+       ],
+       "MaxAge": 3000
+      }
+     ]
+    },
+    "LifecycleConfiguration": {
+     "Rules": [
+      {
+       "AbortIncompleteMultipartUpload": {
+        "DaysAfterInitiation": 1
+       },
+       "Id": "DeleteIncompleteMultipartUploads",
+       "Status": "Enabled"
+      }
+     ]
+    },
+    "PublicAccessBlockConfiguration": {
+     "BlockPublicAcls": false,
+     "BlockPublicPolicy": false,
+     "IgnorePublicAcls": false,
+     "RestrictPublicBuckets": false
+    },
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "development"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "learning"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "Owner",
+      "Value": "Andres"
+     },
+     {
+      "Key": "Project",
+      "Value": "sportshop"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Storage/ProductImagesBucket/Resource"
+   }
+  },
+  "ProductImagesBucketPolicyA68764A4": {
+   "Type": "AWS::S3::BucketPolicy",
+   "Properties": {
+    "Bucket": {
+     "Ref": "ProductImagesBucket03BDA4C8"
+    },
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "s3:GetObject",
+       "Effect": "Allow",
+       "Principal": {
+        "AWS": "*"
+       },
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          {
+           "Fn::GetAtt": [
+            "ProductImagesBucket03BDA4C8",
+            "Arn"
+           ]
+          },
+          "/*"
+         ]
+        ]
+       },
+       "Sid": "PublicReadGetObject"
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Storage/ProductImagesBucketPolicy/Resource"
+   }
+  },
+  "WebsiteBucket75C24D94": {
+   "Type": "AWS::S3::Bucket",
+   "Properties": {
+    "BucketName": "sportshop-dev-website",
+    "PublicAccessBlockConfiguration": {
+     "BlockPublicAcls": false,
+     "BlockPublicPolicy": false,
+     "IgnorePublicAcls": false,
+     "RestrictPublicBuckets": false
+    },
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "development"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "learning"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "Owner",
+      "Value": "Andres"
+     },
+     {
+      "Key": "Project",
+      "Value": "sportshop"
+     }
+    ],
+    "WebsiteConfiguration": {
+     "ErrorDocument": "index.html",
+     "IndexDocument": "index.html"
+    }
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Storage/WebsiteBucket/Resource"
+   }
+  },
+  "WebsiteBucketPolicy4618E892": {
+   "Type": "AWS::S3::BucketPolicy",
+   "Properties": {
+    "Bucket": {
+     "Ref": "WebsiteBucket75C24D94"
+    },
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "s3:GetObject",
+       "Effect": "Allow",
+       "Principal": {
+        "AWS": "*"
+       },
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          {
+           "Fn::GetAtt": [
+            "WebsiteBucket75C24D94",
+            "Arn"
+           ]
+          },
+          "/*"
+         ]
+        ]
+       },
+       "Sid": "PublicReadGetObject"
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Storage/WebsiteBucketPolicy/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/zPSszDXM1BMLC/WTU7J1s3JTNKrDi5JTM7WSSwvji821qt2Kk3OTi3RcU7Lg7IgVEB+TmZyJUIYwq8FCQSlFueXFiWn1urk5aek6mUV65cZGekZGegZKGYVZ2bqFpXmlWTmpuoFQWgAj15mMYMAAAA="
+   },
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Storage/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "ExportsOutputFnGetAttProductImagesBucket03BDA4C8Arn5AA48756": {
+   "Value": {
+    "Fn::GetAtt": [
+     "ProductImagesBucket03BDA4C8",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "SportShop-Dev-Storage:ExportsOutputFnGetAttProductImagesBucket03BDA4C8Arn5AA48756"
+   }
+  },
+  "ExportsOutputRefProductImagesBucket03BDA4C8A4D6E2D0": {
+   "Value": {
+    "Ref": "ProductImagesBucket03BDA4C8"
+   },
+   "Export": {
+    "Name": "SportShop-Dev-Storage:ExportsOutputRefProductImagesBucket03BDA4C8A4D6E2D0"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

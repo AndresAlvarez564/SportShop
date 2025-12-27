@@ -1,5 +1,5 @@
 import { Stack, StackProps, Tags, RemovalPolicy } from 'aws-cdk-lib';
-import { UserPool, UserPoolClient } from 'aws-cdk-lib/aws-cognito';
+import { UserPool, UserPoolClient, CfnUserPoolGroup } from 'aws-cdk-lib/aws-cognito';
 import { Construct } from 'constructs';
 import { getEnvironment } from '../config/environments';
 
@@ -10,6 +10,7 @@ interface AuthStackProps extends StackProps {
 export class AuthStack extends Stack {
   public readonly userPool: UserPool;
   public readonly userPoolClient: UserPoolClient;
+  public readonly adminGroup: CfnUserPoolGroup;
 
   constructor(scope: Construct, id: string, props: AuthStackProps) {
     super(scope, id, props);
@@ -35,6 +36,14 @@ export class AuthStack extends Stack {
         userPassword: true,
         userSrp: true
       }
+    });
+
+    // Admin Group
+    this.adminGroup = new CfnUserPoolGroup(this, 'AdminGroup', {
+      userPoolId: this.userPool.userPoolId,
+      groupName: 'admin',
+      description: 'Administrators with full access to manage products and orders',
+      precedence: 1
     });
 
     // Tags
