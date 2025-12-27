@@ -7,6 +7,7 @@ import { DataStack } from '../lib/stacks/data-stack';
 import { ComputeStack } from '../lib/stacks/compute-stack';
 import { AuthStack } from '../lib/stacks/auth-stack';
 import { ApiStack } from '../lib/stacks/api-stack';
+import { StorageStack } from '../lib/stacks/storage-stack';
 
 // Crear la aplicación CDK
 const app = new cdk.App();
@@ -24,12 +25,23 @@ const dataStack = new DataStack(app, 'SportShop-Dev-Data', {
   description: 'SportShop DynamoDB tables for development environment - v2'
 });
 
+// Crear stack de storage para desarrollo
+const storageStack = new StorageStack(app, 'SportShop-Dev-Storage', {
+  stage: 'dev',
+  env: {
+    region: 'us-east-1',
+    account: '851725386264',
+  },
+  description: 'SportShop S3 buckets for development environment'
+});
+
 // Crear stack de compute para desarrollo
 const computeStack = new ComputeStack(app, 'SportShop-Dev-Compute', {
   stage: 'dev',
   productsTable: dataStack.productsTable,
   cartTable: dataStack.cartTable,
   ordersTable: dataStack.ordersTable,
+  imagesBucket: storageStack.imagesBucket,
   env: {
     region: 'us-east-1',
     account: '851725386264',
@@ -63,3 +75,4 @@ const apiStack = new ApiStack(app, 'SportShop-Dev-Api', {
 apiStack.addDependency(computeStack);
 apiStack.addDependency(authStack);
 computeStack.addDependency(dataStack);
+computeStack.addDependency(storageStack);

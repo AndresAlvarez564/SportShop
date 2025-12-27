@@ -147,6 +147,16 @@ export class ApiStack extends Stack {
       }
     );
 
+    // POST /admin/upload-url - Generar presigned URL para upload (Admin)
+    const adminUploadResource = adminResource.addResource('upload-url');
+    adminUploadResource.addMethod('POST',
+      new LambdaIntegration(props.computeStack.generateUploadUrlFunction.function),
+      {
+        authorizationType: AuthorizationType.COGNITO,
+        authorizer: this.authorizer
+      }
+    );
+
     // PUT /admin/products/{id} - Actualizar producto (Admin)
     const adminProductDetailResource = adminProductsResource.addResource('{id}');
     adminProductDetailResource.addMethod('PUT',

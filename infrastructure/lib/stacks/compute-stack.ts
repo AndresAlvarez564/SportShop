@@ -2,6 +2,7 @@
 import { Stack, StackProps, Tags } from 'aws-cdk-lib';
 import { Code } from 'aws-cdk-lib/aws-lambda';
 import { Table } from 'aws-cdk-lib/aws-dynamodb';
+import { Bucket } from 'aws-cdk-lib/aws-s3';
 import { Construct } from 'constructs';
 
 // Imports de nuestras configuraciones
@@ -14,6 +15,7 @@ interface ComputeStackProps extends StackProps {
   productsTable: Table;
   cartTable: Table;
   ordersTable: Table;
+  imagesBucket: Bucket;
 }
 
 // Clase principal del stack de compute
@@ -33,6 +35,7 @@ export class ComputeStack extends Stack {
   public readonly createProductFunction: SportShopLambda;
   public readonly updateProductFunction: SportShopLambda;
   public readonly deleteProductFunction: SportShopLambda;
+  public readonly generateUploadUrlFunction: SportShopLambda;
 
   constructor(scope: Construct, id: string, props: ComputeStackProps) {
     super(scope, id, props);
@@ -224,6 +227,20 @@ export class ComputeStack extends Stack {
     // Dar permisos para leer y escribir productos y carrito
     props.productsTable.grantReadWriteData(this.deleteProductFunction.function);
     props.cartTable.grantReadWriteData(this.deleteProductFunction.function);
+
+    // === LAMBDA PARA UPLOAD DE IMÁGENES ===
+    
+    // Lambda function para generar presigned URLs de S3
+    this.generateUploadUrlFunction = new SportShopLambda(this, 'GenerateUploadUrlLambda', {
+      functionName: `${env.prefix}-generate-upload-url`,
+      code: Code.fromAsset('lambda-functions/generate-upload-url'),
+      environment: {
+        'IMAGES_BUCKET': props.imagesBucket.bucketName
+      }
+    });
+
+    // Dar permisos para generar presigned URLs de S3
+    props.imagesBucket.grantPut(this.generateUploadUrlFunction.function);
 
     // Aplicar tags
     Object.entries(env.tags).forEach(([key, value]) => {

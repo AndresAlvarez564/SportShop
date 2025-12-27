@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react'
 import { get, post, put, del } from 'aws-amplify/api'
 import { fetchAuthSession } from 'aws-amplify/auth'
+// Removemos uploadData y getUrl por ahora
 
 function AdminPanel({ user }) {
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
   const [showCreateForm, setShowCreateForm] = useState(false)
   const [editingProduct, setEditingProduct] = useState(null)
+  const [uploadingImage, setUploadingImage] = useState(false)
+  const [selectedFile, setSelectedFile] = useState(null)
   const [formData, setFormData] = useState({
     name: '',
     description: '',
@@ -26,6 +29,79 @@ function AdminPanel({ user }) {
     const token = session.tokens?.idToken?.toString()  // ← Usar IdToken, no AccessToken
     return {
       Authorization: `Bearer ${token}`
+    }
+  }
+
+  // Función para manejar selección de archivo
+  const handleFileSelect = (e) => {
+    const file = e.target.files[0]
+    if (file) {
+      // Validar tipo de archivo
+      if (!file.type.startsWith('image/')) {
+        alert('Por favor selecciona un archivo de imagen válido')
+        return
+      }
+      
+      // Validar tamaño (máximo 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        alert('La imagen debe ser menor a 5MB')
+        return
+      }
+      
+      setSelectedFile(file)
+      console.log('Archivo seleccionado:', file.name, 'Tamaño:', file.size)
+    }
+  }
+
+  // Función para subir imagen usando presigned URL
+  const uploadImageToS3 = async (file) => {
+    try {
+      setUploadingImage(true)
+      console.log('Subiendo imagen usando presigned URL:', file.name)
+      
+      const headers = await getAuthHeaders()
+      
+      // 1. Obtener presigned URL del Lambda
+      console.log('Solicitando presigned URL...')
+      const urlRequest = post({
+        apiName: 'SportShopAPI',
+        path: '/admin/upload-url',
+        options: {
+          headers,
+          body: {
+            fileName: file.name,
+            fileType: file.type
+          }
+        }
+      })
+      
+      const { body } = await urlRequest.response
+      const urlData = await body.json()
+      
+      console.log('Presigned URL obtenida:', urlData)
+      
+      // 2. Subir archivo directamente a S3 usando presigned URL
+      console.log('Subiendo archivo a S3...')
+      const uploadResponse = await fetch(urlData.uploadUrl, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': file.type
+        },
+        body: file
+      })
+      
+      if (!uploadResponse.ok) {
+        throw new Error(`Upload failed: ${uploadResponse.status} ${uploadResponse.statusText}`)
+      }
+      
+      console.log('Archivo subido exitosamente a S3')
+      return urlData.publicUrl
+      
+    } catch (error) {
+      console.error('Error subiendo imagen:', error)
+      throw new Error('Error al subir la imagen: ' + error.message)
+    } finally {
+      setUploadingImage(false)
     }
   }
 
@@ -55,10 +131,20 @@ function AdminPanel({ user }) {
       const headers = await getAuthHeaders() // ← RESTAURAR HEADERS
       console.log('Auth headers:', headers)
       
+      let imageUrl = formData.imageUrl
+      
+      // Si hay un archivo seleccionado, subirlo a S3 primero
+      if (selectedFile) {
+        console.log('Subiendo imagen antes de crear producto...')
+        imageUrl = await uploadImageToS3(selectedFile)
+        console.log('Imagen subida exitosamente:', imageUrl)
+      }
+      
       const productData = {
         ...formData,
         price: parseFloat(formData.price),
-        stock: parseInt(formData.stock)
+        stock: parseInt(formData.stock),
+        imageUrl: imageUrl // Usar la URL de S3 o la URL manual
       }
       console.log('Product data to send:', productData)
       
@@ -83,6 +169,7 @@ function AdminPanel({ user }) {
         name: '', description: '', price: '', category: '', 
         gender: '', stock: '', imageUrl: ''
       })
+      setSelectedFile(null) // Limpiar archivo seleccionado
       setShowCreateForm(false)
       fetchProducts()
       
@@ -338,12 +425,59 @@ function AdminPanel({ user }) {
             </div>
 
             <div className="form-group">
-              <label>URL de Imagen (opcional)</label>
-              <input
-                type="url"
-                value={formData.imageUrl}
-                onChange={(e) => setFormData({...formData, imageUrl: e.target.value})}
-              />
+              <label>Imagen del Producto</label>
+              
+              {/* Upload de archivo */}
+              <div style={{ marginBottom: '10px' }}>
+                <label style={{ fontSize: '14px', color: '#666' }}>Subir imagen desde tu computadora:</label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFileSelect}
+                  style={{ 
+                    width: '100%', 
+                    padding: '8px', 
+                    border: '1px solid #333',
+                    backgroundColor: '#2a2a2a',
+                    color: '#fff',
+                    borderRadius: '4px'
+                  }}
+                />
+                {selectedFile && (
+                  <div style={{ fontSize: '12px', color: '#00d4ff', marginTop: '5px' }}>
+                    ✓ Archivo seleccionado: {selectedFile.name}
+                  </div>
+                )}
+                {uploadingImage && (
+                  <div style={{ fontSize: '12px', color: '#00d4ff', marginTop: '5px' }}>
+                    📤 Subiendo imagen...
+                  </div>
+                )}
+              </div>
+              
+              {/* Separador */}
+              <div style={{ textAlign: 'center', margin: '15px 0', color: '#666' }}>
+                - O -
+              </div>
+              
+              {/* URL manual */}
+              <div>
+                <label style={{ fontSize: '14px', color: '#666' }}>O pegar URL de imagen:</label>
+                <input
+                  type="url"
+                  value={formData.imageUrl}
+                  onChange={(e) => setFormData({...formData, imageUrl: e.target.value})}
+                  placeholder="https://ejemplo.com/imagen.jpg"
+                  style={{ 
+                    width: '100%', 
+                    padding: '8px', 
+                    border: '1px solid #333',
+                    backgroundColor: '#2a2a2a',
+                    color: '#fff',
+                    borderRadius: '4px'
+                  }}
+                />
+              </div>
             </div>
 
             <div className="form-actions">
