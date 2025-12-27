@@ -96,6 +96,19 @@
    }
   }
  },
+ "Outputs": {
+  "ExportsOutputFnGetAttSportShopUserPoolB481A20BArnDE7925CD": {
+   "Value": {
+    "Fn::GetAtt": [
+     "SportShopUserPoolB481A20B",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "SportShop-Dev-Auth:ExportsOutputFnGetAttSportShopUserPoolB481A20BArnDE7925CD"
+   }
+  }
+ },
  "Parameters": {
   "BootstrapVersion": {
    "Type": "AWS::SSM::Parameter::Value<String>",

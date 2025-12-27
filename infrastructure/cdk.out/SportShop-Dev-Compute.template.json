@@ -1924,7 +1924,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-851725386264-us-east-1",
-     "S3Key": "0d113bf97cc110d9b8c45f5125e185efe51825426e98a10b2044bd2390e64873.zip"
+     "S3Key": "4d3f15b9f309e3d2c30dee20ae053cb0ac41fc0ae9a0e8d0ae09b43162fbaa91.zip"
     },
     "Role": {
      "Fn::GetAtt": [
@@ -1936,7 +1936,8 @@
      "Variables": {
       "PRODUCTS_TABLE": {
        "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputRefProductsTable241ADBFF4DFBD40D"
-      }
+      },
+      "FORCE_UPDATE": "v3"
      }
     },
     "FunctionName": "sportshop-dev-create-product",
@@ -1973,7 +1974,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SportShop-Dev-Compute/CreateProductLambda/Function/Resource",
-    "aws:asset:path": "asset.0d113bf97cc110d9b8c45f5125e185efe51825426e98a10b2044bd2390e64873",
+    "aws:asset:path": "asset.4d3f15b9f309e3d2c30dee20ae053cb0ac41fc0ae9a0e8d0ae09b43162fbaa91",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
    }
@@ -2083,7 +2084,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-851725386264-us-east-1",
-     "S3Key": "4af6ec96407ce61708e6e7f79677eac246205c754b584d9cb454cf61ddf27278.zip"
+     "S3Key": "f3536dcf189e4889daab545155720cdc3f379e3874fe2b66300ba6f46b7ebb0a.zip"
     },
     "Role": {
      "Fn::GetAtt": [
@@ -2132,7 +2133,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SportShop-Dev-Compute/UpdateProductLambda/Function/Resource",
-    "aws:asset:path": "asset.4af6ec96407ce61708e6e7f79677eac246205c754b584d9cb454cf61ddf27278",
+    "aws:asset:path": "asset.f3536dcf189e4889daab545155720cdc3f379e3874fe2b66300ba6f46b7ebb0a",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
    }
@@ -2245,7 +2246,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-851725386264-us-east-1",
-     "S3Key": "3bfb359d4640d98ae830d7ea8b3d48bab3faeb3c737c98a619b9d688e0671446.zip"
+     "S3Key": "069d6c651d6cf5105a41660e3082172ee17a24de8a68175e636ea5badbc6760a.zip"
     },
     "Role": {
      "Fn::GetAtt": [
@@ -2297,7 +2298,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SportShop-Dev-Compute/DeleteProductLambda/Function/Resource",
-    "aws:asset:path": "asset.3bfb359d4640d98ae830d7ea8b3d48bab3faeb3c737c98a619b9d688e0671446",
+    "aws:asset:path": "asset.069d6c651d6cf5105a41660e3082172ee17a24de8a68175e636ea5badbc6760a",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
    }
@@ -2355,6 +2356,116 @@
    },
    "Export": {
     "Name": "SportShop-Dev-Compute:ExportsOutputFnGetAttGetProductReviewsLambdaFunction875F9145ArnAE9A3177"
+   }
+  },
+  "ExportsOutputFnGetAttGetCartLambdaFunction4D7A18BAArn05BE36E3": {
+   "Value": {
+    "Fn::GetAtt": [
+     "GetCartLambdaFunction4D7A18BA",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "SportShop-Dev-Compute:ExportsOutputFnGetAttGetCartLambdaFunction4D7A18BAArn05BE36E3"
+   }
+  },
+  "ExportsOutputFnGetAttAddToCartLambdaFunction401C31C7Arn2E73A045": {
+   "Value": {
+    "Fn::GetAtt": [
+     "AddToCartLambdaFunction401C31C7",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "SportShop-Dev-Compute:ExportsOutputFnGetAttAddToCartLambdaFunction401C31C7Arn2E73A045"
+   }
+  },
+  "ExportsOutputFnGetAttRemoveFromCartLambdaFunction5671D9F5Arn4B75A74A": {
+   "Value": {
+    "Fn::GetAtt": [
+     "RemoveFromCartLambdaFunction5671D9F5",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "SportShop-Dev-Compute:ExportsOutputFnGetAttRemoveFromCartLambdaFunction5671D9F5Arn4B75A74A"
+   }
+  },
+  "ExportsOutputFnGetAttUpdateCartQuantityLambdaFunctionB9C1A43AArn4255E0F2": {
+   "Value": {
+    "Fn::GetAtt": [
+     "UpdateCartQuantityLambdaFunctionB9C1A43A",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "SportShop-Dev-Compute:ExportsOutputFnGetAttUpdateCartQuantityLambdaFunctionB9C1A43AArn4255E0F2"
+   }
+  },
+  "ExportsOutputFnGetAttCreateOrderLambdaFunction7F06CA72Arn7EF40EBA": {
+   "Value": {
+    "Fn::GetAtt": [
+     "CreateOrderLambdaFunction7F06CA72",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "SportShop-Dev-Compute:ExportsOutputFnGetAttCreateOrderLambdaFunction7F06CA72Arn7EF40EBA"
+   }
+  },
+  "ExportsOutputFnGetAttGetUserOrdersLambdaFunction4455104BArn66E7431D": {
+   "Value": {
+    "Fn::GetAtt": [
+     "GetUserOrdersLambdaFunction4455104B",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "SportShop-Dev-Compute:ExportsOutputFnGetAttGetUserOrdersLambdaFunction4455104BArn66E7431D"
+   }
+  },
+  "ExportsOutputFnGetAttCreateReviewLambdaFunctionDF87334EArnD78F1675": {
+   "Value": {
+    "Fn::GetAtt": [
+     "CreateReviewLambdaFunctionDF87334E",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "SportShop-Dev-Compute:ExportsOutputFnGetAttCreateReviewLambdaFunctionDF87334EArnD78F1675"
+   }
+  },
+  "ExportsOutputFnGetAttCreateProductLambdaFunction69450C53Arn0AFFF14F": {
+   "Value": {
+    "Fn::GetAtt": [
+     "CreateProductLambdaFunction69450C53",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "SportShop-Dev-Compute:ExportsOutputFnGetAttCreateProductLambdaFunction69450C53Arn0AFFF14F"
+   }
+  },
+  "ExportsOutputFnGetAttUpdateProductLambdaFunction00F9A98BArn554A89D0": {
+   "Value": {
+    "Fn::GetAtt": [
+     "UpdateProductLambdaFunction00F9A98B",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "SportShop-Dev-Compute:ExportsOutputFnGetAttUpdateProductLambdaFunction00F9A98BArn554A89D0"
+   }
+  },
+  "ExportsOutputFnGetAttDeleteProductLambdaFunctionBE32D759Arn33E22838": {
+   "Value": {
+    "Fn::GetAtt": [
+     "DeleteProductLambdaFunctionBE32D759",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "SportShop-Dev-Compute:ExportsOutputFnGetAttDeleteProductLambdaFunctionBE32D759Arn33E22838"
    }
   }
  },

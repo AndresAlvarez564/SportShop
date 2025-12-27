@@ -189,7 +189,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::851725386264:role/cdk-hnb659fds-deploy-role-851725386264-us-east-1",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::851725386264:role/cdk-hnb659fds-cfn-exec-role-851725386264-us-east-1",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-851725386264-us-east-1/4057fe18fd563b2f2439982ce529434a097d2c31d50f6b719cd9a8712c105727.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-851725386264-us-east-1/5d62269895e4bd74feb6c32f7cd1913a7e8d5eea66a14359c7813e74932323a2.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -515,6 +515,66 @@
             "data": "ExportsOutputFnGetAttGetProductReviewsLambdaFunction875F9145ArnAE9A3177"
           }
         ],
+        "/SportShop-Dev-Compute/Exports/Output{\"Fn::GetAtt\":[\"GetCartLambdaFunction4D7A18BA\",\"Arn\"]}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputFnGetAttGetCartLambdaFunction4D7A18BAArn05BE36E3"
+          }
+        ],
+        "/SportShop-Dev-Compute/Exports/Output{\"Fn::GetAtt\":[\"AddToCartLambdaFunction401C31C7\",\"Arn\"]}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputFnGetAttAddToCartLambdaFunction401C31C7Arn2E73A045"
+          }
+        ],
+        "/SportShop-Dev-Compute/Exports/Output{\"Fn::GetAtt\":[\"RemoveFromCartLambdaFunction5671D9F5\",\"Arn\"]}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputFnGetAttRemoveFromCartLambdaFunction5671D9F5Arn4B75A74A"
+          }
+        ],
+        "/SportShop-Dev-Compute/Exports/Output{\"Fn::GetAtt\":[\"UpdateCartQuantityLambdaFunctionB9C1A43A\",\"Arn\"]}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputFnGetAttUpdateCartQuantityLambdaFunctionB9C1A43AArn4255E0F2"
+          }
+        ],
+        "/SportShop-Dev-Compute/Exports/Output{\"Fn::GetAtt\":[\"CreateOrderLambdaFunction7F06CA72\",\"Arn\"]}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputFnGetAttCreateOrderLambdaFunction7F06CA72Arn7EF40EBA"
+          }
+        ],
+        "/SportShop-Dev-Compute/Exports/Output{\"Fn::GetAtt\":[\"GetUserOrdersLambdaFunction4455104B\",\"Arn\"]}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputFnGetAttGetUserOrdersLambdaFunction4455104BArn66E7431D"
+          }
+        ],
+        "/SportShop-Dev-Compute/Exports/Output{\"Fn::GetAtt\":[\"CreateReviewLambdaFunctionDF87334E\",\"Arn\"]}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputFnGetAttCreateReviewLambdaFunctionDF87334EArnD78F1675"
+          }
+        ],
+        "/SportShop-Dev-Compute/Exports/Output{\"Fn::GetAtt\":[\"CreateProductLambdaFunction69450C53\",\"Arn\"]}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputFnGetAttCreateProductLambdaFunction69450C53Arn0AFFF14F"
+          }
+        ],
+        "/SportShop-Dev-Compute/Exports/Output{\"Fn::GetAtt\":[\"UpdateProductLambdaFunction00F9A98B\",\"Arn\"]}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputFnGetAttUpdateProductLambdaFunction00F9A98BArn554A89D0"
+          }
+        ],
+        "/SportShop-Dev-Compute/Exports/Output{\"Fn::GetAtt\":[\"DeleteProductLambdaFunctionBE32D759\",\"Arn\"]}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputFnGetAttDeleteProductLambdaFunctionBE32D759Arn33E22838"
+          }
+        ],
         "/SportShop-Dev-Compute/BootstrapVersion": [
           {
             "type": "aws:cdk:logicalId",
@@ -553,7 +613,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::851725386264:role/cdk-hnb659fds-deploy-role-851725386264-us-east-1",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::851725386264:role/cdk-hnb659fds-cfn-exec-role-851725386264-us-east-1",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-851725386264-us-east-1/bcffe3d78613f9103656790ba28fa8b9cb381dca0f9aa2d00223c167dcf48389.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-851725386264-us-east-1/8a253587e595d80549644ec2e9c6d886da252cab20862ee229460fd845a6684d.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -614,6 +674,12 @@
             "data": "CDKMetadata"
           }
         ],
+        "/SportShop-Dev-Auth/Exports/Output{\"Fn::GetAtt\":[\"SportShopUserPoolB481A20B\",\"Arn\"]}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputFnGetAttSportShopUserPoolB481A20BArnDE7925CD"
+          }
+        ],
         "/SportShop-Dev-Auth/BootstrapVersion": [
           {
             "type": "aws:cdk:logicalId",
@@ -652,7 +718,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::851725386264:role/cdk-hnb659fds-deploy-role-851725386264-us-east-1",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::851725386264:role/cdk-hnb659fds-cfn-exec-role-851725386264-us-east-1",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-851725386264-us-east-1/453304d2dd22d33332b033eccf264e116dec5659e350b392b134e545e1194eb1.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-851725386264-us-east-1/c35ce309ec2514c467606bc87dca7614fc800141a4c4825fc10094a9e155eb8e.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -666,6 +732,7 @@
       },
       "dependencies": [
         "SportShop-Dev-Compute",
+        "SportShop-Dev-Auth",
         "SportShop-Dev-Api.assets"
       ],
       "metadata": {
@@ -717,7 +784,7 @@
         "/SportShop-Dev-Api/SportShopApi/Deployment/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "SportShopApiDeploymentBBDEAF52f6df70d7cca3b5794fd8d6036dc97bbf"
+            "data": "SportShopApiDeploymentBBDEAF523f829110894a15d960fced48b842524b"
           }
         ],
         "/SportShop-Dev-Api/SportShopApi/DeploymentStage.prod/Resource": [
@@ -856,6 +923,276 @@
           {
             "type": "aws:cdk:logicalId",
             "data": "SportShopApiproductsidreviewsGETCC31C96C"
+          }
+        ],
+        "/SportShop-Dev-Api/SportShopApi/Default/cart/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SportShopApicartA0DB5176"
+          }
+        ],
+        "/SportShop-Dev-Api/SportShopApi/Default/cart/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SportShopApicartOPTIONS1714118A"
+          }
+        ],
+        "/SportShop-Dev-Api/SportShopApi/Default/cart/GET/ApiPermission.SportShopDevApiSportShopApi52461564.GET..cart": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SportShopApicartGETApiPermissionSportShopDevApiSportShopApi52461564GETcart649E45AC"
+          }
+        ],
+        "/SportShop-Dev-Api/SportShopApi/Default/cart/GET/ApiPermission.Test.SportShopDevApiSportShopApi52461564.GET..cart": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SportShopApicartGETApiPermissionTestSportShopDevApiSportShopApi52461564GETcart02B61580"
+          }
+        ],
+        "/SportShop-Dev-Api/SportShopApi/Default/cart/GET/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SportShopApicartGETE027B3FE"
+          }
+        ],
+        "/SportShop-Dev-Api/SportShopApi/Default/cart/POST/ApiPermission.SportShopDevApiSportShopApi52461564.POST..cart": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SportShopApicartPOSTApiPermissionSportShopDevApiSportShopApi52461564POSTcart606D6E41"
+          }
+        ],
+        "/SportShop-Dev-Api/SportShopApi/Default/cart/POST/ApiPermission.Test.SportShopDevApiSportShopApi52461564.POST..cart": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SportShopApicartPOSTApiPermissionTestSportShopDevApiSportShopApi52461564POSTcart56EE7C85"
+          }
+        ],
+        "/SportShop-Dev-Api/SportShopApi/Default/cart/POST/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SportShopApicartPOSTD9A86017"
+          }
+        ],
+        "/SportShop-Dev-Api/SportShopApi/Default/cart/{productId}/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SportShopApicartproductId37B55253"
+          }
+        ],
+        "/SportShop-Dev-Api/SportShopApi/Default/cart/{productId}/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SportShopApicartproductIdOPTIONSD00AB113"
+          }
+        ],
+        "/SportShop-Dev-Api/SportShopApi/Default/cart/{productId}/DELETE/ApiPermission.SportShopDevApiSportShopApi52461564.DELETE..cart.{productId}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SportShopApicartproductIdDELETEApiPermissionSportShopDevApiSportShopApi52461564DELETEcartproductIdA1DC4183"
+          }
+        ],
+        "/SportShop-Dev-Api/SportShopApi/Default/cart/{productId}/DELETE/ApiPermission.Test.SportShopDevApiSportShopApi52461564.DELETE..cart.{productId}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SportShopApicartproductIdDELETEApiPermissionTestSportShopDevApiSportShopApi52461564DELETEcartproductIdD9410B72"
+          }
+        ],
+        "/SportShop-Dev-Api/SportShopApi/Default/cart/{productId}/DELETE/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SportShopApicartproductIdDELETEC8F40BC5"
+          }
+        ],
+        "/SportShop-Dev-Api/SportShopApi/Default/cart/{productId}/PUT/ApiPermission.SportShopDevApiSportShopApi52461564.PUT..cart.{productId}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SportShopApicartproductIdPUTApiPermissionSportShopDevApiSportShopApi52461564PUTcartproductIdC3EE3049"
+          }
+        ],
+        "/SportShop-Dev-Api/SportShopApi/Default/cart/{productId}/PUT/ApiPermission.Test.SportShopDevApiSportShopApi52461564.PUT..cart.{productId}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SportShopApicartproductIdPUTApiPermissionTestSportShopDevApiSportShopApi52461564PUTcartproductId110506B3"
+          }
+        ],
+        "/SportShop-Dev-Api/SportShopApi/Default/cart/{productId}/PUT/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SportShopApicartproductIdPUTD601C9F5"
+          }
+        ],
+        "/SportShop-Dev-Api/SportShopApi/Default/orders/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SportShopApiorders4348BC17"
+          }
+        ],
+        "/SportShop-Dev-Api/SportShopApi/Default/orders/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SportShopApiordersOPTIONS0592E362"
+          }
+        ],
+        "/SportShop-Dev-Api/SportShopApi/Default/orders/POST/ApiPermission.SportShopDevApiSportShopApi52461564.POST..orders": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SportShopApiordersPOSTApiPermissionSportShopDevApiSportShopApi52461564POSTordersA1CD3A6B"
+          }
+        ],
+        "/SportShop-Dev-Api/SportShopApi/Default/orders/POST/ApiPermission.Test.SportShopDevApiSportShopApi52461564.POST..orders": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SportShopApiordersPOSTApiPermissionTestSportShopDevApiSportShopApi52461564POSTorders68D1DD98"
+          }
+        ],
+        "/SportShop-Dev-Api/SportShopApi/Default/orders/POST/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SportShopApiordersPOST0828785E"
+          }
+        ],
+        "/SportShop-Dev-Api/SportShopApi/Default/orders/GET/ApiPermission.SportShopDevApiSportShopApi52461564.GET..orders": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SportShopApiordersGETApiPermissionSportShopDevApiSportShopApi52461564GETordersBD3D2F41"
+          }
+        ],
+        "/SportShop-Dev-Api/SportShopApi/Default/orders/GET/ApiPermission.Test.SportShopDevApiSportShopApi52461564.GET..orders": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SportShopApiordersGETApiPermissionTestSportShopDevApiSportShopApi52461564GETordersEBB4ECE3"
+          }
+        ],
+        "/SportShop-Dev-Api/SportShopApi/Default/orders/GET/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SportShopApiordersGET450D819C"
+          }
+        ],
+        "/SportShop-Dev-Api/SportShopApi/Default/reviews/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SportShopApireviewsC8B0043E"
+          }
+        ],
+        "/SportShop-Dev-Api/SportShopApi/Default/reviews/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SportShopApireviewsOPTIONSAFC29162"
+          }
+        ],
+        "/SportShop-Dev-Api/SportShopApi/Default/reviews/POST/ApiPermission.SportShopDevApiSportShopApi52461564.POST..reviews": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SportShopApireviewsPOSTApiPermissionSportShopDevApiSportShopApi52461564POSTreviewsE97242DE"
+          }
+        ],
+        "/SportShop-Dev-Api/SportShopApi/Default/reviews/POST/ApiPermission.Test.SportShopDevApiSportShopApi52461564.POST..reviews": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SportShopApireviewsPOSTApiPermissionTestSportShopDevApiSportShopApi52461564POSTreviews0E4FD31E"
+          }
+        ],
+        "/SportShop-Dev-Api/SportShopApi/Default/reviews/POST/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SportShopApireviewsPOSTEEF6DECB"
+          }
+        ],
+        "/SportShop-Dev-Api/SportShopApi/Default/admin/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SportShopApiadmin07504614"
+          }
+        ],
+        "/SportShop-Dev-Api/SportShopApi/Default/admin/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SportShopApiadminOPTIONSBD5F3B1A"
+          }
+        ],
+        "/SportShop-Dev-Api/SportShopApi/Default/admin/products/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SportShopApiadminproducts647651E0"
+          }
+        ],
+        "/SportShop-Dev-Api/SportShopApi/Default/admin/products/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SportShopApiadminproductsOPTIONS2C213EE9"
+          }
+        ],
+        "/SportShop-Dev-Api/SportShopApi/Default/admin/products/POST/ApiPermission.SportShopDevApiSportShopApi52461564.POST..admin.products": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SportShopApiadminproductsPOSTApiPermissionSportShopDevApiSportShopApi52461564POSTadminproducts744952EF"
+          }
+        ],
+        "/SportShop-Dev-Api/SportShopApi/Default/admin/products/POST/ApiPermission.Test.SportShopDevApiSportShopApi52461564.POST..admin.products": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SportShopApiadminproductsPOSTApiPermissionTestSportShopDevApiSportShopApi52461564POSTadminproductsC2F36391"
+          }
+        ],
+        "/SportShop-Dev-Api/SportShopApi/Default/admin/products/POST/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SportShopApiadminproductsPOST79875EE6"
+          }
+        ],
+        "/SportShop-Dev-Api/SportShopApi/Default/admin/products/{id}/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SportShopApiadminproductsid600A4E0C"
+          }
+        ],
+        "/SportShop-Dev-Api/SportShopApi/Default/admin/products/{id}/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SportShopApiadminproductsidOPTIONSF32768D9"
+          }
+        ],
+        "/SportShop-Dev-Api/SportShopApi/Default/admin/products/{id}/PUT/ApiPermission.SportShopDevApiSportShopApi52461564.PUT..admin.products.{id}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SportShopApiadminproductsidPUTApiPermissionSportShopDevApiSportShopApi52461564PUTadminproductsidD21B4633"
+          }
+        ],
+        "/SportShop-Dev-Api/SportShopApi/Default/admin/products/{id}/PUT/ApiPermission.Test.SportShopDevApiSportShopApi52461564.PUT..admin.products.{id}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SportShopApiadminproductsidPUTApiPermissionTestSportShopDevApiSportShopApi52461564PUTadminproductsid0D457ED2"
+          }
+        ],
+        "/SportShop-Dev-Api/SportShopApi/Default/admin/products/{id}/PUT/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SportShopApiadminproductsidPUT3CEF4CD0"
+          }
+        ],
+        "/SportShop-Dev-Api/SportShopApi/Default/admin/products/{id}/DELETE/ApiPermission.SportShopDevApiSportShopApi52461564.DELETE..admin.products.{id}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SportShopApiadminproductsidDELETEApiPermissionSportShopDevApiSportShopApi52461564DELETEadminproductsidA32CDC5F"
+          }
+        ],
+        "/SportShop-Dev-Api/SportShopApi/Default/admin/products/{id}/DELETE/ApiPermission.Test.SportShopDevApiSportShopApi52461564.DELETE..admin.products.{id}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SportShopApiadminproductsidDELETEApiPermissionTestSportShopDevApiSportShopApi52461564DELETEadminproductsid67BF6249"
+          }
+        ],
+        "/SportShop-Dev-Api/SportShopApi/Default/admin/products/{id}/DELETE/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SportShopApiadminproductsidDELETEF8F738B5"
+          }
+        ],
+        "/SportShop-Dev-Api/SportShopAuthorizer/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SportShopAuthorizer93595027"
           }
         ],
         "/SportShop-Dev-Api/CDKMetadata/Default": [

@@ -191,7 +191,8 @@ export class ComputeStack extends Stack {
       functionName: `${env.prefix}-create-product`,
       code: Code.fromAsset('lambda-functions/create-product'),
       environment: {
-        'PRODUCTS_TABLE': props.productsTable.tableName
+        'PRODUCTS_TABLE': props.productsTable.tableName,
+        'FORCE_UPDATE': 'v3' // Force CDK to detect changes
       }
     });
 

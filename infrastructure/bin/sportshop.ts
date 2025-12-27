@@ -51,9 +51,15 @@ const authStack = new AuthStack(app, 'SportShop-Dev-Auth', {
 const apiStack = new ApiStack(app, 'SportShop-Dev-Api', {
   stage: 'dev',
   computeStack: computeStack,
+  authStack: authStack,
   env: {
     region: 'us-east-1',
     account: '851725386264',
   },
   description: 'SportShop REST API Gateway for development environment'
 });
+
+// Agregar dependencias explícitas para orden de deployment
+apiStack.addDependency(computeStack);
+apiStack.addDependency(authStack);
+computeStack.addDependency(dataStack);

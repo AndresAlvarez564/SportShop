@@ -3235,7 +3235,7 @@
                       "aws:cdk:cloudformation:props": {
                         "code": {
                           "s3Bucket": "cdk-hnb659fds-assets-851725386264-us-east-1",
-                          "s3Key": "0d113bf97cc110d9b8c45f5125e185efe51825426e98a10b2044bd2390e64873.zip"
+                          "s3Key": "4d3f15b9f309e3d2c30dee20ae053cb0ac41fc0ae9a0e8d0ae09b43162fbaa91.zip"
                         },
                         "role": {
                           "Fn::GetAtt": [
@@ -3247,7 +3247,8 @@
                           "variables": {
                             "PRODUCTS_TABLE": {
                               "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputRefProductsTable241ADBFF4DFBD40D"
-                            }
+                            },
+                            "FORCE_UPDATE": "v3"
                           }
                         },
                         "functionName": "sportshop-dev-create-product",
@@ -3476,7 +3477,7 @@
                       "aws:cdk:cloudformation:props": {
                         "code": {
                           "s3Bucket": "cdk-hnb659fds-assets-851725386264-us-east-1",
-                          "s3Key": "4af6ec96407ce61708e6e7f79677eac246205c754b584d9cb454cf61ddf27278.zip"
+                          "s3Key": "f3536dcf189e4889daab545155720cdc3f379e3874fe2b66300ba6f46b7ebb0a.zip"
                         },
                         "role": {
                           "Fn::GetAtt": [
@@ -3720,7 +3721,7 @@
                       "aws:cdk:cloudformation:props": {
                         "code": {
                           "s3Bucket": "cdk-hnb659fds-assets-851725386264-us-east-1",
-                          "s3Key": "3bfb359d4640d98ae830d7ea8b3d48bab3faeb3c737c98a619b9d688e0671446.zip"
+                          "s3Key": "069d6c651d6cf5105a41660e3082172ee17a24de8a68175e636ea5badbc6760a.zip"
                         },
                         "role": {
                           "Fn::GetAtt": [
@@ -3833,6 +3834,86 @@
               "Output{\"Fn::GetAtt\":[\"GetProductReviewsLambdaFunction875F9145\",\"Arn\"]}": {
                 "id": "Output{\"Fn::GetAtt\":[\"GetProductReviewsLambdaFunction875F9145\",\"Arn\"]}",
                 "path": "SportShop-Dev-Compute/Exports/Output{\"Fn::GetAtt\":[\"GetProductReviewsLambdaFunction875F9145\",\"Arn\"]}",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnOutput",
+                  "version": "2.87.0"
+                }
+              },
+              "Output{\"Fn::GetAtt\":[\"GetCartLambdaFunction4D7A18BA\",\"Arn\"]}": {
+                "id": "Output{\"Fn::GetAtt\":[\"GetCartLambdaFunction4D7A18BA\",\"Arn\"]}",
+                "path": "SportShop-Dev-Compute/Exports/Output{\"Fn::GetAtt\":[\"GetCartLambdaFunction4D7A18BA\",\"Arn\"]}",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnOutput",
+                  "version": "2.87.0"
+                }
+              },
+              "Output{\"Fn::GetAtt\":[\"AddToCartLambdaFunction401C31C7\",\"Arn\"]}": {
+                "id": "Output{\"Fn::GetAtt\":[\"AddToCartLambdaFunction401C31C7\",\"Arn\"]}",
+                "path": "SportShop-Dev-Compute/Exports/Output{\"Fn::GetAtt\":[\"AddToCartLambdaFunction401C31C7\",\"Arn\"]}",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnOutput",
+                  "version": "2.87.0"
+                }
+              },
+              "Output{\"Fn::GetAtt\":[\"RemoveFromCartLambdaFunction5671D9F5\",\"Arn\"]}": {
+                "id": "Output{\"Fn::GetAtt\":[\"RemoveFromCartLambdaFunction5671D9F5\",\"Arn\"]}",
+                "path": "SportShop-Dev-Compute/Exports/Output{\"Fn::GetAtt\":[\"RemoveFromCartLambdaFunction5671D9F5\",\"Arn\"]}",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnOutput",
+                  "version": "2.87.0"
+                }
+              },
+              "Output{\"Fn::GetAtt\":[\"UpdateCartQuantityLambdaFunctionB9C1A43A\",\"Arn\"]}": {
+                "id": "Output{\"Fn::GetAtt\":[\"UpdateCartQuantityLambdaFunctionB9C1A43A\",\"Arn\"]}",
+                "path": "SportShop-Dev-Compute/Exports/Output{\"Fn::GetAtt\":[\"UpdateCartQuantityLambdaFunctionB9C1A43A\",\"Arn\"]}",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnOutput",
+                  "version": "2.87.0"
+                }
+              },
+              "Output{\"Fn::GetAtt\":[\"CreateOrderLambdaFunction7F06CA72\",\"Arn\"]}": {
+                "id": "Output{\"Fn::GetAtt\":[\"CreateOrderLambdaFunction7F06CA72\",\"Arn\"]}",
+                "path": "SportShop-Dev-Compute/Exports/Output{\"Fn::GetAtt\":[\"CreateOrderLambdaFunction7F06CA72\",\"Arn\"]}",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnOutput",
+                  "version": "2.87.0"
+                }
+              },
+              "Output{\"Fn::GetAtt\":[\"GetUserOrdersLambdaFunction4455104B\",\"Arn\"]}": {
+                "id": "Output{\"Fn::GetAtt\":[\"GetUserOrdersLambdaFunction4455104B\",\"Arn\"]}",
+                "path": "SportShop-Dev-Compute/Exports/Output{\"Fn::GetAtt\":[\"GetUserOrdersLambdaFunction4455104B\",\"Arn\"]}",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnOutput",
+                  "version": "2.87.0"
+                }
+              },
+              "Output{\"Fn::GetAtt\":[\"CreateReviewLambdaFunctionDF87334E\",\"Arn\"]}": {
+                "id": "Output{\"Fn::GetAtt\":[\"CreateReviewLambdaFunctionDF87334E\",\"Arn\"]}",
+                "path": "SportShop-Dev-Compute/Exports/Output{\"Fn::GetAtt\":[\"CreateReviewLambdaFunctionDF87334E\",\"Arn\"]}",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnOutput",
+                  "version": "2.87.0"
+                }
+              },
+              "Output{\"Fn::GetAtt\":[\"CreateProductLambdaFunction69450C53\",\"Arn\"]}": {
+                "id": "Output{\"Fn::GetAtt\":[\"CreateProductLambdaFunction69450C53\",\"Arn\"]}",
+                "path": "SportShop-Dev-Compute/Exports/Output{\"Fn::GetAtt\":[\"CreateProductLambdaFunction69450C53\",\"Arn\"]}",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnOutput",
+                  "version": "2.87.0"
+                }
+              },
+              "Output{\"Fn::GetAtt\":[\"UpdateProductLambdaFunction00F9A98B\",\"Arn\"]}": {
+                "id": "Output{\"Fn::GetAtt\":[\"UpdateProductLambdaFunction00F9A98B\",\"Arn\"]}",
+                "path": "SportShop-Dev-Compute/Exports/Output{\"Fn::GetAtt\":[\"UpdateProductLambdaFunction00F9A98B\",\"Arn\"]}",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnOutput",
+                  "version": "2.87.0"
+                }
+              },
+              "Output{\"Fn::GetAtt\":[\"DeleteProductLambdaFunctionBE32D759\",\"Arn\"]}": {
+                "id": "Output{\"Fn::GetAtt\":[\"DeleteProductLambdaFunctionBE32D759\",\"Arn\"]}",
+                "path": "SportShop-Dev-Compute/Exports/Output{\"Fn::GetAtt\":[\"DeleteProductLambdaFunctionBE32D759\",\"Arn\"]}",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.CfnOutput",
                   "version": "2.87.0"
@@ -3992,6 +4073,24 @@
                 "path": "SportShop-Dev-Auth/CDKMetadata/Default",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.CfnResource",
+                  "version": "2.87.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "constructs.Construct",
+              "version": "10.4.4"
+            }
+          },
+          "Exports": {
+            "id": "Exports",
+            "path": "SportShop-Dev-Auth/Exports",
+            "children": {
+              "Output{\"Fn::GetAtt\":[\"SportShopUserPoolB481A20B\",\"Arn\"]}": {
+                "id": "Output{\"Fn::GetAtt\":[\"SportShopUserPoolB481A20B\",\"Arn\"]}",
+                "path": "SportShop-Dev-Auth/Exports/Output{\"Fn::GetAtt\":[\"SportShopUserPoolB481A20B\",\"Arn\"]}",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnOutput",
                   "version": "2.87.0"
                 }
               }
@@ -4207,7 +4306,7 @@
                           "Ref": "SportShopApi726D720F"
                         },
                         "deploymentId": {
-                          "Ref": "SportShopApiDeploymentBBDEAF52f6df70d7cca3b5794fd8d6036dc97bbf"
+                          "Ref": "SportShopApiDeploymentBBDEAF523f829110894a15d960fced48b842524b"
                         },
                         "stageName": "prod",
                         "tags": [
@@ -5116,6 +5215,1774 @@
                       "fqn": "aws-cdk-lib.aws_apigateway.Resource",
                       "version": "2.87.0"
                     }
+                  },
+                  "cart": {
+                    "id": "cart",
+                    "path": "SportShop-Dev-Api/SportShopApi/Default/cart",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "SportShop-Dev-Api/SportShopApi/Default/cart/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::ApiGateway::Resource",
+                          "aws:cdk:cloudformation:props": {
+                            "parentId": {
+                              "Fn::GetAtt": [
+                                "SportShopApi726D720F",
+                                "RootResourceId"
+                              ]
+                            },
+                            "pathPart": "cart",
+                            "restApiId": {
+                              "Ref": "SportShopApi726D720F"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_apigateway.CfnResource",
+                          "version": "2.87.0"
+                        }
+                      },
+                      "OPTIONS": {
+                        "id": "OPTIONS",
+                        "path": "SportShop-Dev-Api/SportShopApi/Default/cart/OPTIONS",
+                        "children": {
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "SportShop-Dev-Api/SportShopApi/Default/cart/OPTIONS/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::ApiGateway::Method",
+                              "aws:cdk:cloudformation:props": {
+                                "httpMethod": "OPTIONS",
+                                "resourceId": {
+                                  "Ref": "SportShopApicartA0DB5176"
+                                },
+                                "restApiId": {
+                                  "Ref": "SportShopApi726D720F"
+                                },
+                                "apiKeyRequired": false,
+                                "authorizationType": "NONE",
+                                "integration": {
+                                  "type": "MOCK",
+                                  "requestTemplates": {
+                                    "application/json": "{ statusCode: 200 }"
+                                  },
+                                  "integrationResponses": [
+                                    {
+                                      "statusCode": "204",
+                                      "responseParameters": {
+                                        "method.response.header.Access-Control-Allow-Headers": "'Content-Type,Authorization'",
+                                        "method.response.header.Access-Control-Allow-Origin": "'*'",
+                                        "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET,PUT,POST,DELETE,PATCH,HEAD'"
+                                      }
+                                    }
+                                  ]
+                                },
+                                "methodResponses": [
+                                  {
+                                    "statusCode": "204",
+                                    "responseParameters": {
+                                      "method.response.header.Access-Control-Allow-Headers": true,
+                                      "method.response.header.Access-Control-Allow-Origin": true,
+                                      "method.response.header.Access-Control-Allow-Methods": true
+                                    }
+                                  }
+                                ]
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_apigateway.CfnMethod",
+                              "version": "2.87.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_apigateway.Method",
+                          "version": "2.87.0"
+                        }
+                      },
+                      "GET": {
+                        "id": "GET",
+                        "path": "SportShop-Dev-Api/SportShopApi/Default/cart/GET",
+                        "children": {
+                          "ApiPermission.SportShopDevApiSportShopApi52461564.GET..cart": {
+                            "id": "ApiPermission.SportShopDevApiSportShopApi52461564.GET..cart",
+                            "path": "SportShop-Dev-Api/SportShopApi/Default/cart/GET/ApiPermission.SportShopDevApiSportShopApi52461564.GET..cart",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                              "aws:cdk:cloudformation:props": {
+                                "action": "lambda:InvokeFunction",
+                                "functionName": {
+                                  "Fn::ImportValue": "SportShop-Dev-Compute:ExportsOutputFnGetAttGetCartLambdaFunction4D7A18BAArn05BE36E3"
+                                },
+                                "principal": "apigateway.amazonaws.com",
+                                "sourceArn": {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "arn:aws:execute-api:us-east-1:851725386264:",
+                                      {
+                                        "Ref": "SportShopApi726D720F"
+                                      },
+                                      "/",
+                                      {
+                                        "Ref": "SportShopApiDeploymentStageprod4BBB6C11"
+                                      },
+                                      "/GET/cart"
+                                    ]
+                                  ]
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
+                              "version": "2.87.0"
+                            }
+                          },
+                          "ApiPermission.Test.SportShopDevApiSportShopApi52461564.GET..cart": {
+                            "id": "ApiPermission.Test.SportShopDevApiSportShopApi52461564.GET..cart",
+                            "path": "SportShop-Dev-Api/SportShopApi/Default/cart/GET/ApiPermission.Test.SportShopDevApiSportShopApi52461564.GET..cart",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                              "aws:cdk:cloudformation:props": {
+                                "action": "lambda:InvokeFunction",
+                                "functionName": {
+                                  "Fn::ImportValue": "SportShop-Dev-Compute:ExportsOutputFnGetAttGetCartLambdaFunction4D7A18BAArn05BE36E3"
+                                },
+                                "principal": "apigateway.amazonaws.com",
+                                "sourceArn": {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "arn:aws:execute-api:us-east-1:851725386264:",
+                                      {
+                                        "Ref": "SportShopApi726D720F"
+                                      },
+                                      "/test-invoke-stage/GET/cart"
+                                    ]
+                                  ]
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
+                              "version": "2.87.0"
+                            }
+                          },
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "SportShop-Dev-Api/SportShopApi/Default/cart/GET/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::ApiGateway::Method",
+                              "aws:cdk:cloudformation:props": {
+                                "httpMethod": "GET",
+                                "resourceId": {
+                                  "Ref": "SportShopApicartA0DB5176"
+                                },
+                                "restApiId": {
+                                  "Ref": "SportShopApi726D720F"
+                                },
+                                "authorizationType": "COGNITO_USER_POOLS",
+                                "authorizerId": {
+                                  "Ref": "SportShopAuthorizer93595027"
+                                },
+                                "integration": {
+                                  "type": "AWS_PROXY",
+                                  "uri": {
+                                    "Fn::Join": [
+                                      "",
+                                      [
+                                        "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/",
+                                        {
+                                          "Fn::ImportValue": "SportShop-Dev-Compute:ExportsOutputFnGetAttGetCartLambdaFunction4D7A18BAArn05BE36E3"
+                                        },
+                                        "/invocations"
+                                      ]
+                                    ]
+                                  },
+                                  "integrationHttpMethod": "POST"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_apigateway.CfnMethod",
+                              "version": "2.87.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_apigateway.Method",
+                          "version": "2.87.0"
+                        }
+                      },
+                      "POST": {
+                        "id": "POST",
+                        "path": "SportShop-Dev-Api/SportShopApi/Default/cart/POST",
+                        "children": {
+                          "ApiPermission.SportShopDevApiSportShopApi52461564.POST..cart": {
+                            "id": "ApiPermission.SportShopDevApiSportShopApi52461564.POST..cart",
+                            "path": "SportShop-Dev-Api/SportShopApi/Default/cart/POST/ApiPermission.SportShopDevApiSportShopApi52461564.POST..cart",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                              "aws:cdk:cloudformation:props": {
+                                "action": "lambda:InvokeFunction",
+                                "functionName": {
+                                  "Fn::ImportValue": "SportShop-Dev-Compute:ExportsOutputFnGetAttAddToCartLambdaFunction401C31C7Arn2E73A045"
+                                },
+                                "principal": "apigateway.amazonaws.com",
+                                "sourceArn": {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "arn:aws:execute-api:us-east-1:851725386264:",
+                                      {
+                                        "Ref": "SportShopApi726D720F"
+                                      },
+                                      "/",
+                                      {
+                                        "Ref": "SportShopApiDeploymentStageprod4BBB6C11"
+                                      },
+                                      "/POST/cart"
+                                    ]
+                                  ]
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
+                              "version": "2.87.0"
+                            }
+                          },
+                          "ApiPermission.Test.SportShopDevApiSportShopApi52461564.POST..cart": {
+                            "id": "ApiPermission.Test.SportShopDevApiSportShopApi52461564.POST..cart",
+                            "path": "SportShop-Dev-Api/SportShopApi/Default/cart/POST/ApiPermission.Test.SportShopDevApiSportShopApi52461564.POST..cart",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                              "aws:cdk:cloudformation:props": {
+                                "action": "lambda:InvokeFunction",
+                                "functionName": {
+                                  "Fn::ImportValue": "SportShop-Dev-Compute:ExportsOutputFnGetAttAddToCartLambdaFunction401C31C7Arn2E73A045"
+                                },
+                                "principal": "apigateway.amazonaws.com",
+                                "sourceArn": {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "arn:aws:execute-api:us-east-1:851725386264:",
+                                      {
+                                        "Ref": "SportShopApi726D720F"
+                                      },
+                                      "/test-invoke-stage/POST/cart"
+                                    ]
+                                  ]
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
+                              "version": "2.87.0"
+                            }
+                          },
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "SportShop-Dev-Api/SportShopApi/Default/cart/POST/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::ApiGateway::Method",
+                              "aws:cdk:cloudformation:props": {
+                                "httpMethod": "POST",
+                                "resourceId": {
+                                  "Ref": "SportShopApicartA0DB5176"
+                                },
+                                "restApiId": {
+                                  "Ref": "SportShopApi726D720F"
+                                },
+                                "authorizationType": "COGNITO_USER_POOLS",
+                                "authorizerId": {
+                                  "Ref": "SportShopAuthorizer93595027"
+                                },
+                                "integration": {
+                                  "type": "AWS_PROXY",
+                                  "uri": {
+                                    "Fn::Join": [
+                                      "",
+                                      [
+                                        "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/",
+                                        {
+                                          "Fn::ImportValue": "SportShop-Dev-Compute:ExportsOutputFnGetAttAddToCartLambdaFunction401C31C7Arn2E73A045"
+                                        },
+                                        "/invocations"
+                                      ]
+                                    ]
+                                  },
+                                  "integrationHttpMethod": "POST"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_apigateway.CfnMethod",
+                              "version": "2.87.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_apigateway.Method",
+                          "version": "2.87.0"
+                        }
+                      },
+                      "{productId}": {
+                        "id": "{productId}",
+                        "path": "SportShop-Dev-Api/SportShopApi/Default/cart/{productId}",
+                        "children": {
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "SportShop-Dev-Api/SportShopApi/Default/cart/{productId}/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::ApiGateway::Resource",
+                              "aws:cdk:cloudformation:props": {
+                                "parentId": {
+                                  "Ref": "SportShopApicartA0DB5176"
+                                },
+                                "pathPart": "{productId}",
+                                "restApiId": {
+                                  "Ref": "SportShopApi726D720F"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_apigateway.CfnResource",
+                              "version": "2.87.0"
+                            }
+                          },
+                          "OPTIONS": {
+                            "id": "OPTIONS",
+                            "path": "SportShop-Dev-Api/SportShopApi/Default/cart/{productId}/OPTIONS",
+                            "children": {
+                              "Resource": {
+                                "id": "Resource",
+                                "path": "SportShop-Dev-Api/SportShopApi/Default/cart/{productId}/OPTIONS/Resource",
+                                "attributes": {
+                                  "aws:cdk:cloudformation:type": "AWS::ApiGateway::Method",
+                                  "aws:cdk:cloudformation:props": {
+                                    "httpMethod": "OPTIONS",
+                                    "resourceId": {
+                                      "Ref": "SportShopApicartproductId37B55253"
+                                    },
+                                    "restApiId": {
+                                      "Ref": "SportShopApi726D720F"
+                                    },
+                                    "apiKeyRequired": false,
+                                    "authorizationType": "NONE",
+                                    "integration": {
+                                      "type": "MOCK",
+                                      "requestTemplates": {
+                                        "application/json": "{ statusCode: 200 }"
+                                      },
+                                      "integrationResponses": [
+                                        {
+                                          "statusCode": "204",
+                                          "responseParameters": {
+                                            "method.response.header.Access-Control-Allow-Headers": "'Content-Type,Authorization'",
+                                            "method.response.header.Access-Control-Allow-Origin": "'*'",
+                                            "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET,PUT,POST,DELETE,PATCH,HEAD'"
+                                          }
+                                        }
+                                      ]
+                                    },
+                                    "methodResponses": [
+                                      {
+                                        "statusCode": "204",
+                                        "responseParameters": {
+                                          "method.response.header.Access-Control-Allow-Headers": true,
+                                          "method.response.header.Access-Control-Allow-Origin": true,
+                                          "method.response.header.Access-Control-Allow-Methods": true
+                                        }
+                                      }
+                                    ]
+                                  }
+                                },
+                                "constructInfo": {
+                                  "fqn": "aws-cdk-lib.aws_apigateway.CfnMethod",
+                                  "version": "2.87.0"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_apigateway.Method",
+                              "version": "2.87.0"
+                            }
+                          },
+                          "DELETE": {
+                            "id": "DELETE",
+                            "path": "SportShop-Dev-Api/SportShopApi/Default/cart/{productId}/DELETE",
+                            "children": {
+                              "ApiPermission.SportShopDevApiSportShopApi52461564.DELETE..cart.{productId}": {
+                                "id": "ApiPermission.SportShopDevApiSportShopApi52461564.DELETE..cart.{productId}",
+                                "path": "SportShop-Dev-Api/SportShopApi/Default/cart/{productId}/DELETE/ApiPermission.SportShopDevApiSportShopApi52461564.DELETE..cart.{productId}",
+                                "attributes": {
+                                  "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                                  "aws:cdk:cloudformation:props": {
+                                    "action": "lambda:InvokeFunction",
+                                    "functionName": {
+                                      "Fn::ImportValue": "SportShop-Dev-Compute:ExportsOutputFnGetAttRemoveFromCartLambdaFunction5671D9F5Arn4B75A74A"
+                                    },
+                                    "principal": "apigateway.amazonaws.com",
+                                    "sourceArn": {
+                                      "Fn::Join": [
+                                        "",
+                                        [
+                                          "arn:aws:execute-api:us-east-1:851725386264:",
+                                          {
+                                            "Ref": "SportShopApi726D720F"
+                                          },
+                                          "/",
+                                          {
+                                            "Ref": "SportShopApiDeploymentStageprod4BBB6C11"
+                                          },
+                                          "/DELETE/cart/*"
+                                        ]
+                                      ]
+                                    }
+                                  }
+                                },
+                                "constructInfo": {
+                                  "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
+                                  "version": "2.87.0"
+                                }
+                              },
+                              "ApiPermission.Test.SportShopDevApiSportShopApi52461564.DELETE..cart.{productId}": {
+                                "id": "ApiPermission.Test.SportShopDevApiSportShopApi52461564.DELETE..cart.{productId}",
+                                "path": "SportShop-Dev-Api/SportShopApi/Default/cart/{productId}/DELETE/ApiPermission.Test.SportShopDevApiSportShopApi52461564.DELETE..cart.{productId}",
+                                "attributes": {
+                                  "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                                  "aws:cdk:cloudformation:props": {
+                                    "action": "lambda:InvokeFunction",
+                                    "functionName": {
+                                      "Fn::ImportValue": "SportShop-Dev-Compute:ExportsOutputFnGetAttRemoveFromCartLambdaFunction5671D9F5Arn4B75A74A"
+                                    },
+                                    "principal": "apigateway.amazonaws.com",
+                                    "sourceArn": {
+                                      "Fn::Join": [
+                                        "",
+                                        [
+                                          "arn:aws:execute-api:us-east-1:851725386264:",
+                                          {
+                                            "Ref": "SportShopApi726D720F"
+                                          },
+                                          "/test-invoke-stage/DELETE/cart/*"
+                                        ]
+                                      ]
+                                    }
+                                  }
+                                },
+                                "constructInfo": {
+                                  "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
+                                  "version": "2.87.0"
+                                }
+                              },
+                              "Resource": {
+                                "id": "Resource",
+                                "path": "SportShop-Dev-Api/SportShopApi/Default/cart/{productId}/DELETE/Resource",
+                                "attributes": {
+                                  "aws:cdk:cloudformation:type": "AWS::ApiGateway::Method",
+                                  "aws:cdk:cloudformation:props": {
+                                    "httpMethod": "DELETE",
+                                    "resourceId": {
+                                      "Ref": "SportShopApicartproductId37B55253"
+                                    },
+                                    "restApiId": {
+                                      "Ref": "SportShopApi726D720F"
+                                    },
+                                    "authorizationType": "COGNITO_USER_POOLS",
+                                    "authorizerId": {
+                                      "Ref": "SportShopAuthorizer93595027"
+                                    },
+                                    "integration": {
+                                      "type": "AWS_PROXY",
+                                      "uri": {
+                                        "Fn::Join": [
+                                          "",
+                                          [
+                                            "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/",
+                                            {
+                                              "Fn::ImportValue": "SportShop-Dev-Compute:ExportsOutputFnGetAttRemoveFromCartLambdaFunction5671D9F5Arn4B75A74A"
+                                            },
+                                            "/invocations"
+                                          ]
+                                        ]
+                                      },
+                                      "integrationHttpMethod": "POST"
+                                    }
+                                  }
+                                },
+                                "constructInfo": {
+                                  "fqn": "aws-cdk-lib.aws_apigateway.CfnMethod",
+                                  "version": "2.87.0"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_apigateway.Method",
+                              "version": "2.87.0"
+                            }
+                          },
+                          "PUT": {
+                            "id": "PUT",
+                            "path": "SportShop-Dev-Api/SportShopApi/Default/cart/{productId}/PUT",
+                            "children": {
+                              "ApiPermission.SportShopDevApiSportShopApi52461564.PUT..cart.{productId}": {
+                                "id": "ApiPermission.SportShopDevApiSportShopApi52461564.PUT..cart.{productId}",
+                                "path": "SportShop-Dev-Api/SportShopApi/Default/cart/{productId}/PUT/ApiPermission.SportShopDevApiSportShopApi52461564.PUT..cart.{productId}",
+                                "attributes": {
+                                  "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                                  "aws:cdk:cloudformation:props": {
+                                    "action": "lambda:InvokeFunction",
+                                    "functionName": {
+                                      "Fn::ImportValue": "SportShop-Dev-Compute:ExportsOutputFnGetAttUpdateCartQuantityLambdaFunctionB9C1A43AArn4255E0F2"
+                                    },
+                                    "principal": "apigateway.amazonaws.com",
+                                    "sourceArn": {
+                                      "Fn::Join": [
+                                        "",
+                                        [
+                                          "arn:aws:execute-api:us-east-1:851725386264:",
+                                          {
+                                            "Ref": "SportShopApi726D720F"
+                                          },
+                                          "/",
+                                          {
+                                            "Ref": "SportShopApiDeploymentStageprod4BBB6C11"
+                                          },
+                                          "/PUT/cart/*"
+                                        ]
+                                      ]
+                                    }
+                                  }
+                                },
+                                "constructInfo": {
+                                  "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
+                                  "version": "2.87.0"
+                                }
+                              },
+                              "ApiPermission.Test.SportShopDevApiSportShopApi52461564.PUT..cart.{productId}": {
+                                "id": "ApiPermission.Test.SportShopDevApiSportShopApi52461564.PUT..cart.{productId}",
+                                "path": "SportShop-Dev-Api/SportShopApi/Default/cart/{productId}/PUT/ApiPermission.Test.SportShopDevApiSportShopApi52461564.PUT..cart.{productId}",
+                                "attributes": {
+                                  "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                                  "aws:cdk:cloudformation:props": {
+                                    "action": "lambda:InvokeFunction",
+                                    "functionName": {
+                                      "Fn::ImportValue": "SportShop-Dev-Compute:ExportsOutputFnGetAttUpdateCartQuantityLambdaFunctionB9C1A43AArn4255E0F2"
+                                    },
+                                    "principal": "apigateway.amazonaws.com",
+                                    "sourceArn": {
+                                      "Fn::Join": [
+                                        "",
+                                        [
+                                          "arn:aws:execute-api:us-east-1:851725386264:",
+                                          {
+                                            "Ref": "SportShopApi726D720F"
+                                          },
+                                          "/test-invoke-stage/PUT/cart/*"
+                                        ]
+                                      ]
+                                    }
+                                  }
+                                },
+                                "constructInfo": {
+                                  "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
+                                  "version": "2.87.0"
+                                }
+                              },
+                              "Resource": {
+                                "id": "Resource",
+                                "path": "SportShop-Dev-Api/SportShopApi/Default/cart/{productId}/PUT/Resource",
+                                "attributes": {
+                                  "aws:cdk:cloudformation:type": "AWS::ApiGateway::Method",
+                                  "aws:cdk:cloudformation:props": {
+                                    "httpMethod": "PUT",
+                                    "resourceId": {
+                                      "Ref": "SportShopApicartproductId37B55253"
+                                    },
+                                    "restApiId": {
+                                      "Ref": "SportShopApi726D720F"
+                                    },
+                                    "authorizationType": "COGNITO_USER_POOLS",
+                                    "authorizerId": {
+                                      "Ref": "SportShopAuthorizer93595027"
+                                    },
+                                    "integration": {
+                                      "type": "AWS_PROXY",
+                                      "uri": {
+                                        "Fn::Join": [
+                                          "",
+                                          [
+                                            "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/",
+                                            {
+                                              "Fn::ImportValue": "SportShop-Dev-Compute:ExportsOutputFnGetAttUpdateCartQuantityLambdaFunctionB9C1A43AArn4255E0F2"
+                                            },
+                                            "/invocations"
+                                          ]
+                                        ]
+                                      },
+                                      "integrationHttpMethod": "POST"
+                                    }
+                                  }
+                                },
+                                "constructInfo": {
+                                  "fqn": "aws-cdk-lib.aws_apigateway.CfnMethod",
+                                  "version": "2.87.0"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_apigateway.Method",
+                              "version": "2.87.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_apigateway.Resource",
+                          "version": "2.87.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_apigateway.Resource",
+                      "version": "2.87.0"
+                    }
+                  },
+                  "orders": {
+                    "id": "orders",
+                    "path": "SportShop-Dev-Api/SportShopApi/Default/orders",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "SportShop-Dev-Api/SportShopApi/Default/orders/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::ApiGateway::Resource",
+                          "aws:cdk:cloudformation:props": {
+                            "parentId": {
+                              "Fn::GetAtt": [
+                                "SportShopApi726D720F",
+                                "RootResourceId"
+                              ]
+                            },
+                            "pathPart": "orders",
+                            "restApiId": {
+                              "Ref": "SportShopApi726D720F"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_apigateway.CfnResource",
+                          "version": "2.87.0"
+                        }
+                      },
+                      "OPTIONS": {
+                        "id": "OPTIONS",
+                        "path": "SportShop-Dev-Api/SportShopApi/Default/orders/OPTIONS",
+                        "children": {
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "SportShop-Dev-Api/SportShopApi/Default/orders/OPTIONS/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::ApiGateway::Method",
+                              "aws:cdk:cloudformation:props": {
+                                "httpMethod": "OPTIONS",
+                                "resourceId": {
+                                  "Ref": "SportShopApiorders4348BC17"
+                                },
+                                "restApiId": {
+                                  "Ref": "SportShopApi726D720F"
+                                },
+                                "apiKeyRequired": false,
+                                "authorizationType": "NONE",
+                                "integration": {
+                                  "type": "MOCK",
+                                  "requestTemplates": {
+                                    "application/json": "{ statusCode: 200 }"
+                                  },
+                                  "integrationResponses": [
+                                    {
+                                      "statusCode": "204",
+                                      "responseParameters": {
+                                        "method.response.header.Access-Control-Allow-Headers": "'Content-Type,Authorization'",
+                                        "method.response.header.Access-Control-Allow-Origin": "'*'",
+                                        "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET,PUT,POST,DELETE,PATCH,HEAD'"
+                                      }
+                                    }
+                                  ]
+                                },
+                                "methodResponses": [
+                                  {
+                                    "statusCode": "204",
+                                    "responseParameters": {
+                                      "method.response.header.Access-Control-Allow-Headers": true,
+                                      "method.response.header.Access-Control-Allow-Origin": true,
+                                      "method.response.header.Access-Control-Allow-Methods": true
+                                    }
+                                  }
+                                ]
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_apigateway.CfnMethod",
+                              "version": "2.87.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_apigateway.Method",
+                          "version": "2.87.0"
+                        }
+                      },
+                      "POST": {
+                        "id": "POST",
+                        "path": "SportShop-Dev-Api/SportShopApi/Default/orders/POST",
+                        "children": {
+                          "ApiPermission.SportShopDevApiSportShopApi52461564.POST..orders": {
+                            "id": "ApiPermission.SportShopDevApiSportShopApi52461564.POST..orders",
+                            "path": "SportShop-Dev-Api/SportShopApi/Default/orders/POST/ApiPermission.SportShopDevApiSportShopApi52461564.POST..orders",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                              "aws:cdk:cloudformation:props": {
+                                "action": "lambda:InvokeFunction",
+                                "functionName": {
+                                  "Fn::ImportValue": "SportShop-Dev-Compute:ExportsOutputFnGetAttCreateOrderLambdaFunction7F06CA72Arn7EF40EBA"
+                                },
+                                "principal": "apigateway.amazonaws.com",
+                                "sourceArn": {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "arn:aws:execute-api:us-east-1:851725386264:",
+                                      {
+                                        "Ref": "SportShopApi726D720F"
+                                      },
+                                      "/",
+                                      {
+                                        "Ref": "SportShopApiDeploymentStageprod4BBB6C11"
+                                      },
+                                      "/POST/orders"
+                                    ]
+                                  ]
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
+                              "version": "2.87.0"
+                            }
+                          },
+                          "ApiPermission.Test.SportShopDevApiSportShopApi52461564.POST..orders": {
+                            "id": "ApiPermission.Test.SportShopDevApiSportShopApi52461564.POST..orders",
+                            "path": "SportShop-Dev-Api/SportShopApi/Default/orders/POST/ApiPermission.Test.SportShopDevApiSportShopApi52461564.POST..orders",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                              "aws:cdk:cloudformation:props": {
+                                "action": "lambda:InvokeFunction",
+                                "functionName": {
+                                  "Fn::ImportValue": "SportShop-Dev-Compute:ExportsOutputFnGetAttCreateOrderLambdaFunction7F06CA72Arn7EF40EBA"
+                                },
+                                "principal": "apigateway.amazonaws.com",
+                                "sourceArn": {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "arn:aws:execute-api:us-east-1:851725386264:",
+                                      {
+                                        "Ref": "SportShopApi726D720F"
+                                      },
+                                      "/test-invoke-stage/POST/orders"
+                                    ]
+                                  ]
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
+                              "version": "2.87.0"
+                            }
+                          },
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "SportShop-Dev-Api/SportShopApi/Default/orders/POST/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::ApiGateway::Method",
+                              "aws:cdk:cloudformation:props": {
+                                "httpMethod": "POST",
+                                "resourceId": {
+                                  "Ref": "SportShopApiorders4348BC17"
+                                },
+                                "restApiId": {
+                                  "Ref": "SportShopApi726D720F"
+                                },
+                                "authorizationType": "COGNITO_USER_POOLS",
+                                "authorizerId": {
+                                  "Ref": "SportShopAuthorizer93595027"
+                                },
+                                "integration": {
+                                  "type": "AWS_PROXY",
+                                  "uri": {
+                                    "Fn::Join": [
+                                      "",
+                                      [
+                                        "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/",
+                                        {
+                                          "Fn::ImportValue": "SportShop-Dev-Compute:ExportsOutputFnGetAttCreateOrderLambdaFunction7F06CA72Arn7EF40EBA"
+                                        },
+                                        "/invocations"
+                                      ]
+                                    ]
+                                  },
+                                  "integrationHttpMethod": "POST"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_apigateway.CfnMethod",
+                              "version": "2.87.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_apigateway.Method",
+                          "version": "2.87.0"
+                        }
+                      },
+                      "GET": {
+                        "id": "GET",
+                        "path": "SportShop-Dev-Api/SportShopApi/Default/orders/GET",
+                        "children": {
+                          "ApiPermission.SportShopDevApiSportShopApi52461564.GET..orders": {
+                            "id": "ApiPermission.SportShopDevApiSportShopApi52461564.GET..orders",
+                            "path": "SportShop-Dev-Api/SportShopApi/Default/orders/GET/ApiPermission.SportShopDevApiSportShopApi52461564.GET..orders",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                              "aws:cdk:cloudformation:props": {
+                                "action": "lambda:InvokeFunction",
+                                "functionName": {
+                                  "Fn::ImportValue": "SportShop-Dev-Compute:ExportsOutputFnGetAttGetUserOrdersLambdaFunction4455104BArn66E7431D"
+                                },
+                                "principal": "apigateway.amazonaws.com",
+                                "sourceArn": {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "arn:aws:execute-api:us-east-1:851725386264:",
+                                      {
+                                        "Ref": "SportShopApi726D720F"
+                                      },
+                                      "/",
+                                      {
+                                        "Ref": "SportShopApiDeploymentStageprod4BBB6C11"
+                                      },
+                                      "/GET/orders"
+                                    ]
+                                  ]
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
+                              "version": "2.87.0"
+                            }
+                          },
+                          "ApiPermission.Test.SportShopDevApiSportShopApi52461564.GET..orders": {
+                            "id": "ApiPermission.Test.SportShopDevApiSportShopApi52461564.GET..orders",
+                            "path": "SportShop-Dev-Api/SportShopApi/Default/orders/GET/ApiPermission.Test.SportShopDevApiSportShopApi52461564.GET..orders",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                              "aws:cdk:cloudformation:props": {
+                                "action": "lambda:InvokeFunction",
+                                "functionName": {
+                                  "Fn::ImportValue": "SportShop-Dev-Compute:ExportsOutputFnGetAttGetUserOrdersLambdaFunction4455104BArn66E7431D"
+                                },
+                                "principal": "apigateway.amazonaws.com",
+                                "sourceArn": {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "arn:aws:execute-api:us-east-1:851725386264:",
+                                      {
+                                        "Ref": "SportShopApi726D720F"
+                                      },
+                                      "/test-invoke-stage/GET/orders"
+                                    ]
+                                  ]
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
+                              "version": "2.87.0"
+                            }
+                          },
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "SportShop-Dev-Api/SportShopApi/Default/orders/GET/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::ApiGateway::Method",
+                              "aws:cdk:cloudformation:props": {
+                                "httpMethod": "GET",
+                                "resourceId": {
+                                  "Ref": "SportShopApiorders4348BC17"
+                                },
+                                "restApiId": {
+                                  "Ref": "SportShopApi726D720F"
+                                },
+                                "authorizationType": "COGNITO_USER_POOLS",
+                                "authorizerId": {
+                                  "Ref": "SportShopAuthorizer93595027"
+                                },
+                                "integration": {
+                                  "type": "AWS_PROXY",
+                                  "uri": {
+                                    "Fn::Join": [
+                                      "",
+                                      [
+                                        "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/",
+                                        {
+                                          "Fn::ImportValue": "SportShop-Dev-Compute:ExportsOutputFnGetAttGetUserOrdersLambdaFunction4455104BArn66E7431D"
+                                        },
+                                        "/invocations"
+                                      ]
+                                    ]
+                                  },
+                                  "integrationHttpMethod": "POST"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_apigateway.CfnMethod",
+                              "version": "2.87.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_apigateway.Method",
+                          "version": "2.87.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_apigateway.Resource",
+                      "version": "2.87.0"
+                    }
+                  },
+                  "reviews": {
+                    "id": "reviews",
+                    "path": "SportShop-Dev-Api/SportShopApi/Default/reviews",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "SportShop-Dev-Api/SportShopApi/Default/reviews/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::ApiGateway::Resource",
+                          "aws:cdk:cloudformation:props": {
+                            "parentId": {
+                              "Fn::GetAtt": [
+                                "SportShopApi726D720F",
+                                "RootResourceId"
+                              ]
+                            },
+                            "pathPart": "reviews",
+                            "restApiId": {
+                              "Ref": "SportShopApi726D720F"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_apigateway.CfnResource",
+                          "version": "2.87.0"
+                        }
+                      },
+                      "OPTIONS": {
+                        "id": "OPTIONS",
+                        "path": "SportShop-Dev-Api/SportShopApi/Default/reviews/OPTIONS",
+                        "children": {
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "SportShop-Dev-Api/SportShopApi/Default/reviews/OPTIONS/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::ApiGateway::Method",
+                              "aws:cdk:cloudformation:props": {
+                                "httpMethod": "OPTIONS",
+                                "resourceId": {
+                                  "Ref": "SportShopApireviewsC8B0043E"
+                                },
+                                "restApiId": {
+                                  "Ref": "SportShopApi726D720F"
+                                },
+                                "apiKeyRequired": false,
+                                "authorizationType": "NONE",
+                                "integration": {
+                                  "type": "MOCK",
+                                  "requestTemplates": {
+                                    "application/json": "{ statusCode: 200 }"
+                                  },
+                                  "integrationResponses": [
+                                    {
+                                      "statusCode": "204",
+                                      "responseParameters": {
+                                        "method.response.header.Access-Control-Allow-Headers": "'Content-Type,Authorization'",
+                                        "method.response.header.Access-Control-Allow-Origin": "'*'",
+                                        "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET,PUT,POST,DELETE,PATCH,HEAD'"
+                                      }
+                                    }
+                                  ]
+                                },
+                                "methodResponses": [
+                                  {
+                                    "statusCode": "204",
+                                    "responseParameters": {
+                                      "method.response.header.Access-Control-Allow-Headers": true,
+                                      "method.response.header.Access-Control-Allow-Origin": true,
+                                      "method.response.header.Access-Control-Allow-Methods": true
+                                    }
+                                  }
+                                ]
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_apigateway.CfnMethod",
+                              "version": "2.87.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_apigateway.Method",
+                          "version": "2.87.0"
+                        }
+                      },
+                      "POST": {
+                        "id": "POST",
+                        "path": "SportShop-Dev-Api/SportShopApi/Default/reviews/POST",
+                        "children": {
+                          "ApiPermission.SportShopDevApiSportShopApi52461564.POST..reviews": {
+                            "id": "ApiPermission.SportShopDevApiSportShopApi52461564.POST..reviews",
+                            "path": "SportShop-Dev-Api/SportShopApi/Default/reviews/POST/ApiPermission.SportShopDevApiSportShopApi52461564.POST..reviews",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                              "aws:cdk:cloudformation:props": {
+                                "action": "lambda:InvokeFunction",
+                                "functionName": {
+                                  "Fn::ImportValue": "SportShop-Dev-Compute:ExportsOutputFnGetAttCreateReviewLambdaFunctionDF87334EArnD78F1675"
+                                },
+                                "principal": "apigateway.amazonaws.com",
+                                "sourceArn": {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "arn:aws:execute-api:us-east-1:851725386264:",
+                                      {
+                                        "Ref": "SportShopApi726D720F"
+                                      },
+                                      "/",
+                                      {
+                                        "Ref": "SportShopApiDeploymentStageprod4BBB6C11"
+                                      },
+                                      "/POST/reviews"
+                                    ]
+                                  ]
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
+                              "version": "2.87.0"
+                            }
+                          },
+                          "ApiPermission.Test.SportShopDevApiSportShopApi52461564.POST..reviews": {
+                            "id": "ApiPermission.Test.SportShopDevApiSportShopApi52461564.POST..reviews",
+                            "path": "SportShop-Dev-Api/SportShopApi/Default/reviews/POST/ApiPermission.Test.SportShopDevApiSportShopApi52461564.POST..reviews",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                              "aws:cdk:cloudformation:props": {
+                                "action": "lambda:InvokeFunction",
+                                "functionName": {
+                                  "Fn::ImportValue": "SportShop-Dev-Compute:ExportsOutputFnGetAttCreateReviewLambdaFunctionDF87334EArnD78F1675"
+                                },
+                                "principal": "apigateway.amazonaws.com",
+                                "sourceArn": {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "arn:aws:execute-api:us-east-1:851725386264:",
+                                      {
+                                        "Ref": "SportShopApi726D720F"
+                                      },
+                                      "/test-invoke-stage/POST/reviews"
+                                    ]
+                                  ]
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
+                              "version": "2.87.0"
+                            }
+                          },
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "SportShop-Dev-Api/SportShopApi/Default/reviews/POST/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::ApiGateway::Method",
+                              "aws:cdk:cloudformation:props": {
+                                "httpMethod": "POST",
+                                "resourceId": {
+                                  "Ref": "SportShopApireviewsC8B0043E"
+                                },
+                                "restApiId": {
+                                  "Ref": "SportShopApi726D720F"
+                                },
+                                "authorizationType": "COGNITO_USER_POOLS",
+                                "authorizerId": {
+                                  "Ref": "SportShopAuthorizer93595027"
+                                },
+                                "integration": {
+                                  "type": "AWS_PROXY",
+                                  "uri": {
+                                    "Fn::Join": [
+                                      "",
+                                      [
+                                        "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/",
+                                        {
+                                          "Fn::ImportValue": "SportShop-Dev-Compute:ExportsOutputFnGetAttCreateReviewLambdaFunctionDF87334EArnD78F1675"
+                                        },
+                                        "/invocations"
+                                      ]
+                                    ]
+                                  },
+                                  "integrationHttpMethod": "POST"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_apigateway.CfnMethod",
+                              "version": "2.87.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_apigateway.Method",
+                          "version": "2.87.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_apigateway.Resource",
+                      "version": "2.87.0"
+                    }
+                  },
+                  "admin": {
+                    "id": "admin",
+                    "path": "SportShop-Dev-Api/SportShopApi/Default/admin",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "SportShop-Dev-Api/SportShopApi/Default/admin/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::ApiGateway::Resource",
+                          "aws:cdk:cloudformation:props": {
+                            "parentId": {
+                              "Fn::GetAtt": [
+                                "SportShopApi726D720F",
+                                "RootResourceId"
+                              ]
+                            },
+                            "pathPart": "admin",
+                            "restApiId": {
+                              "Ref": "SportShopApi726D720F"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_apigateway.CfnResource",
+                          "version": "2.87.0"
+                        }
+                      },
+                      "OPTIONS": {
+                        "id": "OPTIONS",
+                        "path": "SportShop-Dev-Api/SportShopApi/Default/admin/OPTIONS",
+                        "children": {
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "SportShop-Dev-Api/SportShopApi/Default/admin/OPTIONS/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::ApiGateway::Method",
+                              "aws:cdk:cloudformation:props": {
+                                "httpMethod": "OPTIONS",
+                                "resourceId": {
+                                  "Ref": "SportShopApiadmin07504614"
+                                },
+                                "restApiId": {
+                                  "Ref": "SportShopApi726D720F"
+                                },
+                                "apiKeyRequired": false,
+                                "authorizationType": "NONE",
+                                "integration": {
+                                  "type": "MOCK",
+                                  "requestTemplates": {
+                                    "application/json": "{ statusCode: 200 }"
+                                  },
+                                  "integrationResponses": [
+                                    {
+                                      "statusCode": "204",
+                                      "responseParameters": {
+                                        "method.response.header.Access-Control-Allow-Headers": "'Content-Type,Authorization'",
+                                        "method.response.header.Access-Control-Allow-Origin": "'*'",
+                                        "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET,PUT,POST,DELETE,PATCH,HEAD'"
+                                      }
+                                    }
+                                  ]
+                                },
+                                "methodResponses": [
+                                  {
+                                    "statusCode": "204",
+                                    "responseParameters": {
+                                      "method.response.header.Access-Control-Allow-Headers": true,
+                                      "method.response.header.Access-Control-Allow-Origin": true,
+                                      "method.response.header.Access-Control-Allow-Methods": true
+                                    }
+                                  }
+                                ]
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_apigateway.CfnMethod",
+                              "version": "2.87.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_apigateway.Method",
+                          "version": "2.87.0"
+                        }
+                      },
+                      "products": {
+                        "id": "products",
+                        "path": "SportShop-Dev-Api/SportShopApi/Default/admin/products",
+                        "children": {
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "SportShop-Dev-Api/SportShopApi/Default/admin/products/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::ApiGateway::Resource",
+                              "aws:cdk:cloudformation:props": {
+                                "parentId": {
+                                  "Ref": "SportShopApiadmin07504614"
+                                },
+                                "pathPart": "products",
+                                "restApiId": {
+                                  "Ref": "SportShopApi726D720F"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_apigateway.CfnResource",
+                              "version": "2.87.0"
+                            }
+                          },
+                          "OPTIONS": {
+                            "id": "OPTIONS",
+                            "path": "SportShop-Dev-Api/SportShopApi/Default/admin/products/OPTIONS",
+                            "children": {
+                              "Resource": {
+                                "id": "Resource",
+                                "path": "SportShop-Dev-Api/SportShopApi/Default/admin/products/OPTIONS/Resource",
+                                "attributes": {
+                                  "aws:cdk:cloudformation:type": "AWS::ApiGateway::Method",
+                                  "aws:cdk:cloudformation:props": {
+                                    "httpMethod": "OPTIONS",
+                                    "resourceId": {
+                                      "Ref": "SportShopApiadminproducts647651E0"
+                                    },
+                                    "restApiId": {
+                                      "Ref": "SportShopApi726D720F"
+                                    },
+                                    "apiKeyRequired": false,
+                                    "authorizationType": "NONE",
+                                    "integration": {
+                                      "type": "MOCK",
+                                      "requestTemplates": {
+                                        "application/json": "{ statusCode: 200 }"
+                                      },
+                                      "integrationResponses": [
+                                        {
+                                          "statusCode": "204",
+                                          "responseParameters": {
+                                            "method.response.header.Access-Control-Allow-Headers": "'Content-Type,Authorization'",
+                                            "method.response.header.Access-Control-Allow-Origin": "'*'",
+                                            "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET,PUT,POST,DELETE,PATCH,HEAD'"
+                                          }
+                                        }
+                                      ]
+                                    },
+                                    "methodResponses": [
+                                      {
+                                        "statusCode": "204",
+                                        "responseParameters": {
+                                          "method.response.header.Access-Control-Allow-Headers": true,
+                                          "method.response.header.Access-Control-Allow-Origin": true,
+                                          "method.response.header.Access-Control-Allow-Methods": true
+                                        }
+                                      }
+                                    ]
+                                  }
+                                },
+                                "constructInfo": {
+                                  "fqn": "aws-cdk-lib.aws_apigateway.CfnMethod",
+                                  "version": "2.87.0"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_apigateway.Method",
+                              "version": "2.87.0"
+                            }
+                          },
+                          "POST": {
+                            "id": "POST",
+                            "path": "SportShop-Dev-Api/SportShopApi/Default/admin/products/POST",
+                            "children": {
+                              "ApiPermission.SportShopDevApiSportShopApi52461564.POST..admin.products": {
+                                "id": "ApiPermission.SportShopDevApiSportShopApi52461564.POST..admin.products",
+                                "path": "SportShop-Dev-Api/SportShopApi/Default/admin/products/POST/ApiPermission.SportShopDevApiSportShopApi52461564.POST..admin.products",
+                                "attributes": {
+                                  "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                                  "aws:cdk:cloudformation:props": {
+                                    "action": "lambda:InvokeFunction",
+                                    "functionName": {
+                                      "Fn::ImportValue": "SportShop-Dev-Compute:ExportsOutputFnGetAttCreateProductLambdaFunction69450C53Arn0AFFF14F"
+                                    },
+                                    "principal": "apigateway.amazonaws.com",
+                                    "sourceArn": {
+                                      "Fn::Join": [
+                                        "",
+                                        [
+                                          "arn:aws:execute-api:us-east-1:851725386264:",
+                                          {
+                                            "Ref": "SportShopApi726D720F"
+                                          },
+                                          "/",
+                                          {
+                                            "Ref": "SportShopApiDeploymentStageprod4BBB6C11"
+                                          },
+                                          "/POST/admin/products"
+                                        ]
+                                      ]
+                                    }
+                                  }
+                                },
+                                "constructInfo": {
+                                  "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
+                                  "version": "2.87.0"
+                                }
+                              },
+                              "ApiPermission.Test.SportShopDevApiSportShopApi52461564.POST..admin.products": {
+                                "id": "ApiPermission.Test.SportShopDevApiSportShopApi52461564.POST..admin.products",
+                                "path": "SportShop-Dev-Api/SportShopApi/Default/admin/products/POST/ApiPermission.Test.SportShopDevApiSportShopApi52461564.POST..admin.products",
+                                "attributes": {
+                                  "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                                  "aws:cdk:cloudformation:props": {
+                                    "action": "lambda:InvokeFunction",
+                                    "functionName": {
+                                      "Fn::ImportValue": "SportShop-Dev-Compute:ExportsOutputFnGetAttCreateProductLambdaFunction69450C53Arn0AFFF14F"
+                                    },
+                                    "principal": "apigateway.amazonaws.com",
+                                    "sourceArn": {
+                                      "Fn::Join": [
+                                        "",
+                                        [
+                                          "arn:aws:execute-api:us-east-1:851725386264:",
+                                          {
+                                            "Ref": "SportShopApi726D720F"
+                                          },
+                                          "/test-invoke-stage/POST/admin/products"
+                                        ]
+                                      ]
+                                    }
+                                  }
+                                },
+                                "constructInfo": {
+                                  "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
+                                  "version": "2.87.0"
+                                }
+                              },
+                              "Resource": {
+                                "id": "Resource",
+                                "path": "SportShop-Dev-Api/SportShopApi/Default/admin/products/POST/Resource",
+                                "attributes": {
+                                  "aws:cdk:cloudformation:type": "AWS::ApiGateway::Method",
+                                  "aws:cdk:cloudformation:props": {
+                                    "httpMethod": "POST",
+                                    "resourceId": {
+                                      "Ref": "SportShopApiadminproducts647651E0"
+                                    },
+                                    "restApiId": {
+                                      "Ref": "SportShopApi726D720F"
+                                    },
+                                    "authorizationType": "COGNITO_USER_POOLS",
+                                    "authorizerId": {
+                                      "Ref": "SportShopAuthorizer93595027"
+                                    },
+                                    "integration": {
+                                      "type": "AWS_PROXY",
+                                      "uri": {
+                                        "Fn::Join": [
+                                          "",
+                                          [
+                                            "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/",
+                                            {
+                                              "Fn::ImportValue": "SportShop-Dev-Compute:ExportsOutputFnGetAttCreateProductLambdaFunction69450C53Arn0AFFF14F"
+                                            },
+                                            "/invocations"
+                                          ]
+                                        ]
+                                      },
+                                      "integrationHttpMethod": "POST"
+                                    }
+                                  }
+                                },
+                                "constructInfo": {
+                                  "fqn": "aws-cdk-lib.aws_apigateway.CfnMethod",
+                                  "version": "2.87.0"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_apigateway.Method",
+                              "version": "2.87.0"
+                            }
+                          },
+                          "{id}": {
+                            "id": "{id}",
+                            "path": "SportShop-Dev-Api/SportShopApi/Default/admin/products/{id}",
+                            "children": {
+                              "Resource": {
+                                "id": "Resource",
+                                "path": "SportShop-Dev-Api/SportShopApi/Default/admin/products/{id}/Resource",
+                                "attributes": {
+                                  "aws:cdk:cloudformation:type": "AWS::ApiGateway::Resource",
+                                  "aws:cdk:cloudformation:props": {
+                                    "parentId": {
+                                      "Ref": "SportShopApiadminproducts647651E0"
+                                    },
+                                    "pathPart": "{id}",
+                                    "restApiId": {
+                                      "Ref": "SportShopApi726D720F"
+                                    }
+                                  }
+                                },
+                                "constructInfo": {
+                                  "fqn": "aws-cdk-lib.aws_apigateway.CfnResource",
+                                  "version": "2.87.0"
+                                }
+                              },
+                              "OPTIONS": {
+                                "id": "OPTIONS",
+                                "path": "SportShop-Dev-Api/SportShopApi/Default/admin/products/{id}/OPTIONS",
+                                "children": {
+                                  "Resource": {
+                                    "id": "Resource",
+                                    "path": "SportShop-Dev-Api/SportShopApi/Default/admin/products/{id}/OPTIONS/Resource",
+                                    "attributes": {
+                                      "aws:cdk:cloudformation:type": "AWS::ApiGateway::Method",
+                                      "aws:cdk:cloudformation:props": {
+                                        "httpMethod": "OPTIONS",
+                                        "resourceId": {
+                                          "Ref": "SportShopApiadminproductsid600A4E0C"
+                                        },
+                                        "restApiId": {
+                                          "Ref": "SportShopApi726D720F"
+                                        },
+                                        "apiKeyRequired": false,
+                                        "authorizationType": "NONE",
+                                        "integration": {
+                                          "type": "MOCK",
+                                          "requestTemplates": {
+                                            "application/json": "{ statusCode: 200 }"
+                                          },
+                                          "integrationResponses": [
+                                            {
+                                              "statusCode": "204",
+                                              "responseParameters": {
+                                                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,Authorization'",
+                                                "method.response.header.Access-Control-Allow-Origin": "'*'",
+                                                "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET,PUT,POST,DELETE,PATCH,HEAD'"
+                                              }
+                                            }
+                                          ]
+                                        },
+                                        "methodResponses": [
+                                          {
+                                            "statusCode": "204",
+                                            "responseParameters": {
+                                              "method.response.header.Access-Control-Allow-Headers": true,
+                                              "method.response.header.Access-Control-Allow-Origin": true,
+                                              "method.response.header.Access-Control-Allow-Methods": true
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    "constructInfo": {
+                                      "fqn": "aws-cdk-lib.aws_apigateway.CfnMethod",
+                                      "version": "2.87.0"
+                                    }
+                                  }
+                                },
+                                "constructInfo": {
+                                  "fqn": "aws-cdk-lib.aws_apigateway.Method",
+                                  "version": "2.87.0"
+                                }
+                              },
+                              "PUT": {
+                                "id": "PUT",
+                                "path": "SportShop-Dev-Api/SportShopApi/Default/admin/products/{id}/PUT",
+                                "children": {
+                                  "ApiPermission.SportShopDevApiSportShopApi52461564.PUT..admin.products.{id}": {
+                                    "id": "ApiPermission.SportShopDevApiSportShopApi52461564.PUT..admin.products.{id}",
+                                    "path": "SportShop-Dev-Api/SportShopApi/Default/admin/products/{id}/PUT/ApiPermission.SportShopDevApiSportShopApi52461564.PUT..admin.products.{id}",
+                                    "attributes": {
+                                      "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                                      "aws:cdk:cloudformation:props": {
+                                        "action": "lambda:InvokeFunction",
+                                        "functionName": {
+                                          "Fn::ImportValue": "SportShop-Dev-Compute:ExportsOutputFnGetAttUpdateProductLambdaFunction00F9A98BArn554A89D0"
+                                        },
+                                        "principal": "apigateway.amazonaws.com",
+                                        "sourceArn": {
+                                          "Fn::Join": [
+                                            "",
+                                            [
+                                              "arn:aws:execute-api:us-east-1:851725386264:",
+                                              {
+                                                "Ref": "SportShopApi726D720F"
+                                              },
+                                              "/",
+                                              {
+                                                "Ref": "SportShopApiDeploymentStageprod4BBB6C11"
+                                              },
+                                              "/PUT/admin/products/*"
+                                            ]
+                                          ]
+                                        }
+                                      }
+                                    },
+                                    "constructInfo": {
+                                      "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
+                                      "version": "2.87.0"
+                                    }
+                                  },
+                                  "ApiPermission.Test.SportShopDevApiSportShopApi52461564.PUT..admin.products.{id}": {
+                                    "id": "ApiPermission.Test.SportShopDevApiSportShopApi52461564.PUT..admin.products.{id}",
+                                    "path": "SportShop-Dev-Api/SportShopApi/Default/admin/products/{id}/PUT/ApiPermission.Test.SportShopDevApiSportShopApi52461564.PUT..admin.products.{id}",
+                                    "attributes": {
+                                      "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                                      "aws:cdk:cloudformation:props": {
+                                        "action": "lambda:InvokeFunction",
+                                        "functionName": {
+                                          "Fn::ImportValue": "SportShop-Dev-Compute:ExportsOutputFnGetAttUpdateProductLambdaFunction00F9A98BArn554A89D0"
+                                        },
+                                        "principal": "apigateway.amazonaws.com",
+                                        "sourceArn": {
+                                          "Fn::Join": [
+                                            "",
+                                            [
+                                              "arn:aws:execute-api:us-east-1:851725386264:",
+                                              {
+                                                "Ref": "SportShopApi726D720F"
+                                              },
+                                              "/test-invoke-stage/PUT/admin/products/*"
+                                            ]
+                                          ]
+                                        }
+                                      }
+                                    },
+                                    "constructInfo": {
+                                      "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
+                                      "version": "2.87.0"
+                                    }
+                                  },
+                                  "Resource": {
+                                    "id": "Resource",
+                                    "path": "SportShop-Dev-Api/SportShopApi/Default/admin/products/{id}/PUT/Resource",
+                                    "attributes": {
+                                      "aws:cdk:cloudformation:type": "AWS::ApiGateway::Method",
+                                      "aws:cdk:cloudformation:props": {
+                                        "httpMethod": "PUT",
+                                        "resourceId": {
+                                          "Ref": "SportShopApiadminproductsid600A4E0C"
+                                        },
+                                        "restApiId": {
+                                          "Ref": "SportShopApi726D720F"
+                                        },
+                                        "authorizationType": "COGNITO_USER_POOLS",
+                                        "authorizerId": {
+                                          "Ref": "SportShopAuthorizer93595027"
+                                        },
+                                        "integration": {
+                                          "type": "AWS_PROXY",
+                                          "uri": {
+                                            "Fn::Join": [
+                                              "",
+                                              [
+                                                "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/",
+                                                {
+                                                  "Fn::ImportValue": "SportShop-Dev-Compute:ExportsOutputFnGetAttUpdateProductLambdaFunction00F9A98BArn554A89D0"
+                                                },
+                                                "/invocations"
+                                              ]
+                                            ]
+                                          },
+                                          "integrationHttpMethod": "POST"
+                                        }
+                                      }
+                                    },
+                                    "constructInfo": {
+                                      "fqn": "aws-cdk-lib.aws_apigateway.CfnMethod",
+                                      "version": "2.87.0"
+                                    }
+                                  }
+                                },
+                                "constructInfo": {
+                                  "fqn": "aws-cdk-lib.aws_apigateway.Method",
+                                  "version": "2.87.0"
+                                }
+                              },
+                              "DELETE": {
+                                "id": "DELETE",
+                                "path": "SportShop-Dev-Api/SportShopApi/Default/admin/products/{id}/DELETE",
+                                "children": {
+                                  "ApiPermission.SportShopDevApiSportShopApi52461564.DELETE..admin.products.{id}": {
+                                    "id": "ApiPermission.SportShopDevApiSportShopApi52461564.DELETE..admin.products.{id}",
+                                    "path": "SportShop-Dev-Api/SportShopApi/Default/admin/products/{id}/DELETE/ApiPermission.SportShopDevApiSportShopApi52461564.DELETE..admin.products.{id}",
+                                    "attributes": {
+                                      "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                                      "aws:cdk:cloudformation:props": {
+                                        "action": "lambda:InvokeFunction",
+                                        "functionName": {
+                                          "Fn::ImportValue": "SportShop-Dev-Compute:ExportsOutputFnGetAttDeleteProductLambdaFunctionBE32D759Arn33E22838"
+                                        },
+                                        "principal": "apigateway.amazonaws.com",
+                                        "sourceArn": {
+                                          "Fn::Join": [
+                                            "",
+                                            [
+                                              "arn:aws:execute-api:us-east-1:851725386264:",
+                                              {
+                                                "Ref": "SportShopApi726D720F"
+                                              },
+                                              "/",
+                                              {
+                                                "Ref": "SportShopApiDeploymentStageprod4BBB6C11"
+                                              },
+                                              "/DELETE/admin/products/*"
+                                            ]
+                                          ]
+                                        }
+                                      }
+                                    },
+                                    "constructInfo": {
+                                      "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
+                                      "version": "2.87.0"
+                                    }
+                                  },
+                                  "ApiPermission.Test.SportShopDevApiSportShopApi52461564.DELETE..admin.products.{id}": {
+                                    "id": "ApiPermission.Test.SportShopDevApiSportShopApi52461564.DELETE..admin.products.{id}",
+                                    "path": "SportShop-Dev-Api/SportShopApi/Default/admin/products/{id}/DELETE/ApiPermission.Test.SportShopDevApiSportShopApi52461564.DELETE..admin.products.{id}",
+                                    "attributes": {
+                                      "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                                      "aws:cdk:cloudformation:props": {
+                                        "action": "lambda:InvokeFunction",
+                                        "functionName": {
+                                          "Fn::ImportValue": "SportShop-Dev-Compute:ExportsOutputFnGetAttDeleteProductLambdaFunctionBE32D759Arn33E22838"
+                                        },
+                                        "principal": "apigateway.amazonaws.com",
+                                        "sourceArn": {
+                                          "Fn::Join": [
+                                            "",
+                                            [
+                                              "arn:aws:execute-api:us-east-1:851725386264:",
+                                              {
+                                                "Ref": "SportShopApi726D720F"
+                                              },
+                                              "/test-invoke-stage/DELETE/admin/products/*"
+                                            ]
+                                          ]
+                                        }
+                                      }
+                                    },
+                                    "constructInfo": {
+                                      "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
+                                      "version": "2.87.0"
+                                    }
+                                  },
+                                  "Resource": {
+                                    "id": "Resource",
+                                    "path": "SportShop-Dev-Api/SportShopApi/Default/admin/products/{id}/DELETE/Resource",
+                                    "attributes": {
+                                      "aws:cdk:cloudformation:type": "AWS::ApiGateway::Method",
+                                      "aws:cdk:cloudformation:props": {
+                                        "httpMethod": "DELETE",
+                                        "resourceId": {
+                                          "Ref": "SportShopApiadminproductsid600A4E0C"
+                                        },
+                                        "restApiId": {
+                                          "Ref": "SportShopApi726D720F"
+                                        },
+                                        "authorizationType": "COGNITO_USER_POOLS",
+                                        "authorizerId": {
+                                          "Ref": "SportShopAuthorizer93595027"
+                                        },
+                                        "integration": {
+                                          "type": "AWS_PROXY",
+                                          "uri": {
+                                            "Fn::Join": [
+                                              "",
+                                              [
+                                                "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/",
+                                                {
+                                                  "Fn::ImportValue": "SportShop-Dev-Compute:ExportsOutputFnGetAttDeleteProductLambdaFunctionBE32D759Arn33E22838"
+                                                },
+                                                "/invocations"
+                                              ]
+                                            ]
+                                          },
+                                          "integrationHttpMethod": "POST"
+                                        }
+                                      }
+                                    },
+                                    "constructInfo": {
+                                      "fqn": "aws-cdk-lib.aws_apigateway.CfnMethod",
+                                      "version": "2.87.0"
+                                    }
+                                  }
+                                },
+                                "constructInfo": {
+                                  "fqn": "aws-cdk-lib.aws_apigateway.Method",
+                                  "version": "2.87.0"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_apigateway.Resource",
+                              "version": "2.87.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_apigateway.Resource",
+                          "version": "2.87.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_apigateway.Resource",
+                      "version": "2.87.0"
+                    }
                   }
                 },
                 "constructInfo": {
@@ -5126,6 +6993,40 @@
             },
             "constructInfo": {
               "fqn": "aws-cdk-lib.aws_apigateway.RestApi",
+              "version": "2.87.0"
+            }
+          },
+          "SportShopAuthorizer": {
+            "id": "SportShopAuthorizer",
+            "path": "SportShop-Dev-Api/SportShopAuthorizer",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "SportShop-Dev-Api/SportShopAuthorizer/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::ApiGateway::Authorizer",
+                  "aws:cdk:cloudformation:props": {
+                    "name": "SportShopDevApiSportShopAuthorizer25A584A1",
+                    "restApiId": {
+                      "Ref": "SportShopApi726D720F"
+                    },
+                    "type": "COGNITO_USER_POOLS",
+                    "identitySource": "method.request.header.Authorization",
+                    "providerArns": [
+                      {
+                        "Fn::ImportValue": "SportShop-Dev-Auth:ExportsOutputFnGetAttSportShopUserPoolB481A20BArnDE7925CD"
+                      }
+                    ]
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_apigateway.CfnAuthorizer",
+                  "version": "2.87.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_apigateway.CognitoUserPoolsAuthorizer",
               "version": "2.87.0"
             }
           },

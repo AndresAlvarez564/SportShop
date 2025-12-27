@@ -35,7 +35,7 @@ def handler(event, context):
             }
         
         # Obtener productId desde path parameters
-        product_id = event.get('pathParameters', {}).get('id')  # ← Cambiar de 'productId' a 'id'
+        product_id = event.get('pathParameters', {}).get('productId')
         
         if not product_id:
             return {
