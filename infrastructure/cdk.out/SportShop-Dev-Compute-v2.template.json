@@ -1,5 +1,5 @@
 {
- "Description": "SportShop Lambda functions for development environment",
+ "Description": "SportShop Lambda functions for development environment - v2",
  "Resources": {
   "GetProductsLambdaFunctionServiceRoleDD28CD8B": {
    "Type": "AWS::IAM::Role",
@@ -54,7 +54,7 @@
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "SportShop-Dev-Compute/GetProductsLambda/Function/ServiceRole/Resource"
+    "aws:cdk:path": "SportShop-Dev-Compute-v2/GetProductsLambda/Function/ServiceRole/Resource"
    }
   },
   "GetProductsLambdaFunctionServiceRoleDefaultPolicy7C107786": {
@@ -94,7 +94,7 @@
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "SportShop-Dev-Compute/GetProductsLambda/Function/ServiceRole/DefaultPolicy/Resource"
+    "aws:cdk:path": "SportShop-Dev-Compute-v2/GetProductsLambda/Function/ServiceRole/DefaultPolicy/Resource"
    }
   },
   "GetProductsLambdaFunction217CDD7C": {
@@ -117,7 +117,7 @@
       }
      }
     },
-    "FunctionName": "sportshop-dev-get-products",
+    "FunctionName": "sportshop-dev-v2-get-products",
     "Handler": "index.handler",
     "MemorySize": 256,
     "Runtime": "python3.10",
@@ -150,7 +150,7 @@
     "GetProductsLambdaFunctionServiceRoleDD28CD8B"
    ],
    "Metadata": {
-    "aws:cdk:path": "SportShop-Dev-Compute/GetProductsLambda/Function/Resource",
+    "aws:cdk:path": "SportShop-Dev-Compute-v2/GetProductsLambda/Function/Resource",
     "aws:asset:path": "asset.81a785fe371040f546e7a6291291b545bfb7cddef47f851cece972866bf4ebf7",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
@@ -209,7 +209,7 @@
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "SportShop-Dev-Compute/GetProductDetailLambda/Function/ServiceRole/Resource"
+    "aws:cdk:path": "SportShop-Dev-Compute-v2/GetProductDetailLambda/Function/ServiceRole/Resource"
    }
   },
   "GetProductDetailLambdaFunctionServiceRoleDefaultPolicy84206013": {
@@ -249,7 +249,7 @@
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "SportShop-Dev-Compute/GetProductDetailLambda/Function/ServiceRole/DefaultPolicy/Resource"
+    "aws:cdk:path": "SportShop-Dev-Compute-v2/GetProductDetailLambda/Function/ServiceRole/DefaultPolicy/Resource"
    }
   },
   "GetProductDetailLambdaFunction1D68EDEE": {
@@ -272,7 +272,7 @@
       }
      }
     },
-    "FunctionName": "sportshop-dev-get-product-detail",
+    "FunctionName": "sportshop-dev-v2-get-product-detail",
     "Handler": "index.handler",
     "MemorySize": 256,
     "Runtime": "python3.10",
@@ -305,7 +305,7 @@
     "GetProductDetailLambdaFunctionServiceRoleDEAA609C"
    ],
    "Metadata": {
-    "aws:cdk:path": "SportShop-Dev-Compute/GetProductDetailLambda/Function/Resource",
+    "aws:cdk:path": "SportShop-Dev-Compute-v2/GetProductDetailLambda/Function/Resource",
     "aws:asset:path": "asset.6eedfcc579bbddaadbcf7048b993d7e1e021af09e9ca5d0e0df94da98388fb5e",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
@@ -364,7 +364,7 @@
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "SportShop-Dev-Compute/GetProductsFilteredLambda/Function/ServiceRole/Resource"
+    "aws:cdk:path": "SportShop-Dev-Compute-v2/GetProductsFilteredLambda/Function/ServiceRole/Resource"
    }
   },
   "GetProductsFilteredLambdaFunctionServiceRoleDefaultPolicy0AB93C5D": {
@@ -404,7 +404,7 @@
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "SportShop-Dev-Compute/GetProductsFilteredLambda/Function/ServiceRole/DefaultPolicy/Resource"
+    "aws:cdk:path": "SportShop-Dev-Compute-v2/GetProductsFilteredLambda/Function/ServiceRole/DefaultPolicy/Resource"
    }
   },
   "GetProductsFilteredLambdaFunctionFF99BF8B": {
@@ -427,7 +427,7 @@
       }
      }
     },
-    "FunctionName": "sportshop-dev-get-products-filtered",
+    "FunctionName": "sportshop-dev-v2-get-products-filtered",
     "Handler": "index.handler",
     "MemorySize": 256,
     "Runtime": "python3.10",
@@ -460,7 +460,7 @@
     "GetProductsFilteredLambdaFunctionServiceRole8AA8ADB2"
    ],
    "Metadata": {
-    "aws:cdk:path": "SportShop-Dev-Compute/GetProductsFilteredLambda/Function/Resource",
+    "aws:cdk:path": "SportShop-Dev-Compute-v2/GetProductsFilteredLambda/Function/Resource",
     "aws:asset:path": "asset.555218573cd3f93e11a68384e8c1dff98b673cef508512049373473e2537ce0e",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
@@ -519,7 +519,7 @@
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "SportShop-Dev-Compute/AddToCartLambda/Function/ServiceRole/Resource"
+    "aws:cdk:path": "SportShop-Dev-Compute-v2/AddToCartLambda/Function/ServiceRole/Resource"
    }
   },
   "AddToCartLambdaFunctionServiceRoleDefaultPolicyDADF9B22": {
@@ -584,7 +584,7 @@
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "SportShop-Dev-Compute/AddToCartLambda/Function/ServiceRole/DefaultPolicy/Resource"
+    "aws:cdk:path": "SportShop-Dev-Compute-v2/AddToCartLambda/Function/ServiceRole/DefaultPolicy/Resource"
    }
   },
   "AddToCartLambdaFunction401C31C7": {
@@ -610,7 +610,7 @@
       }
      }
     },
-    "FunctionName": "sportshop-dev-add-to-cart",
+    "FunctionName": "sportshop-dev-v2-add-to-cart",
     "Handler": "index.handler",
     "MemorySize": 256,
     "Runtime": "python3.10",
@@ -643,7 +643,7 @@
     "AddToCartLambdaFunctionServiceRole29CFCDE8"
    ],
    "Metadata": {
-    "aws:cdk:path": "SportShop-Dev-Compute/AddToCartLambda/Function/Resource",
+    "aws:cdk:path": "SportShop-Dev-Compute-v2/AddToCartLambda/Function/Resource",
     "aws:asset:path": "asset.90d2921fa9f71194275b27919c0554b01bcf16d70001785a939146a4da1baf56",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
@@ -702,7 +702,7 @@
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "SportShop-Dev-Compute/GetCartLambda/Function/ServiceRole/Resource"
+    "aws:cdk:path": "SportShop-Dev-Compute-v2/GetCartLambda/Function/ServiceRole/Resource"
    }
   },
   "GetCartLambdaFunctionServiceRoleDefaultPolicyCB014B0C": {
@@ -742,7 +742,7 @@
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "SportShop-Dev-Compute/GetCartLambda/Function/ServiceRole/DefaultPolicy/Resource"
+    "aws:cdk:path": "SportShop-Dev-Compute-v2/GetCartLambda/Function/ServiceRole/DefaultPolicy/Resource"
    }
   },
   "GetCartLambdaFunction4D7A18BA": {
@@ -765,7 +765,7 @@
       }
      }
     },
-    "FunctionName": "sportshop-dev-get-cart",
+    "FunctionName": "sportshop-dev-v2-get-cart",
     "Handler": "index.handler",
     "MemorySize": 256,
     "Runtime": "python3.10",
@@ -798,7 +798,7 @@
     "GetCartLambdaFunctionServiceRole9E1EB47B"
    ],
    "Metadata": {
-    "aws:cdk:path": "SportShop-Dev-Compute/GetCartLambda/Function/Resource",
+    "aws:cdk:path": "SportShop-Dev-Compute-v2/GetCartLambda/Function/Resource",
     "aws:asset:path": "asset.b4209e310602b3db59dde7dd145d4448ee9dad8652c0ff6a0bebee4d7c198dbc",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
@@ -857,7 +857,7 @@
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "SportShop-Dev-Compute/RemoveFromCartLambda/Function/ServiceRole/Resource"
+    "aws:cdk:path": "SportShop-Dev-Compute-v2/RemoveFromCartLambda/Function/ServiceRole/Resource"
    }
   },
   "RemoveFromCartLambdaFunctionServiceRoleDefaultPolicyB6ED0B83": {
@@ -901,7 +901,7 @@
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "SportShop-Dev-Compute/RemoveFromCartLambda/Function/ServiceRole/DefaultPolicy/Resource"
+    "aws:cdk:path": "SportShop-Dev-Compute-v2/RemoveFromCartLambda/Function/ServiceRole/DefaultPolicy/Resource"
    }
   },
   "RemoveFromCartLambdaFunction5671D9F5": {
@@ -924,7 +924,7 @@
       }
      }
     },
-    "FunctionName": "sportshop-dev-remove-from-cart",
+    "FunctionName": "sportshop-dev-v2-remove-from-cart",
     "Handler": "index.handler",
     "MemorySize": 256,
     "Runtime": "python3.10",
@@ -957,7 +957,7 @@
     "RemoveFromCartLambdaFunctionServiceRole2FBE6DB0"
    ],
    "Metadata": {
-    "aws:cdk:path": "SportShop-Dev-Compute/RemoveFromCartLambda/Function/Resource",
+    "aws:cdk:path": "SportShop-Dev-Compute-v2/RemoveFromCartLambda/Function/Resource",
     "aws:asset:path": "asset.3170a84fa95dc3c1816842623b135b21fe5dc96a0519b8f9a35232cc588d6404",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
@@ -1016,7 +1016,7 @@
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "SportShop-Dev-Compute/UpdateCartQuantityLambda/Function/ServiceRole/Resource"
+    "aws:cdk:path": "SportShop-Dev-Compute-v2/UpdateCartQuantityLambda/Function/ServiceRole/Resource"
    }
   },
   "UpdateCartQuantityLambdaFunctionServiceRoleDefaultPolicyB25C92E1": {
@@ -1081,7 +1081,7 @@
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "SportShop-Dev-Compute/UpdateCartQuantityLambda/Function/ServiceRole/DefaultPolicy/Resource"
+    "aws:cdk:path": "SportShop-Dev-Compute-v2/UpdateCartQuantityLambda/Function/ServiceRole/DefaultPolicy/Resource"
    }
   },
   "UpdateCartQuantityLambdaFunctionB9C1A43A": {
@@ -1107,7 +1107,7 @@
       }
      }
     },
-    "FunctionName": "sportshop-dev-update-cart-quantity",
+    "FunctionName": "sportshop-dev-v2-update-cart-quantity",
     "Handler": "index.handler",
     "MemorySize": 256,
     "Runtime": "python3.10",
@@ -1140,7 +1140,7 @@
     "UpdateCartQuantityLambdaFunctionServiceRole11A37546"
    ],
    "Metadata": {
-    "aws:cdk:path": "SportShop-Dev-Compute/UpdateCartQuantityLambda/Function/Resource",
+    "aws:cdk:path": "SportShop-Dev-Compute-v2/UpdateCartQuantityLambda/Function/Resource",
     "aws:asset:path": "asset.b0f2245ef3d3947d585ca1c869d375351c94b2c8edc79851f9913eafda9a6a13",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
@@ -1199,7 +1199,7 @@
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "SportShop-Dev-Compute/CreateOrderLambda/Function/ServiceRole/Resource"
+    "aws:cdk:path": "SportShop-Dev-Compute-v2/CreateOrderLambda/Function/ServiceRole/Resource"
    }
   },
   "CreateOrderLambdaFunctionServiceRoleDefaultPolicy79321542": {
@@ -1282,7 +1282,7 @@
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "SportShop-Dev-Compute/CreateOrderLambda/Function/ServiceRole/DefaultPolicy/Resource"
+    "aws:cdk:path": "SportShop-Dev-Compute-v2/CreateOrderLambda/Function/ServiceRole/DefaultPolicy/Resource"
    }
   },
   "CreateOrderLambdaFunction7F06CA72": {
@@ -1290,7 +1290,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-851725386264-us-east-1",
-     "S3Key": "11ede0af81129d28ed2cd29f38073e9817587fb64f9aa766af48b6c1ac62c807.zip"
+     "S3Key": "f799d873cb546b964e37e6b0be812290c2864903b73cb378d1c5a67cda37f5d6.zip"
     },
     "Role": {
      "Fn::GetAtt": [
@@ -1311,7 +1311,7 @@
       }
      }
     },
-    "FunctionName": "sportshop-dev-create-order",
+    "FunctionName": "sportshop-dev-v2-create-order",
     "Handler": "index.handler",
     "MemorySize": 256,
     "Runtime": "python3.10",
@@ -1344,8 +1344,8 @@
     "CreateOrderLambdaFunctionServiceRole837C6EC3"
    ],
    "Metadata": {
-    "aws:cdk:path": "SportShop-Dev-Compute/CreateOrderLambda/Function/Resource",
-    "aws:asset:path": "asset.11ede0af81129d28ed2cd29f38073e9817587fb64f9aa766af48b6c1ac62c807",
+    "aws:cdk:path": "SportShop-Dev-Compute-v2/CreateOrderLambda/Function/Resource",
+    "aws:asset:path": "asset.f799d873cb546b964e37e6b0be812290c2864903b73cb378d1c5a67cda37f5d6",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
    }
@@ -1403,7 +1403,7 @@
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "SportShop-Dev-Compute/GetUserOrdersLambda/Function/ServiceRole/Resource"
+    "aws:cdk:path": "SportShop-Dev-Compute-v2/GetUserOrdersLambda/Function/ServiceRole/Resource"
    }
   },
   "GetUserOrdersLambdaFunctionServiceRoleDefaultPolicyEE0D7790": {
@@ -1443,7 +1443,7 @@
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "SportShop-Dev-Compute/GetUserOrdersLambda/Function/ServiceRole/DefaultPolicy/Resource"
+    "aws:cdk:path": "SportShop-Dev-Compute-v2/GetUserOrdersLambda/Function/ServiceRole/DefaultPolicy/Resource"
    }
   },
   "GetUserOrdersLambdaFunction4455104B": {
@@ -1466,7 +1466,7 @@
       }
      }
     },
-    "FunctionName": "sportshop-dev-get-user-orders",
+    "FunctionName": "sportshop-dev-v2-get-user-orders",
     "Handler": "index.handler",
     "MemorySize": 256,
     "Runtime": "python3.10",
@@ -1499,7 +1499,7 @@
     "GetUserOrdersLambdaFunctionServiceRole71CF0BCC"
    ],
    "Metadata": {
-    "aws:cdk:path": "SportShop-Dev-Compute/GetUserOrdersLambda/Function/Resource",
+    "aws:cdk:path": "SportShop-Dev-Compute-v2/GetUserOrdersLambda/Function/Resource",
     "aws:asset:path": "asset.96fd510409a3e7c0d0fb9080e998ebaf0d203cffcb7e6a27667361f9f0d9a537",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
@@ -1558,7 +1558,7 @@
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "SportShop-Dev-Compute/CreateReviewLambda/Function/ServiceRole/Resource"
+    "aws:cdk:path": "SportShop-Dev-Compute-v2/CreateReviewLambda/Function/ServiceRole/Resource"
    }
   },
   "CreateReviewLambdaFunctionServiceRoleDefaultPolicy48225507": {
@@ -1602,7 +1602,7 @@
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "SportShop-Dev-Compute/CreateReviewLambda/Function/ServiceRole/DefaultPolicy/Resource"
+    "aws:cdk:path": "SportShop-Dev-Compute-v2/CreateReviewLambda/Function/ServiceRole/DefaultPolicy/Resource"
    }
   },
   "CreateReviewLambdaFunctionDF87334E": {
@@ -1625,7 +1625,7 @@
       }
      }
     },
-    "FunctionName": "sportshop-dev-create-review",
+    "FunctionName": "sportshop-dev-v2-create-review",
     "Handler": "index.handler",
     "MemorySize": 256,
     "Runtime": "python3.10",
@@ -1658,7 +1658,7 @@
     "CreateReviewLambdaFunctionServiceRole3AE44F77"
    ],
    "Metadata": {
-    "aws:cdk:path": "SportShop-Dev-Compute/CreateReviewLambda/Function/Resource",
+    "aws:cdk:path": "SportShop-Dev-Compute-v2/CreateReviewLambda/Function/Resource",
     "aws:asset:path": "asset.7f80aeeaaec927846147119c2f0e66a6f201c05a1c53530aa38b0586839e53a0",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
@@ -1717,7 +1717,7 @@
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "SportShop-Dev-Compute/GetProductReviewsLambda/Function/ServiceRole/Resource"
+    "aws:cdk:path": "SportShop-Dev-Compute-v2/GetProductReviewsLambda/Function/ServiceRole/Resource"
    }
   },
   "GetProductReviewsLambdaFunctionServiceRoleDefaultPolicy0B5EEC60": {
@@ -1757,7 +1757,7 @@
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "SportShop-Dev-Compute/GetProductReviewsLambda/Function/ServiceRole/DefaultPolicy/Resource"
+    "aws:cdk:path": "SportShop-Dev-Compute-v2/GetProductReviewsLambda/Function/ServiceRole/DefaultPolicy/Resource"
    }
   },
   "GetProductReviewsLambdaFunction875F9145": {
@@ -1780,7 +1780,7 @@
       }
      }
     },
-    "FunctionName": "sportshop-dev-get-product-reviews",
+    "FunctionName": "sportshop-dev-v2-get-product-reviews",
     "Handler": "index.handler",
     "MemorySize": 256,
     "Runtime": "python3.10",
@@ -1813,7 +1813,7 @@
     "GetProductReviewsLambdaFunctionServiceRoleA4812893"
    ],
    "Metadata": {
-    "aws:cdk:path": "SportShop-Dev-Compute/GetProductReviewsLambda/Function/Resource",
+    "aws:cdk:path": "SportShop-Dev-Compute-v2/GetProductReviewsLambda/Function/Resource",
     "aws:asset:path": "asset.9d4464c692a38a4b36de3f9148e50110e00f6e481c46cc3685e0e84d371c8b22",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
@@ -1872,7 +1872,7 @@
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "SportShop-Dev-Compute/CreateProductLambda/Function/ServiceRole/Resource"
+    "aws:cdk:path": "SportShop-Dev-Compute-v2/CreateProductLambda/Function/ServiceRole/Resource"
    }
   },
   "CreateProductLambdaFunctionServiceRoleDefaultPolicy20E3ED2D": {
@@ -1916,7 +1916,7 @@
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "SportShop-Dev-Compute/CreateProductLambda/Function/ServiceRole/DefaultPolicy/Resource"
+    "aws:cdk:path": "SportShop-Dev-Compute-v2/CreateProductLambda/Function/ServiceRole/DefaultPolicy/Resource"
    }
   },
   "CreateProductLambdaFunction69450C53": {
@@ -1940,7 +1940,7 @@
       "FORCE_UPDATE": "v3"
      }
     },
-    "FunctionName": "sportshop-dev-create-product",
+    "FunctionName": "sportshop-dev-v2-create-product",
     "Handler": "index.handler",
     "MemorySize": 256,
     "Runtime": "python3.10",
@@ -1973,7 +1973,7 @@
     "CreateProductLambdaFunctionServiceRole13086EA9"
    ],
    "Metadata": {
-    "aws:cdk:path": "SportShop-Dev-Compute/CreateProductLambda/Function/Resource",
+    "aws:cdk:path": "SportShop-Dev-Compute-v2/CreateProductLambda/Function/Resource",
     "aws:asset:path": "asset.77702fe7e30d119445f55e3750b41c7adec0bb32760d4c286b242806340e2bde",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
@@ -2032,7 +2032,7 @@
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "SportShop-Dev-Compute/UpdateProductLambda/Function/ServiceRole/Resource"
+    "aws:cdk:path": "SportShop-Dev-Compute-v2/UpdateProductLambda/Function/ServiceRole/Resource"
    }
   },
   "UpdateProductLambdaFunctionServiceRoleDefaultPolicyCC51A4A6": {
@@ -2076,7 +2076,7 @@
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "SportShop-Dev-Compute/UpdateProductLambda/Function/ServiceRole/DefaultPolicy/Resource"
+    "aws:cdk:path": "SportShop-Dev-Compute-v2/UpdateProductLambda/Function/ServiceRole/DefaultPolicy/Resource"
    }
   },
   "UpdateProductLambdaFunction00F9A98B": {
@@ -2099,7 +2099,7 @@
       }
      }
     },
-    "FunctionName": "sportshop-dev-update-product",
+    "FunctionName": "sportshop-dev-v2-update-product",
     "Handler": "index.handler",
     "MemorySize": 256,
     "Runtime": "python3.10",
@@ -2132,7 +2132,7 @@
     "UpdateProductLambdaFunctionServiceRoleC4737EC7"
    ],
    "Metadata": {
-    "aws:cdk:path": "SportShop-Dev-Compute/UpdateProductLambda/Function/Resource",
+    "aws:cdk:path": "SportShop-Dev-Compute-v2/UpdateProductLambda/Function/Resource",
     "aws:asset:path": "asset.e2bf294cbe80da7e825471ab8f635ff41d1f4a510ffef0fc0162f7d3bb1c15ee",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
@@ -2191,7 +2191,7 @@
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "SportShop-Dev-Compute/DeleteProductLambda/Function/ServiceRole/Resource"
+    "aws:cdk:path": "SportShop-Dev-Compute-v2/DeleteProductLambda/Function/ServiceRole/Resource"
    }
   },
   "DeleteProductLambdaFunctionServiceRoleDefaultPolicy4AEDC89A": {
@@ -2238,7 +2238,7 @@
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "SportShop-Dev-Compute/DeleteProductLambda/Function/ServiceRole/DefaultPolicy/Resource"
+    "aws:cdk:path": "SportShop-Dev-Compute-v2/DeleteProductLambda/Function/ServiceRole/DefaultPolicy/Resource"
    }
   },
   "DeleteProductLambdaFunctionBE32D759": {
@@ -2264,7 +2264,7 @@
       }
      }
     },
-    "FunctionName": "sportshop-dev-delete-product",
+    "FunctionName": "sportshop-dev-v2-delete-product",
     "Handler": "index.handler",
     "MemorySize": 256,
     "Runtime": "python3.10",
@@ -2297,7 +2297,7 @@
     "DeleteProductLambdaFunctionServiceRole8DED9C30"
    ],
    "Metadata": {
-    "aws:cdk:path": "SportShop-Dev-Compute/DeleteProductLambda/Function/Resource",
+    "aws:cdk:path": "SportShop-Dev-Compute-v2/DeleteProductLambda/Function/Resource",
     "aws:asset:path": "asset.2060dc2165e0bff4e61f381627f9da3061704e0c90edc07245ef8d98d2debc53",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
@@ -2356,7 +2356,7 @@
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "SportShop-Dev-Compute/GenerateUploadUrlLambda/Function/ServiceRole/Resource"
+    "aws:cdk:path": "SportShop-Dev-Compute-v2/GenerateUploadUrlLambda/Function/ServiceRole/Resource"
    }
   },
   "GenerateUploadUrlLambdaFunctionServiceRoleDefaultPolicyC2D52B1F": {
@@ -2379,7 +2379,7 @@
          "",
          [
           {
-           "Fn::ImportValue": "SportShop-Dev-Storage:ExportsOutputFnGetAttProductImagesBucket03BDA4C8Arn5AA48756"
+           "Fn::ImportValue": "SportShop-Dev-Storage-v2:ExportsOutputFnGetAttProductImagesBucket03BDA4C8Arn5AA48756"
           },
           "/*"
          ]
@@ -2397,7 +2397,7 @@
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "SportShop-Dev-Compute/GenerateUploadUrlLambda/Function/ServiceRole/DefaultPolicy/Resource"
+    "aws:cdk:path": "SportShop-Dev-Compute-v2/GenerateUploadUrlLambda/Function/ServiceRole/DefaultPolicy/Resource"
    }
   },
   "GenerateUploadUrlLambdaFunction61480CE6": {
@@ -2416,11 +2416,11 @@
     "Environment": {
      "Variables": {
       "IMAGES_BUCKET": {
-       "Fn::ImportValue": "SportShop-Dev-Storage:ExportsOutputRefProductImagesBucket03BDA4C8A4D6E2D0"
+       "Fn::ImportValue": "SportShop-Dev-Storage-v2:ExportsOutputRefProductImagesBucket03BDA4C8A4D6E2D0"
       }
      }
     },
-    "FunctionName": "sportshop-dev-generate-upload-url",
+    "FunctionName": "sportshop-dev-v2-generate-upload-url",
     "Handler": "index.handler",
     "MemorySize": 256,
     "Runtime": "python3.10",
@@ -2453,7 +2453,7 @@
     "GenerateUploadUrlLambdaFunctionServiceRoleFE5A64B5"
    ],
    "Metadata": {
-    "aws:cdk:path": "SportShop-Dev-Compute/GenerateUploadUrlLambda/Function/Resource",
+    "aws:cdk:path": "SportShop-Dev-Compute-v2/GenerateUploadUrlLambda/Function/Resource",
     "aws:asset:path": "asset.6ebaa24f2a9cfa1718cb1daa4c5684c67d4a686cc003fbd46d6afa4e67cadb2c",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
@@ -2465,7 +2465,7 @@
     "Analytics": "v2:deflate64:H4sIAAAAAAAA/zWMwQqDMBBEv6X3dSt6aK+10HPRD5A1prIaE3CTSgn596K2p/dmBqbA6wXzE62SqX7KDHcYG09qAlqljYbmrieMj2CVZ2fh/rJ/T8A0Y6yd0Vu98+kMq88WD0sgZUsi2gveNoCUWAU1aV+R6AS1FhcWpWFfG08D22G/+w0JrOs1jnJ+FwUWOeanUZizJVjPs8b64BdZJTcAyAAAAA=="
    },
    "Metadata": {
-    "aws:cdk:path": "SportShop-Dev-Compute/CDKMetadata/Default"
+    "aws:cdk:path": "SportShop-Dev-Compute-v2/CDKMetadata/Default"
    }
   }
  },
@@ -2478,7 +2478,7 @@
     ]
    },
    "Export": {
-    "Name": "SportShop-Dev-Compute:ExportsOutputFnGetAttGetProductsLambdaFunction217CDD7CArn8EB5A4B4"
+    "Name": "SportShop-Dev-Compute-v2:ExportsOutputFnGetAttGetProductsLambdaFunction217CDD7CArn8EB5A4B4"
    }
   },
   "ExportsOutputFnGetAttGetProductsFilteredLambdaFunctionFF99BF8BArnB0353913": {
@@ -2489,7 +2489,7 @@
     ]
    },
    "Export": {
-    "Name": "SportShop-Dev-Compute:ExportsOutputFnGetAttGetProductsFilteredLambdaFunctionFF99BF8BArnB0353913"
+    "Name": "SportShop-Dev-Compute-v2:ExportsOutputFnGetAttGetProductsFilteredLambdaFunctionFF99BF8BArnB0353913"
    }
   },
   "ExportsOutputFnGetAttGetProductDetailLambdaFunction1D68EDEEArn90491C1B": {
@@ -2500,7 +2500,7 @@
     ]
    },
    "Export": {
-    "Name": "SportShop-Dev-Compute:ExportsOutputFnGetAttGetProductDetailLambdaFunction1D68EDEEArn90491C1B"
+    "Name": "SportShop-Dev-Compute-v2:ExportsOutputFnGetAttGetProductDetailLambdaFunction1D68EDEEArn90491C1B"
    }
   },
   "ExportsOutputFnGetAttGetProductReviewsLambdaFunction875F9145ArnAE9A3177": {
@@ -2511,7 +2511,7 @@
     ]
    },
    "Export": {
-    "Name": "SportShop-Dev-Compute:ExportsOutputFnGetAttGetProductReviewsLambdaFunction875F9145ArnAE9A3177"
+    "Name": "SportShop-Dev-Compute-v2:ExportsOutputFnGetAttGetProductReviewsLambdaFunction875F9145ArnAE9A3177"
    }
   },
   "ExportsOutputFnGetAttGetCartLambdaFunction4D7A18BAArn05BE36E3": {
@@ -2522,7 +2522,7 @@
     ]
    },
    "Export": {
-    "Name": "SportShop-Dev-Compute:ExportsOutputFnGetAttGetCartLambdaFunction4D7A18BAArn05BE36E3"
+    "Name": "SportShop-Dev-Compute-v2:ExportsOutputFnGetAttGetCartLambdaFunction4D7A18BAArn05BE36E3"
    }
   },
   "ExportsOutputFnGetAttAddToCartLambdaFunction401C31C7Arn2E73A045": {
@@ -2533,7 +2533,7 @@
     ]
    },
    "Export": {
-    "Name": "SportShop-Dev-Compute:ExportsOutputFnGetAttAddToCartLambdaFunction401C31C7Arn2E73A045"
+    "Name": "SportShop-Dev-Compute-v2:ExportsOutputFnGetAttAddToCartLambdaFunction401C31C7Arn2E73A045"
    }
   },
   "ExportsOutputFnGetAttRemoveFromCartLambdaFunction5671D9F5Arn4B75A74A": {
@@ -2544,7 +2544,7 @@
     ]
    },
    "Export": {
-    "Name": "SportShop-Dev-Compute:ExportsOutputFnGetAttRemoveFromCartLambdaFunction5671D9F5Arn4B75A74A"
+    "Name": "SportShop-Dev-Compute-v2:ExportsOutputFnGetAttRemoveFromCartLambdaFunction5671D9F5Arn4B75A74A"
    }
   },
   "ExportsOutputFnGetAttUpdateCartQuantityLambdaFunctionB9C1A43AArn4255E0F2": {
@@ -2555,7 +2555,7 @@
     ]
    },
    "Export": {
-    "Name": "SportShop-Dev-Compute:ExportsOutputFnGetAttUpdateCartQuantityLambdaFunctionB9C1A43AArn4255E0F2"
+    "Name": "SportShop-Dev-Compute-v2:ExportsOutputFnGetAttUpdateCartQuantityLambdaFunctionB9C1A43AArn4255E0F2"
    }
   },
   "ExportsOutputFnGetAttCreateOrderLambdaFunction7F06CA72Arn7EF40EBA": {
@@ -2566,7 +2566,7 @@
     ]
    },
    "Export": {
-    "Name": "SportShop-Dev-Compute:ExportsOutputFnGetAttCreateOrderLambdaFunction7F06CA72Arn7EF40EBA"
+    "Name": "SportShop-Dev-Compute-v2:ExportsOutputFnGetAttCreateOrderLambdaFunction7F06CA72Arn7EF40EBA"
    }
   },
   "ExportsOutputFnGetAttGetUserOrdersLambdaFunction4455104BArn66E7431D": {
@@ -2577,7 +2577,7 @@
     ]
    },
    "Export": {
-    "Name": "SportShop-Dev-Compute:ExportsOutputFnGetAttGetUserOrdersLambdaFunction4455104BArn66E7431D"
+    "Name": "SportShop-Dev-Compute-v2:ExportsOutputFnGetAttGetUserOrdersLambdaFunction4455104BArn66E7431D"
    }
   },
   "ExportsOutputFnGetAttCreateReviewLambdaFunctionDF87334EArnD78F1675": {
@@ -2588,7 +2588,7 @@
     ]
    },
    "Export": {
-    "Name": "SportShop-Dev-Compute:ExportsOutputFnGetAttCreateReviewLambdaFunctionDF87334EArnD78F1675"
+    "Name": "SportShop-Dev-Compute-v2:ExportsOutputFnGetAttCreateReviewLambdaFunctionDF87334EArnD78F1675"
    }
   },
   "ExportsOutputFnGetAttCreateProductLambdaFunction69450C53Arn0AFFF14F": {
@@ -2599,7 +2599,7 @@
     ]
    },
    "Export": {
-    "Name": "SportShop-Dev-Compute:ExportsOutputFnGetAttCreateProductLambdaFunction69450C53Arn0AFFF14F"
+    "Name": "SportShop-Dev-Compute-v2:ExportsOutputFnGetAttCreateProductLambdaFunction69450C53Arn0AFFF14F"
    }
   },
   "ExportsOutputFnGetAttUpdateProductLambdaFunction00F9A98BArn554A89D0": {
@@ -2610,7 +2610,7 @@
     ]
    },
    "Export": {
-    "Name": "SportShop-Dev-Compute:ExportsOutputFnGetAttUpdateProductLambdaFunction00F9A98BArn554A89D0"
+    "Name": "SportShop-Dev-Compute-v2:ExportsOutputFnGetAttUpdateProductLambdaFunction00F9A98BArn554A89D0"
    }
   },
   "ExportsOutputFnGetAttDeleteProductLambdaFunctionBE32D759Arn33E22838": {
@@ -2621,7 +2621,7 @@
     ]
    },
    "Export": {
-    "Name": "SportShop-Dev-Compute:ExportsOutputFnGetAttDeleteProductLambdaFunctionBE32D759Arn33E22838"
+    "Name": "SportShop-Dev-Compute-v2:ExportsOutputFnGetAttDeleteProductLambdaFunctionBE32D759Arn33E22838"
    }
   },
   "ExportsOutputFnGetAttGenerateUploadUrlLambdaFunction61480CE6Arn80A68423": {
@@ -2632,7 +2632,7 @@
     ]
    },
    "Export": {
-    "Name": "SportShop-Dev-Compute:ExportsOutputFnGetAttGenerateUploadUrlLambdaFunction61480CE6Arn80A68423"
+    "Name": "SportShop-Dev-Compute-v2:ExportsOutputFnGetAttGenerateUploadUrlLambdaFunction61480CE6Arn80A68423"
    }
   }
  },

@@ -1,0 +1,57 @@
+[
+  {
+    "name": "Camiseta Deportiva Premium",
+    "description": "Camiseta de alta calidad para entrenamientos intensos. Fabricada con tecnología Dri-FIT que mantiene la piel seca y cómoda.",
+    "price": 45.99,
+    "category": "camisetas",
+    "gender": "unisex",
+    "sizes": ["S", "M", "L", "XL"],
+    "colors": ["Negro", "Blanco", "Azul"],
+    "stock": 50,
+    "imageUrl": "https://via.placeholder.com/400x400/000000/FFFFFF?text=Camiseta+Premium"
+  },
+  {
+    "name": "Pantalones de Entrenamiento",
+    "description": "Pantalones cómodos y flexibles, perfectos para cualquier tipo de ejercicio. Con bolsillos laterales y cintura elástica.",
+    "price": 65.99,
+    "category": "pantalones",
+    "gender": "hombre",
+    "sizes": ["S", "M", "L", "XL", "XXL"],
+    "colors": ["Negro", "Gris", "Azul marino"],
+    "stock": 30,
+    "imageUrl": "https://via.placeholder.com/400x400/333333/FFFFFF?text=Pantalones+Training"
+  },
+  {
+    "name": "Leggings Deportivos Mujer",
+    "description": "Leggings de compresión media con cintura alta. Ideales para yoga, pilates y entrenamientos de fuerza.",
+    "price": 55.99,
+    "category": "pantalones",
+    "gender": "mujer",
+    "sizes": ["XS", "S", "M", "L", "XL"],
+    "colors": ["Negro", "Rosa", "Morado"],
+    "stock": 40,
+    "imageUrl": "https://via.placeholder.com/400x400/FF69B4/FFFFFF?text=Leggings+Mujer"
+  },
+  {
+    "name": "Sudadera con Capucha",
+    "description": "Sudadera cómoda y cálida, perfecta para entrenamientos al aire libre o para uso casual.",
+    "price": 75.99,
+    "category": "sudaderas",
+    "gender": "unisex",
+    "sizes": ["S", "M", "L", "XL", "XXL"],
+    "colors": ["Negro", "Gris", "Azul", "Rojo"],
+    "stock": 25,
+    "imageUrl": "https://via.placeholder.com/400x400/808080/FFFFFF?text=Sudadera+Capucha"
+  },
+  {
+    "name": "Zapatillas Running Pro",
+    "description": "Zapatillas de running de alta gama con amortiguación avanzada y suela antideslizante.",
+    "price": 120.99,
+    "category": "calzado",
+    "gender": "unisex",
+    "sizes": ["36", "37", "38", "39", "40", "41", "42", "43", "44"],
+    "colors": ["Negro/Blanco", "Azul/Gris", "Rojo/Negro"],
+    "stock": 20,
+    "imageUrl": "https://via.placeholder.com/400x400/0066CC/FFFFFF?text=Zapatillas+Pro"
+  }
+]

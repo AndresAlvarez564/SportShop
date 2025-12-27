@@ -99,15 +99,15 @@
         }
       }
     },
-    "11ede0af81129d28ed2cd29f38073e9817587fb64f9aa766af48b6c1ac62c807": {
+    "f799d873cb546b964e37e6b0be812290c2864903b73cb378d1c5a67cda37f5d6": {
       "source": {
-        "path": "asset.11ede0af81129d28ed2cd29f38073e9817587fb64f9aa766af48b6c1ac62c807",
+        "path": "asset.f799d873cb546b964e37e6b0be812290c2864903b73cb378d1c5a67cda37f5d6",
         "packaging": "zip"
       },
       "destinations": {
         "851725386264-us-east-1": {
           "bucketName": "cdk-hnb659fds-assets-851725386264-us-east-1",
-          "objectKey": "11ede0af81129d28ed2cd29f38073e9817587fb64f9aa766af48b6c1ac62c807.zip",
+          "objectKey": "f799d873cb546b964e37e6b0be812290c2864903b73cb378d1c5a67cda37f5d6.zip",
           "region": "us-east-1",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::851725386264:role/cdk-hnb659fds-file-publishing-role-851725386264-us-east-1"
         }
@@ -211,15 +211,15 @@
         }
       }
     },
-    "f75a0a32c2210241bea55eddd2c4a69390b992b47b3f8a7cbf5f97c5c88ec096": {
+    "08933c0cf1eb1c5123f04ec650e373d2b8eafd60a97c8dd4bf54dc790bbc6a52": {
       "source": {
-        "path": "SportShop-Dev-Compute.template.json",
+        "path": "SportShop-Dev-Compute-v2.template.json",
         "packaging": "file"
       },
       "destinations": {
         "851725386264-us-east-1": {
           "bucketName": "cdk-hnb659fds-assets-851725386264-us-east-1",
-          "objectKey": "f75a0a32c2210241bea55eddd2c4a69390b992b47b3f8a7cbf5f97c5c88ec096.json",
+          "objectKey": "08933c0cf1eb1c5123f04ec650e373d2b8eafd60a97c8dd4bf54dc790bbc6a52.json",
           "region": "us-east-1",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::851725386264:role/cdk-hnb659fds-file-publishing-role-851725386264-us-east-1"
         }

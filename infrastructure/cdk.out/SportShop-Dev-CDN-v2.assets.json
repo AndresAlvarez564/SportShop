@@ -1,15 +1,15 @@
 {
   "version": "32.0.0",
   "files": {
-    "2eda4d03d355441fb23eac88d6a6cc3b0d4726289302680b41a346e7894bb351": {
+    "99f38e57543ea007129cfc106b0dd6a7a5202ed40fb4b81e55643815ab667840": {
       "source": {
-        "path": "SportShop-Dev-Data.template.json",
+        "path": "SportShop-Dev-CDN-v2.template.json",
         "packaging": "file"
       },
       "destinations": {
         "851725386264-us-east-1": {
           "bucketName": "cdk-hnb659fds-assets-851725386264-us-east-1",
-          "objectKey": "2eda4d03d355441fb23eac88d6a6cc3b0d4726289302680b41a346e7894bb351.json",
+          "objectKey": "99f38e57543ea007129cfc106b0dd6a7a5202ed40fb4b81e55643815ab667840.json",
           "region": "us-east-1",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::851725386264:role/cdk-hnb659fds-file-publishing-role-851725386264-us-east-1"
         }

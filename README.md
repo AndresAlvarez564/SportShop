@@ -1,11 +1,20 @@
 # SportShop - E-commerce Serverless Web Application
 
-## ✅ **SISTEMA COMPLETAMENTE FUNCIONAL EN AWS**
+## ✅ **SISTEMA COMPLETAMENTE FUNCIONAL EN AWS CON CLOUDFRONT CDN**
 
-**URLs en Producción:**
-- **🌐 Página Web**: http://sportshop-dev-website.s3-website-us-east-1.amazonaws.com
-- **⚙️ Admin Panel**: http://sportshop-dev-admin.s3-website-us-east-1.amazonaws.com
-- **🔗 API Backend**: https://n6k1hqcj6d.execute-api.us-east-1.amazonaws.com/prod
+**URLs de Demostración (CloudFront):**
+- **🌐 Página Web**: https://d36zsvraqkmul5.cloudfront.net
+- **⚙️ Admin Panel**: https://d3k6e0xw9cyyrk.cloudfront.net
+- **🔗 API Backend**: https://lgdw46a47k.execute-api.us-east-1.amazonaws.com/prod
+
+**Infraestructura v2 - Completamente Renovada:**
+- ✅ CloudFront CDN para ambas aplicaciones
+- ✅ Infraestructura v2 con naming consistente
+- ✅ Tablas DynamoDB v2 listas para nuevos datos
+- ✅ Buckets S3 v2 optimizados
+- ✅ Cognito User Pool v2 configurado
+- ✅ **WhatsApp Integration** - Pedidos directos por WhatsApp
+- ✅ **Order Management System** - Control completo de inventario
 
 ---
 
@@ -13,7 +22,15 @@
 
 Aplicación web de tienda de ropa construida con **arquitectura serverless en AWS**. Proyecto real para aprender el trabajo de un Solutions Architect, implementando mejores prácticas de escalabilidad, seguridad y optimización de costos.
 
-**🏆 NUEVA CARACTERÍSTICA**: Admin Panel completamente separado para máxima seguridad empresarial.
+### ✨ **Características Principales v2**
+- ✅ **E-commerce Completo** con carrito, productos, autenticación
+- ✅ **WhatsApp Integration** - Pedidos directos por WhatsApp con Order ID
+- ✅ **Admin Panel Separado** - Gestión segura de productos e inventario
+- ✅ **CloudFront CDN** - Performance global con HTTPS
+- ✅ **Order Management** - Sistema de pedidos con control de stock
+- ✅ **Diseño Profesional** - Inspirado en YoungLA/Gymshark
+- ✅ **Infraestructura como Código** - AWS CDK TypeScript
+- ✅ **Seguridad Empresarial** - Cognito Groups y separación de aplicaciones
 
 ## ✨ Funcionalidades Implementadas
 
@@ -25,79 +42,63 @@ Aplicación web de tienda de ropa construida con **arquitectura serverless en AW
 - ✅ **Sistema de reseñas** y ratings
 - ✅ **Gestión de pedidos** con integración WhatsApp
 
-### 🔐 **Admin Panel Separado (NUEVO)**
+### 📱 **WhatsApp Integration (NUEVO)**
+- ✅ **Pedidos directos** - Cliente crea pedido y se abre WhatsApp automáticamente
+- ✅ **Order ID único** - Cada pedido tiene número de referencia
+- ✅ **Mensaje estructurado** - Información completa del pedido
+- ✅ **Trazabilidad completa** - Pedidos guardados en DynamoDB
+- ✅ **Control de inventario** - Stock se reduce solo cuando admin confirma entrega
+
+### 🔐 **Admin Panel Separado**
 - ✅ **Aplicación independiente** en bucket S3 separado
 - ✅ **Seguridad empresarial** con grupos Cognito
 - ✅ **CRUD completo** de productos con validaciones
 - ✅ **Upload de imágenes** a S3 con presigned URLs
-- ✅ **Acceso controlado** solo para administradores autorizados
-- ✅ **URL no enlazada** desde el sitio público para mayor seguridad
+- ✅ **Gestión de pedidos** - Ver pedidos pendientes y completar entregas
+- ✅ **Control de inventario** - Stock se actualiza al completar pedidos
 
 ### 🏗️ **Arquitectura AWS Serverless**
 - ✅ **15 funciones Lambda** con lógica de negocio
-- ✅ **3 tablas DynamoDB** optimizadas
+- ✅ **3 tablas DynamoDB** optimizadas (Products, Cart, Orders)
 - ✅ **API Gateway** con autenticación Cognito
 - ✅ **3 buckets S3** (imágenes + hosting web + admin panel)
+- ✅ **CloudFront CDN** con HTTPS y cache optimizado
 - ✅ **Infraestructura como código** con AWS CDK
-- ✅ **5 stacks CDK** organizados por dominio
+- ✅ **6 stacks CDK** organizados por dominio
 
 ---
 
-## 🏗️ Arquitectura del Sistema
-
-### 📐 Diagrama de Arquitectura
-
-![SportShop L0 Architecture](pictures/Architecture_L0.png)
-
-**Flujo de la aplicación:**
-```
-Usuario Público → S3 Website → API Gateway → Lambda → DynamoDB
-                           ↓
-Admin → S3 Admin Panel → API Gateway → Lambda → DynamoDB
-                           ↓
-                    Cognito (Auth) → S3 (Images)
-```
-
-### 🔧 Componentes AWS Desplegados
-
-| Servicio | Recurso | Propósito |
-|----------|---------|-----------|
-| **S3** | `sportshop-dev-website` | Hosting estático del frontend público |
-| **S3** | `sportshop-dev-admin` | **NUEVO**: Hosting del admin panel separado |
-| **S3** | `sportshop-dev-product-images` | Almacenamiento de imágenes |
-| **DynamoDB** | `sportshop-dev-products` | Catálogo de productos |
-| **DynamoDB** | `sportshop-dev-cart` | Carritos de usuarios |
-| **DynamoDB** | `sportshop-dev-orders` | Historial de pedidos |
-| **Cognito** | User Pool + Admin Group | Autenticación con control de acceso |
-| **API Gateway** | REST API | Endpoints del backend |
-| **Lambda** | 15 funciones | Lógica de negocio |
-
----
-
-## 🚀 Guía de Instalación y Despliegue
+## 🚀 Guía Completa de Instalación y Configuración
 
 ### 📋 **Prerrequisitos**
 
-1. **AWS CLI** configurado con credenciales
-2. **Node.js** (v18 o superior)
-3. **AWS CDK** instalado globalmente
-4. **Git** para clonar el repositorio
+1. **Cuenta AWS** con permisos de administrador
+2. **AWS CLI** configurado con credenciales
+3. **Node.js** (v18 o superior)
+4. **AWS CDK** instalado globalmente
+5. **Git** para clonar el repositorio
 
 ```bash
 # Instalar AWS CDK
 npm install -g aws-cdk
 
-# Verificar instalación
+# Verificar instalaciones
 aws --version
 cdk --version
 node --version
+git --version
 ```
 
-### 📥 **Paso 1: Clonar el Repositorio**
+### 📥 **Paso 1: Clonar y Configurar el Repositorio**
 
 ```bash
+# Clonar el repositorio
 git clone https://github.com/AndresAlvarez564/SportShop.git
 cd SportShop
+
+# Verificar estructura del proyecto
+ls -la
+# Deberías ver: frontend/, admin-panel/, infrastructure/, README.md
 ```
 
 ### ⚙️ **Paso 2: Configurar AWS CDK**
@@ -108,32 +109,75 @@ cd infrastructure
 # Instalar dependencias
 npm install
 
-# Configurar tu cuenta AWS (reemplaza con tu account ID)
-# Editar infrastructure/bin/sportshop.ts líneas 20, 28, 36, 44, 52
-# Cambiar: account: '851725386264' por tu account ID
+# IMPORTANTE: Configurar tu Account ID
+# Editar infrastructure/bin/sportshop.ts
+# Cambiar TODAS las líneas que contengan:
+# account: '851725386264'
+# Por tu Account ID de AWS
+```
 
-# Bootstrap CDK (solo la primera vez)
+**Obtener tu AWS Account ID:**
+```bash
+aws sts get-caller-identity --query Account --output text
+```
+
+**Editar `infrastructure/bin/sportshop.ts`:**
+```typescript
+// Cambiar en TODAS las líneas (aproximadamente 6 lugares):
+account: 'TU-ACCOUNT-ID-AQUI',  // Reemplazar 851725386264
+```
+
+**Bootstrap CDK (solo la primera vez):**
+```bash
 cdk bootstrap
 ```
 
-### 🏗️ **Paso 3: Desplegar Infraestructura**
+### 🏗️ **Paso 3: Desplegar Infraestructura AWS**
 
 ```bash
 # Desde infrastructure/
-cdk synth  # Verificar que compila
+# Verificar que compila correctamente
+cdk synth
 
-# Desplegar todos los stacks (orden automático)
+# Desplegar todos los stacks en orden
 cdk deploy --all --require-approval never
 
-# O desplegar uno por uno:
-cdk deploy SportShop-Dev-Data --require-approval never
-cdk deploy SportShop-Dev-Storage --require-approval never  
-cdk deploy SportShop-Dev-Compute --require-approval never
-cdk deploy SportShop-Dev-Auth --require-approval never
-cdk deploy SportShop-Dev-Api --require-approval never
+# Esto desplegará:
+# 1. SportShop-Dev-Data (DynamoDB tables)
+# 2. SportShop-Dev-Storage-v2 (S3 buckets)
+# 3. SportShop-Dev-Compute-v2 (Lambda functions)
+# 4. SportShop-Dev-Auth-v2 (Cognito User Pool)
+# 5. SportShop-Dev-Api-v2 (API Gateway)
+# 6. SportShop-Dev-CDN-v2 (CloudFront distributions)
 ```
 
-### 🌐 **Paso 4: Desplegar Frontend Público**
+**⏱️ Tiempo estimado:** 10-15 minutos
+
+### 📝 **Paso 4: Obtener URLs de la Infraestructura**
+
+Después del deploy, obtén las URLs importantes:
+
+```bash
+# Obtener URL de API Gateway
+aws cloudformation describe-stacks --stack-name SportShop-Dev-Api-v2 \
+  --query "Stacks[0].Outputs[0].OutputValue" --output text
+
+# Obtener URLs de CloudFront
+aws cloudformation describe-stacks --stack-name SportShop-Dev-CDN-v2 \
+  --query "Stacks[0].Outputs" --output table
+
+# Obtener Cognito User Pool info
+aws cloudformation describe-stacks --stack-name SportShop-Dev-Auth-v2 \
+  --query "Stacks[0].Outputs" --output table
+```
+
+**Anota estos valores:**
+- **API Gateway URL**: `https://XXXXXXXX.execute-api.us-east-1.amazonaws.com/prod`
+- **Website CloudFront**: `https://XXXXXXXXXXXXXX.cloudfront.net`
+- **Admin CloudFront**: `https://XXXXXXXXXXXXXX.cloudfront.net`
+- **User Pool ID**: `us-east-1_XXXXXXXXX`
+
+### 🔧 **Paso 5: Configurar Frontend Principal**
 
 ```bash
 cd ../frontend
@@ -141,222 +185,24 @@ cd ../frontend
 # Instalar dependencias
 npm install
 
-# IMPORTANTE: Actualizar configuración de API
-# Editar frontend/src/main.jsx línea 15
-# Cambiar endpoint por la URL de tu API Gateway (obtenida del deploy)
-
-# Build del frontend
-npm run build
-
-# Subir a S3 (reemplaza con tu bucket name)
-aws s3 sync dist/ s3://TU-BUCKET-WEBSITE --delete
+# IMPORTANTE: Configurar API y Cognito
+# Editar frontend/src/main.jsx
 ```
 
-### 🔐 **Paso 5: Desplegar Admin Panel (NUEVO)**
-
-```bash
-cd ../admin-panel
-
-# Instalar dependencias
-npm install
-
-# IMPORTANTE: Actualizar configuración de API
-# Editar admin-panel/src/main.jsx líneas 8-9
-# Cambiar userPoolId, userPoolClientId y endpoint por los tuyos
-
-# Build del admin panel
-npm run build
-
-# Subir a S3 admin bucket
-aws s3 sync dist/ s3://TU-BUCKET-ADMIN --delete
-```
-
-### 👤 **Paso 6: Configurar Usuario Admin**
-
-```bash
-# Agregar usuario al grupo admin (reemplaza con tu email)
-aws cognito-idp admin-add-user-to-group \
-  --user-pool-id TU-USER-POOL-ID \
-  --username TU-EMAIL \
-  --group-name admin
-```
-
-### 🔍 **Paso 7: Obtener URLs**
-
-```bash
-# URL de la página web pública
-echo "Website: http://TU-BUCKET-WEBSITE.s3-website-us-east-1.amazonaws.com"
-
-# URL del admin panel
-echo "Admin: http://TU-BUCKET-ADMIN.s3-website-us-east-1.amazonaws.com"
-
-# URL de la API
-aws cloudformation describe-stacks --stack-name SportShop-Dev-Api \
-  --query "Stacks[0].Outputs[0].OutputValue" --output text
-```
-
----
-
-## 🛠️ Desarrollo Local
-
-### 🖥️ **Frontend Público (React + Vite)**
-
-```bash
-cd frontend
-
-# Instalar dependencias
-npm install
-
-# Ejecutar en desarrollo
-npm run dev  # http://localhost:5173
-
-# Build para producción
-npm run build
-```
-
-### 🔐 **Admin Panel (React + Vite)**
-
-```bash
-cd admin-panel
-
-# Instalar dependencias
-npm install
-
-# Ejecutar en desarrollo
-npm run dev  # http://localhost:5174
-
-# Build para producción
-npm run build
-```
-
-### ⚡ **Backend (Lambda Functions)**
-
-```bash
-cd infrastructure
-
-# Desplegar solo funciones Lambda
-cdk deploy SportShop-Dev-Compute --require-approval never
-
-# Ver logs de una función
-aws logs tail /aws/lambda/sportshop-dev-get-products --follow
-```
-
----
-
-## 📁 Estructura del Proyecto
-
-```
-SportShop/
-├── 📁 frontend/                    # React + Vite application (público)
-│   ├── src/
-│   │   ├── pages/                  # Páginas principales
-│   │   ├── components/             # Componentes reutilizables
-│   │   └── main.jsx               # Configuración Amplify
-│   └── dist/                      # Build para producción
-│
-├── 📁 admin-panel/                 # 🆕 Admin Panel separado
-│   ├── src/
-│   │   ├── AdminPanel.jsx         # Componente principal admin
-│   │   ├── App.jsx                # App admin independiente
-│   │   └── main.jsx               # Configuración Amplify admin
-│   └── dist/                      # Build admin para producción
-│
-├── 📁 infrastructure/              # AWS CDK Infrastructure
-│   ├── bin/sportshop.ts           # Entry point principal
-│   ├── lib/stacks/                # Stacks organizados por dominio
-│   │   ├── data-stack.ts          # DynamoDB tables
-│   │   ├── compute-stack.ts       # Lambda functions  
-│   │   ├── api-stack.ts           # API Gateway
-│   │   ├── storage-stack.ts       # 🆕 3 buckets S3 (web + admin + images)
-│   │   └── auth-stack.ts          # Cognito + Admin Group
-│   ├── lib/config/                # Configuraciones por ambiente
-│   ├── lib/constructs/            # Componentes reutilizables
-│   └── lambda-functions/          # Código de 15 funciones Lambda
-│
-└── 📁 pictures/                   # Diagramas de arquitectura
-```
-
----
-
-## 🔐 Seguridad del Admin Panel
-
-### 🛡️ **Arquitectura de Seguridad Implementada**
-
-**1. Separación Física:**
-- Admin panel en bucket S3 completamente separado
-- URL independiente no enlazada desde el sitio público
-- Aplicación React independiente con su propio build
-
-**2. Control de Acceso:**
-- Grupo "admin" en AWS Cognito para autorización
-- Verificación de permisos en cada función Lambda
-- Tokens JWT validados en todas las operaciones admin
-
-**3. Principio de Menor Privilegio:**
-- Solo usuarios autorizados pueden acceder al admin
-- Funciones admin separadas de funciones públicas
-- Mensajes de error específicos para acceso denegado
-
-### 🔑 **Gestión de Usuarios Admin**
-
-```bash
-# Crear usuario admin
-aws cognito-idp admin-create-user \
-  --user-pool-id TU-USER-POOL-ID \
-  --username admin@tudominio.com \
-  --temporary-password TempPass123! \
-  --message-action SUPPRESS
-
-# Agregar al grupo admin
-aws cognito-idp admin-add-user-to-group \
-  --user-pool-id TU-USER-POOL-ID \
-  --username admin@tudominio.com \
-  --group-name admin
-
-# Remover del grupo admin
-aws cognito-idp admin-remove-user-from-group \
-  --user-pool-id TU-USER-POOL-ID \
-  --username admin@tudominio.com \
-  --group-name admin
-```
-
----
-
-## 🔧 Configuración Personalizada
-
-### 🏷️ **Variables de Entorno**
-
-Editar `infrastructure/lib/config/environments.ts`:
-
-```typescript
-export const environments = {
-  dev: {
-    prefix: 'tu-proyecto-dev',  // Cambiar prefijo
-    tags: {
-      Project: 'tu-proyecto',
-      Owner: 'tu-nombre',
-      Environment: 'dev'
-    }
-  }
-}
-```
-
-### 🔐 **Configuración de Cognito**
-
-**Frontend Público** (`frontend/src/main.jsx`):
+**Editar `frontend/src/main.jsx`:**
 ```javascript
 Amplify.configure({
   Auth: {
     Cognito: {
-      userPoolId: 'TU-USER-POOL-ID',
-      userPoolClientId: 'TU-CLIENT-ID',
+      userPoolId: 'TU-USER-POOL-ID',        // Cambiar aquí
+      userPoolClientId: 'TU-CLIENT-ID',     // Cambiar aquí
       region: 'us-east-1'
     }
   },
   API: {
     REST: {
       SportShopAPI: {
-        endpoint: 'TU-API-GATEWAY-URL',
+        endpoint: 'TU-API-GATEWAY-URL',     // Cambiar aquí
         region: 'us-east-1'
       }
     }
@@ -364,77 +210,279 @@ Amplify.configure({
 })
 ```
 
-**Admin Panel** (`admin-panel/src/main.jsx`):
+**Obtener User Pool Client ID:**
+```bash
+# Usar el User Pool ID obtenido anteriormente
+aws cognito-idp list-user-pool-clients --user-pool-id TU-USER-POOL-ID --region us-east-1
+```
+
+### 📱 **Paso 6: Configurar WhatsApp**
+
+```bash
+# Editar frontend/src/config/whatsapp.js
+```
+
+**Editar `frontend/src/config/whatsapp.js`:**
 ```javascript
-// Misma configuración que el frontend público
-// El admin panel reutiliza la misma infraestructura de auth
+export const WHATSAPP_CONFIG = {
+  // CAMBIAR: Tu número de WhatsApp (formato: código país + número sin +)
+  phoneNumber: "59172267855", // Ejemplo Bolivia: +591 72267855
+  
+  // OPCIONAL: Personalizar información de la tienda
+  storeName: "Tu Tienda Deportiva",
+  storeWebsite: "https://tu-dominio.com",
+}
+```
+
+**Formatos de número por país:**
+- 🇧🇴 Bolivia: `+591 72267855` → `59172267855`
+- 🇨🇴 Colombia: `+57 300 123 4567` → `573001234567`
+- 🇲🇽 México: `+52 55 1234 5678` → `525512345678`
+- 🇦🇷 Argentina: `+54 11 2345 6789` → `541123456789`
+
+### 🔐 **Paso 7: Configurar Admin Panel**
+
+```bash
+cd ../admin-panel
+
+# Instalar dependencias
+npm install
+
+# IMPORTANTE: Configurar API y Cognito (igual que frontend)
+# Editar admin-panel/src/main.jsx
+```
+
+**Editar `admin-panel/src/main.jsx`:**
+```javascript
+// Usar la MISMA configuración que el frontend
+Amplify.configure({
+  Auth: {
+    Cognito: {
+      userPoolId: 'TU-USER-POOL-ID',        // Mismo que frontend
+      userPoolClientId: 'TU-CLIENT-ID',     // Mismo que frontend
+      region: 'us-east-1'
+    }
+  },
+  API: {
+    REST: {
+      SportShopAPI: {
+        endpoint: 'TU-API-GATEWAY-URL',     // Mismo que frontend
+        region: 'us-east-1'
+      }
+    }
+  }
+})
+```
+
+### 🚀 **Paso 8: Build y Deploy de Aplicaciones**
+
+**Deploy Frontend:**
+```bash
+cd ../frontend
+
+# Build del frontend
+npm run build
+
+# Subir a S3 (usar el nombre de tu bucket)
+aws s3 sync dist/ s3://TU-BUCKET-WEBSITE --delete
+
+# Invalidar caché de CloudFront
+aws cloudfront create-invalidation --distribution-id TU-DISTRIBUTION-ID --paths "/*"
+```
+
+**Deploy Admin Panel:**
+```bash
+cd ../admin-panel
+
+# Build del admin panel
+npm run build
+
+# Subir a S3 admin bucket
+aws s3 sync dist/ s3://TU-BUCKET-ADMIN --delete
+
+# Invalidar caché de CloudFront admin
+aws cloudfront create-invalidation --distribution-id TU-ADMIN-DISTRIBUTION-ID --paths "/*"
+```
+
+**Obtener nombres de buckets y distribution IDs:**
+```bash
+# Buckets S3
+aws s3 ls | grep sportshop
+
+# CloudFront distributions
+aws cloudfront list-distributions --query "DistributionList.Items[*].{Id:Id,Comment:Comment}" --output table
+```
+
+### 👤 **Paso 9: Crear Usuario Admin**
+
+```bash
+# Crear usuario admin
+aws cognito-idp admin-create-user \
+  --user-pool-id TU-USER-POOL-ID \
+  --username admin@tudominio.com \
+  --user-attributes Name=email,Value=admin@tudominio.com Name=email_verified,Value=true \
+  --temporary-password TempPass123! \
+  --message-action SUPPRESS \
+  --region us-east-1
+
+# Agregar al grupo admin
+aws cognito-idp admin-add-user-to-group \
+  --user-pool-id TU-USER-POOL-ID \
+  --username admin@tudominio.com \
+  --group-name admin \
+  --region us-east-1
+
+# Establecer contraseña permanente
+aws cognito-idp admin-set-user-password \
+  --user-pool-id TU-USER-POOL-ID \
+  --username admin@tudominio.com \
+  --password AdminPass123! \
+  --permanent \
+  --region us-east-1
+```
+
+### 🎯 **Paso 10: Verificar Funcionamiento**
+
+**Probar Website Principal:**
+1. Ir a tu URL de CloudFront del website
+2. Registrar un usuario normal
+3. Agregar productos al carrito
+4. Crear pedido → Verificar que se abre WhatsApp con Order ID
+
+**Probar Admin Panel:**
+1. Ir a tu URL de CloudFront del admin
+2. Iniciar sesión con usuario admin
+3. Crear algunos productos de prueba
+4. Verificar upload de imágenes
+
+**Probar Integración WhatsApp:**
+1. Crear pedido desde el website
+2. Verificar mensaje en WhatsApp con:
+   - Número de pedido único
+   - Lista de productos
+   - Total del pedido
+   - Tu número de WhatsApp configurado
+
+---
+
+## 🔧 Configuración Avanzada
+
+### 🏷️ **Personalizar Nombres de Recursos**
+
+Editar `infrastructure/lib/config/environments.ts`:
+```typescript
+export const ENVIRONMENTS = {
+  dev: {
+    name: 'development',
+    prefix: 'tu-tienda-dev-v2',  // Cambiar prefijo
+    stage: 'dev',
+    tags: {
+      Environment: 'dev',
+      Project: 'tu-tienda',      // Cambiar nombre
+      Owner: 'tu-nombre',        // Cambiar owner
+      CostCenter: 'learning',
+      Component: 'development'
+    }
+  }
+}
+```
+
+### 📱 **Personalizar Mensajes de WhatsApp**
+
+Editar `frontend/src/config/whatsapp.js`:
+```javascript
+messages: {
+  orderHeader: "🏪 *NUEVO PEDIDO - {storeName}*",
+  orderFooter: "¡Gracias por elegir {storeName}! 🙌",
+  confirmationText: "✅ *Por favor confirma tu pedido y proporciona tu dirección de entrega.*",
+  additionalInfo: [
+    "• 🚚 Envío: GRATIS",
+    "• 💳 Pago: Contra entrega disponible",
+    "• 🌐 Web: {storeWebsite}"
+  ]
+}
+```
+
+### 🎨 **Personalizar Diseño**
+
+**Colores principales** en `frontend/src/App.css` y `admin-panel/src/App.css`:
+```css
+:root {
+  --primary-color: #00d4ff;    /* Color principal */
+  --secondary-color: #1a1a1a;  /* Color secundario */
+  --accent-color: #ff6b35;     /* Color de acento */
+}
 ```
 
 ---
 
 ## 🧪 Testing y Validación
 
-### ✅ **Verificar Despliegue**
+### ✅ **Checklist de Verificación**
+
+**Infraestructura:**
+- [ ] Todos los stacks desplegados sin errores
+- [ ] API Gateway responde correctamente
+- [ ] CloudFront distributions activas
+- [ ] Buckets S3 configurados correctamente
+
+**Frontend:**
+- [ ] Website carga correctamente
+- [ ] Autenticación funciona (registro/login)
+- [ ] Catálogo muestra productos
+- [ ] Carrito funciona (agregar/quitar/actualizar)
+- [ ] Pedidos se crean correctamente
+- [ ] WhatsApp se abre con mensaje correcto
+
+**Admin Panel:**
+- [ ] Admin panel carga correctamente
+- [ ] Solo usuarios admin pueden acceder
+- [ ] CRUD de productos funciona
+- [ ] Upload de imágenes funciona
+- [ ] Filtros y búsquedas funcionan
+
+**WhatsApp Integration:**
+- [ ] Mensaje incluye Order ID único
+- [ ] Mensaje incluye todos los productos
+- [ ] Mensaje incluye total correcto
+- [ ] Se abre en el número correcto
+
+### 🔍 **Comandos de Debugging**
 
 ```bash
-# Verificar stacks desplegados
-aws cloudformation list-stacks --stack-status-filter CREATE_COMPLETE UPDATE_COMPLETE
+# Ver logs de Lambda functions
+aws logs tail /aws/lambda/sportshop-dev-v2-create-order --follow
 
-# Probar API endpoints públicos
-curl https://TU-API-GATEWAY-URL/products
-
-# Probar endpoint admin (requiere token)
-curl -H "Authorization: Bearer TU-JWT-TOKEN" https://TU-API-GATEWAY-URL/admin/products
+# Verificar tablas DynamoDB
+aws dynamodb scan --table-name sportshop-dev-v2-products --max-items 5
 
 # Verificar buckets S3
-aws s3 ls | grep sportshop
-```
+aws s3 ls s3://TU-BUCKET-WEBSITE
 
-### 🔍 **Testing del Admin Panel**
-
-1. **Acceso sin autenticación**: Debe redirigir a login
-2. **Usuario normal**: Debe mostrar "Acceso Denegado"
-3. **Usuario admin**: Debe permitir todas las operaciones CRUD
-4. **Upload de imágenes**: Debe funcionar con presigned URLs
-5. **Validaciones**: Debe validar campos requeridos
-
-### 🔍 **Logs y Debugging**
-
-```bash
-# Ver logs de API Gateway
-aws logs tail /aws/apigateway/SportShop-Dev-Api --follow
-
-# Ver logs de función admin específica
-aws logs tail /aws/lambda/sportshop-dev-create-product --follow
-
-# Ver métricas de admin panel
-aws cloudwatch get-metric-statistics --namespace AWS/S3 \
-  --metric-name NumberOfObjects --dimensions Name=BucketName,Value=sportshop-dev-admin \
-  --start-time 2024-01-01T00:00:00Z --end-time 2024-01-02T00:00:00Z \
-  --period 3600 --statistics Average
+# Verificar usuarios Cognito
+aws cognito-idp list-users --user-pool-id TU-USER-POOL-ID
 ```
 
 ---
 
 ## 🗑️ Limpieza y Eliminación
 
-### ⚠️ **Eliminar Recursos AWS**
+### ⚠️ **Eliminar Todos los Recursos AWS**
 
 ```bash
 cd infrastructure
 
-# Eliminar todos los stacks (CUIDADO: Elimina todo)
+# CUIDADO: Esto eliminará TODOS los recursos
 cdk destroy --all
 
-# O eliminar en orden inverso:
-cdk destroy SportShop-Dev-Api
-cdk destroy SportShop-Dev-Compute  
-cdk destroy SportShop-Dev-Auth
-cdk destroy SportShop-Dev-Storage  # Incluye los 3 buckets
+# O eliminar en orden específico:
+cdk destroy SportShop-Dev-CDN-v2
+cdk destroy SportShop-Dev-Api-v2
+cdk destroy SportShop-Dev-Compute-v2
+cdk destroy SportShop-Dev-Auth-v2
+cdk destroy SportShop-Dev-Storage-v2
 cdk destroy SportShop-Dev-Data
 ```
-
-**⚠️ IMPORTANTE**: El bucket admin también se eliminará con el storage stack.
 
 ---
 
@@ -448,71 +496,23 @@ cdk destroy SportShop-Dev-Data
 | **DynamoDB** | 25GB storage | $0.00 (Free Tier) |
 | **API Gateway** | 1M requests | $3.50 |
 | **S3** | 10GB storage (3 buckets) | $0.23 |
+| **CloudFront** | 50GB transfer | $4.25 |
 | **Cognito** | 50K MAU | $0.00 (Free Tier) |
 | **CloudWatch** | Logs básicos | $2.00 |
-| **TOTAL** | | **~$5.73/mes** |
+| **TOTAL** | | **~$9.98/mes** |
 
-**💡 Nota**: El admin panel separado agrega mínimo costo adicional (~$0.11/mes por bucket extra).
-
----
-
-## 🚀 Mejoras Futuras Sugeridas
-
-### 🔐 **Seguridad Avanzada**
-- **CloudFront** con WAF para protección DDoS
-- **Dominio personalizado** con SSL/TLS
-- **MFA obligatorio** para usuarios admin
-- **Logs de auditoría** detallados
-
-### 📊 **Monitoreo y Observabilidad**
-- **CloudWatch Dashboards** personalizados
-- **Alertas automáticas** para errores
-- **X-Ray tracing** para debugging
-- **Cost Explorer** para optimización
-
-### ⚡ **Performance**
-- **CloudFront CDN** para ambas aplicaciones
-- **Lambda@Edge** para optimizaciones
-- **DynamoDB DAX** para cache
-- **Compresión Gzip** automática
+**💡 Nota**: Costos pueden variar según uso real. CloudFront mejora significativamente la performance global.
 
 ---
 
-## 🤝 Contribución
-
-Este es un proyecto de aprendizaje que implementa patrones empresariales reales. Las contribuciones son bienvenidas siguiendo las mejores prácticas de desarrollo.
-
-### 📝 **Proceso de Contribución**
-
-1. Fork del repositorio
-2. Crear branch para feature (`git checkout -b feature/nueva-funcionalidad`)
-3. Commit de cambios (`git commit -m 'Agregar nueva funcionalidad'`)
-4. Push al branch (`git push origin feature/nueva-funcionalidad`)
-5. Crear Pull Request
-
-### 🎯 **Áreas de Contribución**
-- Mejoras de seguridad
-- Optimizaciones de performance
-- Nuevas funcionalidades de e-commerce
-- Documentación y tutoriales
-- Tests automatizados
-
----
-
-## 📄 Licencia
-
-MIT License - Ver archivo LICENSE para más detalles.
-
----
-
-## 🆘 Soporte y Troubleshooting
+## 🆘 Troubleshooting
 
 ### ❓ **Problemas Comunes**
 
 **Error: "Stack already exists"**
 ```bash
 # Verificar stacks existentes
-aws cloudformation list-stacks
+aws cloudformation list-stacks --stack-status-filter CREATE_COMPLETE UPDATE_COMPLETE
 
 # Eliminar stack problemático
 cdk destroy SportShop-Dev-STACK-NAME
@@ -520,8 +520,22 @@ cdk destroy SportShop-Dev-STACK-NAME
 
 **Error: "Bucket already exists"**
 ```bash
-# Cambiar nombre del bucket en environments.ts
-prefix: 'tu-nombre-unico-dev'
+# Cambiar prefijo en environments.ts
+prefix: 'tu-nombre-unico-dev-v2'
+```
+
+**Frontend no carga productos**
+```bash
+# Verificar configuración de API en main.jsx
+# Verificar CORS en API Gateway
+# Ver logs de Lambda functions
+aws logs tail /aws/lambda/sportshop-dev-v2-get-products --follow
+```
+
+**WhatsApp no se abre**
+```bash
+# Verificar formato del número (sin + ni espacios)
+# Probar URL manualmente: https://wa.me/TU_NUMERO
 ```
 
 **Admin Panel: "Acceso Denegado"**
@@ -529,39 +543,26 @@ prefix: 'tu-nombre-unico-dev'
 # Verificar que el usuario está en el grupo admin
 aws cognito-idp admin-list-groups-for-user \
   --user-pool-id TU-USER-POOL-ID \
-  --username TU-EMAIL
-
-# Agregar al grupo si no está
-aws cognito-idp admin-add-user-to-group \
-  --user-pool-id TU-USER-POOL-ID \
   --username TU-EMAIL \
-  --group-name admin
+  --region us-east-1
 ```
 
-**Frontend no carga productos**
+**Error al crear pedidos**
 ```bash
-# Verificar configuración de API en main.jsx
-# Verificar CORS en API Gateway
-# Verificar logs de Lambda functions
+# Ver logs de create-order Lambda
+aws logs tail /aws/lambda/sportshop-dev-v2-create-order --follow
+
+# Verificar que hay productos en el carrito
+# Verificar autenticación del usuario
 ```
-
-**Admin Panel no carga**
-```bash
-# Verificar que el bucket admin existe
-aws s3 ls s3://sportshop-dev-admin
-
-# Verificar configuración de hosting estático
-aws s3api get-bucket-website --bucket sportshop-dev-admin
-```
-
-### 📞 **Contacto**
-
-- **GitHub**: [@AndresAlvarez564](https://github.com/AndresAlvarez564)
-- **Proyecto**: [SportShop Repository](https://github.com/AndresAlvarez564/SportShop)
 
 ---
 
-**⭐ Si este proyecto te ayudó, considera darle una estrella en GitHub!**
+## 📞 **Soporte y Contacto**
+
+- **GitHub**: [@AndresAlvarez564](https://github.com/AndresAlvarez564)
+- **Proyecto**: [SportShop Repository](https://github.com/AndresAlvarez564/SportShop)
+- **Issues**: [GitHub Issues](https://github.com/AndresAlvarez564/SportShop/issues)
 
 ---
 
@@ -569,11 +570,17 @@ aws s3api get-bucket-website --bucket sportshop-dev-admin
 
 ✅ **E-commerce completo y funcional**  
 ✅ **Arquitectura serverless escalable**  
-✅ **Seguridad empresarial implementada**  
+✅ **WhatsApp integration nativa**  
+✅ **Sistema de gestión de pedidos**  
 ✅ **Admin panel separado y seguro**  
+✅ **CloudFront CDN global**  
 ✅ **Diseño profesional (YoungLA/Gymshark)**  
 ✅ **Infraestructura como código**  
-✅ **Costos optimizados**  
 ✅ **Documentación completa**  
+✅ **Costos optimizados**  
 
 **Este proyecto demuestra competencias reales de Solutions Architect y desarrollo full-stack con AWS.**
+
+---
+
+**⭐ Si este proyecto te ayudó, considera darle una estrella en GitHub!**

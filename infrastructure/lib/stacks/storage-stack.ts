@@ -20,7 +20,7 @@ export class StorageStack extends Stack {
 
     // S3 Bucket para imágenes de productos con acceso público
     this.imagesBucket = new Bucket(this, 'ProductImagesBucket', {
-      bucketName: `${env.prefix}-product-images`,
+      bucketName: `${env.prefix}-product-images-v2`,
       
       // Permitir acceso público para imágenes de productos
       blockPublicAccess: new BlockPublicAccess({
@@ -77,7 +77,7 @@ export class StorageStack extends Stack {
 
     // S3 Bucket para hosting de la página web
     this.websiteBucket = new Bucket(this, 'WebsiteBucket', {
-      bucketName: `${env.prefix}-website`,
+      bucketName: `${env.prefix}-website-v2`,
       
       // Configuración para hosting estático
       websiteIndexDocument: 'index.html',
@@ -112,7 +112,7 @@ export class StorageStack extends Stack {
 
     // S3 Bucket para admin panel (separado y seguro)
     this.adminBucket = new Bucket(this, 'AdminBucket', {
-      bucketName: `${env.prefix}-admin`,
+      bucketName: `${env.prefix}-admin-v2`,
       
       // Configuración para hosting estático
       websiteIndexDocument: 'index.html',

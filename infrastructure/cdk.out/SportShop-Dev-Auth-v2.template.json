@@ -1,5 +1,5 @@
 {
- "Description": "SportShop Cognito User Pool for development environment",
+ "Description": "SportShop Cognito User Pool for development environment - v2",
  "Resources": {
   "SportShopUserPoolB481A20B": {
    "Type": "AWS::Cognito::UserPool",
@@ -28,7 +28,7 @@
     "UsernameAttributes": [
      "email"
     ],
-    "UserPoolName": "sportshop-dev-user-pool",
+    "UserPoolName": "sportshop-dev-v2-user-pool",
     "UserPoolTags": {
      "Component": "development",
      "CostCenter": "learning",
@@ -46,7 +46,7 @@
    "UpdateReplacePolicy": "Delete",
    "DeletionPolicy": "Delete",
    "Metadata": {
-    "aws:cdk:path": "SportShop-Dev-Auth/SportShopUserPool/Resource"
+    "aws:cdk:path": "SportShop-Dev-Auth-v2/SportShopUserPool/Resource"
    }
   },
   "SportShopUserPoolClient77805AB1": {
@@ -70,7 +70,7 @@
     "CallbackURLs": [
      "https://example.com"
     ],
-    "ClientName": "sportshop-dev-user-pool-client",
+    "ClientName": "sportshop-dev-v2-user-pool-client",
     "ExplicitAuthFlows": [
      "ALLOW_USER_PASSWORD_AUTH",
      "ALLOW_ADMIN_USER_PASSWORD_AUTH",
@@ -83,7 +83,7 @@
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "SportShop-Dev-Auth/SportShopUserPoolClient/Resource"
+    "aws:cdk:path": "SportShop-Dev-Auth-v2/SportShopUserPoolClient/Resource"
    }
   },
   "AdminGroup": {
@@ -97,7 +97,7 @@
     "Precedence": 1
    },
    "Metadata": {
-    "aws:cdk:path": "SportShop-Dev-Auth/AdminGroup"
+    "aws:cdk:path": "SportShop-Dev-Auth-v2/AdminGroup"
    }
   },
   "CDKMetadata": {
@@ -106,7 +106,7 @@
     "Analytics": "v2:deflate64:H4sIAAAAAAAA/2WJsQrCMBBAv6V7coYsundwlYpziekp18Y7ySV2KP13EVEEp/d4z8NuC64Js9o4TDbRGZZjCXEyYdY+ypWpCCwnxXwQSaa98Nc/0iZCLr/rv+yz1Pv6Kh2q1BxxNSwDwqibh/fgHbhmVCKbKxe6IXRvPgHIFef8oQAAAA=="
    },
    "Metadata": {
-    "aws:cdk:path": "SportShop-Dev-Auth/CDKMetadata/Default"
+    "aws:cdk:path": "SportShop-Dev-Auth-v2/CDKMetadata/Default"
    }
   }
  },
@@ -119,7 +119,7 @@
     ]
    },
    "Export": {
-    "Name": "SportShop-Dev-Auth:ExportsOutputFnGetAttSportShopUserPoolB481A20BArnDE7925CD"
+    "Name": "SportShop-Dev-Auth-v2:ExportsOutputFnGetAttSportShopUserPoolB481A20BArnDE7925CD"
    }
   }
  },

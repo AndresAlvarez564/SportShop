@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { get, post, del, put } from 'aws-amplify/api'
 import { fetchAuthSession } from 'aws-amplify/auth'
+import { sendOrderToWhatsApp } from '../config/whatsapp'
 
 function Cart({ user }) {
   const [cartItems, setCartItems] = useState([])
@@ -124,6 +125,8 @@ function Cart({ user }) {
 
     try {
       setProcessingOrder(true)
+      
+      // Crear el pedido en la base de datos primero
       const headers = await getAuthHeaders()
       
       const restOperation = post({
@@ -135,14 +138,40 @@ function Cart({ user }) {
       const { body } = await restOperation.response
       const result = await body.json()
       
-      console.log('Create order result:', result)
+      console.log('Order created in database:', result)
       
-      alert('¡Pedido creado exitosamente! Te contactaremos por WhatsApp.')
-      setCartItems([]) // Limpiar carrito
+      if (result.order && result.order.orderId) {
+        // Preparar datos del pedido para WhatsApp con ORDER ID
+        const orderData = {
+          orderId: result.order.orderId,
+          items: result.order.items || cartItems,
+          user: user,
+          total: result.order.totalAmount || calculateTotal(),
+          totalItems: result.order.totalQuantity || getTotalItems(),
+          createdAt: result.order.createdAt
+        }
+        
+        // Enviar pedido a WhatsApp con ORDER ID
+        sendOrderToWhatsApp(orderData)
+        
+        // Mostrar mensaje de éxito con ORDER ID
+        alert(`¡Pedido creado exitosamente!\n\nNúmero de pedido: ${result.order.orderId}\n\nSe abrirá WhatsApp para enviar tu pedido. Guarda el número de pedido para referencia.`)
+        
+        // Limpiar carrito después de crear pedido exitosamente
+        setCartItems([])
+      } else {
+        throw new Error('No se pudo obtener el ID del pedido')
+      }
       
     } catch (err) {
       console.error('Error creating order:', err)
-      alert('Error al crear pedido')
+      
+      // Mostrar error específico si está disponible
+      const errorMessage = err.response?.body ? 
+        JSON.parse(err.response.body).message : 
+        'Error al crear pedido. Por favor intenta nuevamente.'
+      
+      alert(`Error: ${errorMessage}`)
     } finally {
       setProcessingOrder(false)
     }

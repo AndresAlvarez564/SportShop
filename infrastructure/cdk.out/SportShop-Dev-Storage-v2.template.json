@@ -1,10 +1,10 @@
 {
- "Description": "SportShop S3 buckets for development environment",
+ "Description": "SportShop S3 buckets for development environment - v2",
  "Resources": {
   "ProductImagesBucket03BDA4C8": {
    "Type": "AWS::S3::Bucket",
    "Properties": {
-    "BucketName": "sportshop-dev-product-images",
+    "BucketName": "sportshop-dev-v2-product-images-v2",
     "CorsConfiguration": {
      "CorsRules": [
       {
@@ -71,7 +71,7 @@
    "UpdateReplacePolicy": "Delete",
    "DeletionPolicy": "Delete",
    "Metadata": {
-    "aws:cdk:path": "SportShop-Dev-Storage/ProductImagesBucket/Resource"
+    "aws:cdk:path": "SportShop-Dev-Storage-v2/ProductImagesBucket/Resource"
    }
   },
   "ProductImagesBucketPolicyA68764A4": {
@@ -109,13 +109,13 @@
     }
    },
    "Metadata": {
-    "aws:cdk:path": "SportShop-Dev-Storage/ProductImagesBucketPolicy/Resource"
+    "aws:cdk:path": "SportShop-Dev-Storage-v2/ProductImagesBucketPolicy/Resource"
    }
   },
   "WebsiteBucket75C24D94": {
    "Type": "AWS::S3::Bucket",
    "Properties": {
-    "BucketName": "sportshop-dev-website",
+    "BucketName": "sportshop-dev-v2-website-v2",
     "PublicAccessBlockConfiguration": {
      "BlockPublicAcls": false,
      "BlockPublicPolicy": false,
@@ -152,7 +152,7 @@
    "UpdateReplacePolicy": "Delete",
    "DeletionPolicy": "Delete",
    "Metadata": {
-    "aws:cdk:path": "SportShop-Dev-Storage/WebsiteBucket/Resource"
+    "aws:cdk:path": "SportShop-Dev-Storage-v2/WebsiteBucket/Resource"
    }
   },
   "WebsiteBucketPolicy4618E892": {
@@ -190,13 +190,13 @@
     }
    },
    "Metadata": {
-    "aws:cdk:path": "SportShop-Dev-Storage/WebsiteBucketPolicy/Resource"
+    "aws:cdk:path": "SportShop-Dev-Storage-v2/WebsiteBucketPolicy/Resource"
    }
   },
   "AdminBucketB0A70AB7": {
    "Type": "AWS::S3::Bucket",
    "Properties": {
-    "BucketName": "sportshop-dev-admin",
+    "BucketName": "sportshop-dev-v2-admin-v2",
     "PublicAccessBlockConfiguration": {
      "BlockPublicAcls": false,
      "BlockPublicPolicy": false,
@@ -233,7 +233,7 @@
    "UpdateReplacePolicy": "Delete",
    "DeletionPolicy": "Delete",
    "Metadata": {
-    "aws:cdk:path": "SportShop-Dev-Storage/AdminBucket/Resource"
+    "aws:cdk:path": "SportShop-Dev-Storage-v2/AdminBucket/Resource"
    }
   },
   "AdminBucketPolicy7851C6B8": {
@@ -271,7 +271,7 @@
     }
    },
    "Metadata": {
-    "aws:cdk:path": "SportShop-Dev-Storage/AdminBucketPolicy/Resource"
+    "aws:cdk:path": "SportShop-Dev-Storage-v2/AdminBucketPolicy/Resource"
    }
   },
   "CDKMetadata": {
@@ -280,7 +280,7 @@
     "Analytics": "v2:deflate64:H4sIAAAAAAAA/zPSszDXM1BMLC/WTU7J1s3JTNKrDi5JTM7WSSwvji821qt2Kk3OTi3RcU7Lg7IgVEB+TmZyJUIYwq8FCQSlFueXFiWn1urk5aek6mUV65cZGekZGegZKGYVZ2bqFpXmlWTmpuoFQWgAj15mMYMAAAA="
    },
    "Metadata": {
-    "aws:cdk:path": "SportShop-Dev-Storage/CDKMetadata/Default"
+    "aws:cdk:path": "SportShop-Dev-Storage-v2/CDKMetadata/Default"
    }
   }
  },
@@ -293,7 +293,7 @@
     ]
    },
    "Export": {
-    "Name": "SportShop-Dev-Storage:ExportsOutputFnGetAttProductImagesBucket03BDA4C8Arn5AA48756"
+    "Name": "SportShop-Dev-Storage-v2:ExportsOutputFnGetAttProductImagesBucket03BDA4C8Arn5AA48756"
    }
   },
   "ExportsOutputRefProductImagesBucket03BDA4C8A4D6E2D0": {
@@ -301,7 +301,29 @@
     "Ref": "ProductImagesBucket03BDA4C8"
    },
    "Export": {
-    "Name": "SportShop-Dev-Storage:ExportsOutputRefProductImagesBucket03BDA4C8A4D6E2D0"
+    "Name": "SportShop-Dev-Storage-v2:ExportsOutputRefProductImagesBucket03BDA4C8A4D6E2D0"
+   }
+  },
+  "ExportsOutputFnGetAttWebsiteBucket75C24D94WebsiteURLFC431088": {
+   "Value": {
+    "Fn::GetAtt": [
+     "WebsiteBucket75C24D94",
+     "WebsiteURL"
+    ]
+   },
+   "Export": {
+    "Name": "SportShop-Dev-Storage-v2:ExportsOutputFnGetAttWebsiteBucket75C24D94WebsiteURLFC431088"
+   }
+  },
+  "ExportsOutputFnGetAttAdminBucketB0A70AB7WebsiteURL0A029882": {
+   "Value": {
+    "Fn::GetAtt": [
+     "AdminBucketB0A70AB7",
+     "WebsiteURL"
+    ]
+   },
+   "Export": {
+    "Name": "SportShop-Dev-Storage-v2:ExportsOutputFnGetAttAdminBucketB0A70AB7WebsiteURL0A029882"
    }
   }
  },

@@ -10,7 +10,7 @@ export interface Environment {
 export const ENVIRONMENTS: { [key: string]: Environment } = {
   dev: {
     name: 'development',
-    prefix: 'sportshop-dev',
+    prefix: 'sportshop-dev-v2',
     stage: 'dev',
     tags: {
       Environment: 'dev',
@@ -22,7 +22,7 @@ export const ENVIRONMENTS: { [key: string]: Environment } = {
   },
   prod: {
     name: 'production',
-    prefix: 'sportshop-prod',
+    prefix: 'sportshop-prod-v2',
     stage: 'prod',
     tags: {
       Environment: 'prod',

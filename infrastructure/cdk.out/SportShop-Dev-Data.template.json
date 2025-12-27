@@ -25,7 +25,7 @@
      }
     ],
     "BillingMode": "PAY_PER_REQUEST",
-    "TableName": "sportshop-dev-products",
+    "TableName": "sportshop-dev-v2-products",
     "Tags": [
      {
       "Key": "Component",
@@ -79,7 +79,7 @@
      }
     ],
     "BillingMode": "PAY_PER_REQUEST",
-    "TableName": "sportshop-dev-cart",
+    "TableName": "sportshop-dev-v2-cart",
     "Tags": [
      {
       "Key": "Component",
@@ -133,7 +133,7 @@
      }
     ],
     "BillingMode": "PAY_PER_REQUEST",
-    "TableName": "sportshop-dev-orders",
+    "TableName": "sportshop-dev-v2-orders",
     "Tags": [
      {
       "Key": "Component",
