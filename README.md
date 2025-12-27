@@ -1,156 +1,381 @@
-# SportShop - E-commerce Web Application
+# SportShop - E-commerce Serverless Web Application
 
-## 📋 Project Description
+## � *r*SISTEMA COMPLETAMENTE FUNCIONAL EN AWS**
 
-Clothing store web application designed to showcase products to customers and serve as a real-world project for learning Solutions Architect work.
+**URLs en Producción:**
+- **🌐 Página Web**: http://sportshop-dev-website.s3-website-us-east-1.amazonaws.com
+- **🔗 API Backend**: https://n6k1hqcj6d.execute-api.us-east-1.amazonaws.com/prod
 
-## 🎯 Objectives
+---
 
-- Build a functional online store
-- Implement scalable AWS architecture
-- Apply Solutions Architecture best practices
-- Maintain optimized costs
+## 📋 Descripción del Proyecto
 
-## 👥 Users and Roles
+Aplicación web de tienda de ropa construida con **arquitectura serverless en AWS**. Proyecto real para aprender el trabajo de un Solutions Architect, implementando mejores prácticas de escalabilidad, seguridad y optimización de costos.
 
-- **Visitor/Customer**: View catalog, search products, view details, contact
-- **Authenticated Customer**: Make purchases and leave reviews
-- **Administrator**: Manage products, prices, orders and messages
+## ✨ Funcionalidades Implementadas
 
-## ⚡ MVP Features
+### 🛍️ **E-commerce Completo**
+- ✅ **Catálogo de productos** con filtros y búsqueda
+- ✅ **Carrito de compras** completo (agregar, actualizar, eliminar)
+- ✅ **Sistema de autenticación** con AWS Cognito
+- ✅ **Panel de administración** con CRUD de productos
+- ✅ **Upload de imágenes** a S3 con presigned URLs
+- ✅ **Sistema de reseñas** y ratings
+- ✅ **Gestión de pedidos** con integración WhatsApp
 
-- ✅ Product catalog (public viewing)
-- ✅ Shopping cart
-- ✅ Login/Registration system
-- ✅ Contact form
-- ✅ Review system
+### 🏗️ **Arquitectura AWS Serverless**
+- ✅ **15 funciones Lambda** con lógica de negocio
+- ✅ **3 tablas DynamoDB** optimizadas
+- ✅ **API Gateway** con autenticación Cognito
+- ✅ **2 buckets S3** (imágenes + hosting web)
+- ✅ **Infraestructura como código** con AWS CDK
+- ✅ **5 stacks CDK** organizados por dominio
 
-## 💳 Purchase Model
+---
 
-- Order registration without online payment
-- WhatsApp redirection for direct coordination
-- Payment management outside the web platform
+## 🏗️ Arquitectura del Sistema
 
-## 🏗️ Architecture
-
-### Design Principles
-- **Automatic scalability**
-- **Managed services** (avoid server management)
-- **High availability** with cost-benefit focus
-- **Security** with HTTPS and authentication
-
-### Planned Technologies
-- Frontend: React/Next.js
-- Backend: AWS Lambda + API Gateway
-- Database: DynamoDB
-- Storage: S3 + CloudFront
-- Authentication: AWS Cognito
-
-### 📐 Architecture Diagram
+### 📐 Diagrama de Arquitectura
 
 ![SportShop L0 Architecture](pictures/Architecture_L0.png)
 
-For a detailed view of the system architecture, please open the `Architecture_L0.drawio` file using the [draw.io extension](https://marketplace.visualstudio.com/items?itemName=hediet.vscode-drawio) in VS Code or visit [draw.io](https://app.diagrams.net/) online.
-
-The L0 diagram shows:
-- Complete serverless architecture flow
-- AWS services integration
-- User interaction patterns
-- Security and scalability design
-
-### 🏗️ Infrastructure as Code
-
-This project uses **AWS CDK with TypeScript** for infrastructure management:
-
+**Flujo de la aplicación:**
 ```
-infrastructure/
-├── bin/sportshop.ts           # Entry point
-├── lib/stacks/                # Domain-separated stacks
-│   ├── data-stack.ts          # DynamoDB tables
-│   ├── compute-stack.ts       # Lambda functions
-│   ├── api-stack.ts           # API Gateway
-│   ├── frontend-stack.ts      # S3 + CloudFront
-│   └── auth-stack.ts          # Cognito authentication
-├── lib/config/                # Environment configurations
-└── lib/constructs/            # Reusable components
+Usuario → S3 Website → API Gateway → Lambda → DynamoDB
+                    ↓
+                Cognito (Auth) → S3 (Images)
 ```
 
-**Benefits of this approach:**
-- ✅ **Professional structure** with domain separation
-- ✅ **Type safety** with TypeScript
-- ✅ **Reusable components** and best practices
-- ✅ **Multi-environment** support (dev/prod)
-- ✅ **Version control** for infrastructure
+### � AComponentes AWS Desplegados
 
-## 🔒 Security
+| Servicio | Recurso | Propósito |
+|----------|---------|-----------|
+| **S3** | `sportshop-dev-website` | Hosting estático del frontend |
+| **S3** | `sportshop-dev-product-images` | Almacenamiento de imágenes |
+| **DynamoDB** | `sportshop-dev-products` | Catálogo de productos |
+| **DynamoDB** | `sportshop-dev-cart` | Carritos de usuarios |
+| **DynamoDB** | `sportshop-dev-orders` | Historial de pedidos |
+| **Cognito** | User Pool | Autenticación de usuarios |
+| **API Gateway** | REST API | Endpoints del backend |
+| **Lambda** | 15 funciones | Lógica de negocio |
 
-- Mandatory HTTPS traffic
-- Authentication for purchases and reviews
-- Role separation (Admin vs Customer)
-- Sensitive data protection
+---
 
-## 📊 Observability
+## 🚀 Guía de Instalación y Despliegue
 
-- ✅ CloudWatch monitoring
-- ✅ Centralized logs
-- ✅ Critical alerts (email/WhatsApp)
-- ❌ Automatic backups (disabled for cost)
+### 📋 **Prerrequisitos**
 
-## 💰 Cost Approach
+1. **AWS CLI** configurado con credenciales
+2. **Node.js** (v18 o superior)
+3. **AWS CDK** instalado globalmente
+4. **Git** para clonar el repositorio
 
-- Priority on **minimum cost**
-- Use **Free Tier** when possible
-- Scalability without unnecessary overhead
-- Pay-per-use services
+```bash
+# Instalar AWS CDK
+npm install -g aws-cdk
 
-## 🚀 Roadmap
+# Verificar instalación
+aws --version
+cdk --version
+node --version
+```
 
-### Phase 1: MVP
-- [ ] Basic infrastructure setup
-- [ ] Frontend with catalog
-- [ ] Authentication system
-- [ ] Basic cart
+### 📥 **Paso 1: Clonar el Repositorio**
 
-### Phase 2: Core Features
-- [ ] Order system
-- [ ] WhatsApp integration
-- [ ] Administration panel
-- [ ] Review system
+```bash
+git clone https://github.com/AndresAlvarez564/SportShop.git
+cd SportShop
+```
 
-### Phase 3: Optimization
-- [ ] CDN for images
-- [ ] Performance optimization
-- [ ] Advanced monitoring
-- [ ] Load testing
+### ⚙️ **Paso 2: Configurar AWS CDK**
 
-## 📁 Project Structure
+```bash
+cd infrastructure
+
+# Instalar dependencias
+npm install
+
+# Configurar tu cuenta AWS (reemplaza con tu account ID)
+# Editar infrastructure/bin/sportshop.ts líneas 20, 28, 36, 44, 52
+# Cambiar: account: '851725386264' por tu account ID
+
+# Bootstrap CDK (solo la primera vez)
+cdk bootstrap
+```
+
+### 🏗️ **Paso 3: Desplegar Infraestructura**
+
+```bash
+# Desde infrastructure/
+cdk synth  # Verificar que compila
+
+# Desplegar todos los stacks (orden automático)
+cdk deploy --all --require-approval never
+
+# O desplegar uno por uno:
+cdk deploy SportShop-Dev-Data --require-approval never
+cdk deploy SportShop-Dev-Storage --require-approval never  
+cdk deploy SportShop-Dev-Compute --require-approval never
+cdk deploy SportShop-Dev-Auth --require-approval never
+cdk deploy SportShop-Dev-Api --require-approval never
+```
+
+### 🌐 **Paso 4: Desplegar Frontend**
+
+```bash
+cd ../frontend
+
+# Instalar dependencias
+npm install
+
+# IMPORTANTE: Actualizar configuración de API
+# Editar frontend/src/main.jsx línea 15
+# Cambiar endpoint por la URL de tu API Gateway (obtenida del deploy)
+
+# Build del frontend
+npm run build
+
+# Subir a S3 (reemplaza con tu bucket name)
+aws s3 sync dist/ s3://TU-BUCKET-WEBSITE --delete
+```
+
+### 🔍 **Paso 5: Obtener URLs**
+
+```bash
+# URL de la página web
+echo "Website: http://TU-BUCKET-WEBSITE.s3-website-us-east-1.amazonaws.com"
+
+# URL de la API
+aws cloudformation describe-stacks --stack-name SportShop-Dev-Api \
+  --query "Stacks[0].Outputs[0].OutputValue" --output text
+```
+
+---
+
+## �️ Desarrollo Local
+
+### 🖥️ **Frontend (React + Vite)**
+
+```bash
+cd frontend
+
+# Instalar dependencias
+npm install
+
+# Ejecutar en desarrollo
+npm run dev  # http://localhost:5173
+
+# Build para producción
+npm run build
+```
+
+### ⚡ **Backend (Lambda Functions)**
+
+```bash
+cd infrastructure
+
+# Desplegar solo funciones Lambda
+cdk deploy SportShop-Dev-Compute --require-approval never
+
+# Ver logs de una función
+aws logs tail /aws/lambda/sportshop-dev-get-products --follow
+```
+
+---
+
+## 📁 Estructura del Proyecto
 
 ```
 SportShop/
-├── frontend/            # React/Next.js application
-├── backend/             # Lambda functions
-├── infrastructure/      # IaC code (CloudFormation/CDK)
-└── docs/               # Additional documentation
+├── 📁 frontend/                    # React + Vite application
+│   ├── src/
+│   │   ├── pages/                  # Páginas principales
+│   │   ├── components/             # Componentes reutilizables
+│   │   └── main.jsx               # Configuración Amplify
+│   └── dist/                      # Build para producción
+│
+├── 📁 infrastructure/              # AWS CDK Infrastructure
+│   ├── bin/sportshop.ts           # Entry point principal
+│   ├── lib/stacks/                # Stacks organizados por dominio
+│   │   ├── data-stack.ts          # DynamoDB tables
+│   │   ├── compute-stack.ts       # Lambda functions  
+│   │   ├── api-stack.ts           # API Gateway
+│   │   ├── storage-stack.ts       # S3 buckets
+│   │   └── auth-stack.ts          # Cognito authentication
+│   ├── lib/config/                # Configuraciones por ambiente
+│   ├── lib/constructs/            # Componentes reutilizables
+│   └── lambda-functions/          # Código de 15 funciones Lambda
+│
+└── 📁 pictures/                   # Diagramas de arquitectura
 ```
 
-## 🛠️ Installation and Development
+---
+
+## 🔧 Configuración Personalizada
+
+### 🏷️ **Variables de Entorno**
+
+Editar `infrastructure/lib/config/environments.ts`:
+
+```typescript
+export const environments = {
+  dev: {
+    prefix: 'tu-proyecto-dev',  // Cambiar prefijo
+    tags: {
+      Project: 'tu-proyecto',
+      Owner: 'tu-nombre',
+      Environment: 'dev'
+    }
+  }
+}
+```
+
+### 🔐 **Configuración de Cognito**
+
+Después del deploy, actualizar `frontend/src/main.jsx`:
+
+```javascript
+Amplify.configure({
+  Auth: {
+    Cognito: {
+      userPoolId: 'TU-USER-POOL-ID',      // Del output de Auth stack
+      userPoolClientId: 'TU-CLIENT-ID',    // Del output de Auth stack
+      region: 'us-east-1'
+    }
+  },
+  API: {
+    REST: {
+      SportShopAPI: {
+        endpoint: 'TU-API-GATEWAY-URL',     // Del output de Api stack
+        region: 'us-east-1'
+      }
+    }
+  }
+})
+```
+
+---
+
+## 🧪 Testing y Validación
+
+### ✅ **Verificar Despliegue**
 
 ```bash
-# Clone repository
-git clone https://github.com/AndresAlvarez564/SportShop.git
-cd SportShop
+# Verificar stacks desplegados
+aws cloudformation list-stacks --stack-status-filter CREATE_COMPLETE UPDATE_COMPLETE
 
-# Install dependencies (when added)
-npm install
+# Probar API endpoints
+curl https://TU-API-GATEWAY-URL/products
 
-# Run in development
-npm run dev
+# Verificar funciones Lambda
+aws lambda list-functions --query "Functions[?contains(FunctionName, 'sportshop')]"
 ```
 
-## 📝 Contributing
+### 🔍 **Logs y Debugging**
 
-This is a learning project. Contributions are welcome following development best practices.
+```bash
+# Ver logs de API Gateway
+aws logs tail /aws/apigateway/SportShop-Dev-Api --follow
 
-## 📄 License
+# Ver logs de función específica
+aws logs tail /aws/lambda/sportshop-dev-get-products --follow
 
-MIT License - See LICENSE file for more details.
+# Ver métricas en CloudWatch
+aws cloudwatch get-metric-statistics --namespace AWS/Lambda \
+  --metric-name Invocations --dimensions Name=FunctionName,Value=sportshop-dev-get-products \
+  --start-time 2024-01-01T00:00:00Z --end-time 2024-01-02T00:00:00Z \
+  --period 3600 --statistics Sum
+```
+
+---
+
+## 🗑️ Limpieza y Eliminación
+
+### ⚠️ **Eliminar Recursos AWS**
+
+```bash
+cd infrastructure
+
+# Eliminar todos los stacks (CUIDADO: Elimina todo)
+cdk destroy --all
+
+# O eliminar en orden inverso:
+cdk destroy SportShop-Dev-Api
+cdk destroy SportShop-Dev-Compute  
+cdk destroy SportShop-Dev-Auth
+cdk destroy SportShop-Dev-Storage
+cdk destroy SportShop-Dev-Data
+```
+
+---
+
+## 💰 Estimación de Costos
+
+### 💵 **Costos Mensuales Estimados (Free Tier)**
+
+| Servicio | Uso Estimado | Costo Mensual |
+|----------|--------------|---------------|
+| **Lambda** | 1M requests | $0.00 (Free Tier) |
+| **DynamoDB** | 25GB storage | $0.00 (Free Tier) |
+| **API Gateway** | 1M requests | $3.50 |
+| **S3** | 5GB storage | $0.12 |
+| **Cognito** | 50K MAU | $0.00 (Free Tier) |
+| **CloudWatch** | Logs básicos | $2.00 |
+| **TOTAL** | | **~$5.62/mes** |
+
+---
+
+## 🤝 Contribución
+
+Este es un proyecto de aprendizaje. Las contribuciones son bienvenidas siguiendo las mejores prácticas de desarrollo.
+
+### 📝 **Proceso de Contribución**
+
+1. Fork del repositorio
+2. Crear branch para feature (`git checkout -b feature/nueva-funcionalidad`)
+3. Commit de cambios (`git commit -m 'Agregar nueva funcionalidad'`)
+4. Push al branch (`git push origin feature/nueva-funcionalidad`)
+5. Crear Pull Request
+
+---
+
+## 📄 Licencia
+
+MIT License - Ver archivo LICENSE para más detalles.
+
+---
+
+## 🆘 Soporte y Troubleshooting
+
+### ❓ **Problemas Comunes**
+
+**Error: "Stack already exists"**
+```bash
+# Verificar stacks existentes
+aws cloudformation list-stacks
+
+# Eliminar stack problemático
+cdk destroy SportShop-Dev-STACK-NAME
+```
+
+**Error: "Bucket already exists"**
+```bash
+# Cambiar nombre del bucket en environments.ts
+prefix: 'tu-nombre-unico-dev'
+```
+
+**Frontend no carga productos**
+```bash
+# Verificar configuración de API en main.jsx
+# Verificar CORS en API Gateway
+# Verificar logs de Lambda functions
+```
+
+### 📞 **Contacto**
+
+- **GitHub**: [@AndresAlvarez564](https://github.com/AndresAlvarez564)
+- **Proyecto**: [SportShop Repository](https://github.com/AndresAlvarez564/SportShop)
+
+---
+
+**⭐ Si este proyecto te ayudó, considera darle una estrella en GitHub!**
