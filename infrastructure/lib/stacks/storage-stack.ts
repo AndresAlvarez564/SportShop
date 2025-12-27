@@ -11,6 +11,7 @@ interface StorageStackProps extends StackProps {
 export class StorageStack extends Stack {
   public readonly imagesBucket: Bucket;
   public readonly websiteBucket: Bucket;
+  public readonly adminBucket: Bucket;
 
   constructor(scope: Construct, id: string, props: StorageStackProps) {
     super(scope, id, props);
@@ -106,6 +107,41 @@ export class StorageStack extends Stack {
         principals: [new AnyPrincipal()],
         actions: ['s3:GetObject'],
         resources: [`${this.websiteBucket.bucketArn}/*`]
+      })
+    );
+
+    // S3 Bucket para admin panel (separado y seguro)
+    this.adminBucket = new Bucket(this, 'AdminBucket', {
+      bucketName: `${env.prefix}-admin`,
+      
+      // Configuración para hosting estático
+      websiteIndexDocument: 'index.html',
+      websiteErrorDocument: 'index.html', // Para SPA routing
+      
+      // Permitir acceso público para el admin panel
+      blockPublicAccess: new BlockPublicAccess({
+        blockPublicAcls: false,
+        blockPublicPolicy: false,
+        ignorePublicAcls: false,
+        restrictPublicBuckets: false
+      }),
+      
+      // Política de eliminación (cuidado en producción)
+      removalPolicy: props.stage === 'dev' ? RemovalPolicy.DESTROY : RemovalPolicy.RETAIN
+    });
+
+    // Política de bucket para acceso público de lectura (admin)
+    const adminBucketPolicy = new BucketPolicy(this, 'AdminBucketPolicy', {
+      bucket: this.adminBucket
+    });
+
+    adminBucketPolicy.document.addStatements(
+      new PolicyStatement({
+        sid: 'PublicReadGetObject',
+        effect: Effect.ALLOW,
+        principals: [new AnyPrincipal()],
+        actions: ['s3:GetObject'],
+        resources: [`${this.adminBucket.bucketArn}/*`]
       })
     );
 

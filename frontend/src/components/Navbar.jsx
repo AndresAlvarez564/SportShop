@@ -42,7 +42,6 @@ function Navbar({ user, onSignOut }) {
         {user ? (
           <>
             <Link to="/cart" className="nav-link">Carrito</Link>
-            <Link to="/admin" className="nav-link">Admin</Link>
             <span className="user-email">Hola, {userEmail}</span>
             <button onClick={handleSignOut} className="btn btn-outline">
               Cerrar Sesión

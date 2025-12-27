@@ -583,6 +583,115 @@
               "version": "2.87.0"
             }
           },
+          "AdminBucket": {
+            "id": "AdminBucket",
+            "path": "SportShop-Dev-Storage/AdminBucket",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "SportShop-Dev-Storage/AdminBucket/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::S3::Bucket",
+                  "aws:cdk:cloudformation:props": {
+                    "bucketName": "sportshop-dev-admin",
+                    "publicAccessBlockConfiguration": {
+                      "blockPublicAcls": false,
+                      "blockPublicPolicy": false,
+                      "ignorePublicAcls": false,
+                      "restrictPublicBuckets": false
+                    },
+                    "tags": [
+                      {
+                        "key": "Component",
+                        "value": "development"
+                      },
+                      {
+                        "key": "CostCenter",
+                        "value": "learning"
+                      },
+                      {
+                        "key": "Environment",
+                        "value": "dev"
+                      },
+                      {
+                        "key": "Owner",
+                        "value": "Andres"
+                      },
+                      {
+                        "key": "Project",
+                        "value": "sportshop"
+                      }
+                    ],
+                    "websiteConfiguration": {
+                      "indexDocument": "index.html",
+                      "errorDocument": "index.html"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_s3.CfnBucket",
+                  "version": "2.87.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_s3.Bucket",
+              "version": "2.87.0"
+            }
+          },
+          "AdminBucketPolicy": {
+            "id": "AdminBucketPolicy",
+            "path": "SportShop-Dev-Storage/AdminBucketPolicy",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "SportShop-Dev-Storage/AdminBucketPolicy/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::S3::BucketPolicy",
+                  "aws:cdk:cloudformation:props": {
+                    "bucket": {
+                      "Ref": "AdminBucketB0A70AB7"
+                    },
+                    "policyDocument": {
+                      "Statement": [
+                        {
+                          "Action": "s3:GetObject",
+                          "Effect": "Allow",
+                          "Principal": {
+                            "AWS": "*"
+                          },
+                          "Resource": {
+                            "Fn::Join": [
+                              "",
+                              [
+                                {
+                                  "Fn::GetAtt": [
+                                    "AdminBucketB0A70AB7",
+                                    "Arn"
+                                  ]
+                                },
+                                "/*"
+                              ]
+                            ]
+                          },
+                          "Sid": "PublicReadGetObject"
+                        }
+                      ],
+                      "Version": "2012-10-17"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_s3.CfnBucketPolicy",
+                  "version": "2.87.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_s3.BucketPolicy",
+              "version": "2.87.0"
+            }
+          },
           "CDKMetadata": {
             "id": "CDKMetadata",
             "path": "SportShop-Dev-Storage/CDKMetadata",

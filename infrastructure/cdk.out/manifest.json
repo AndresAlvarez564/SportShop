@@ -189,7 +189,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::851725386264:role/cdk-hnb659fds-deploy-role-851725386264-us-east-1",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::851725386264:role/cdk-hnb659fds-cfn-exec-role-851725386264-us-east-1",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-851725386264-us-east-1/f2358651d9728015dfb7b65c4e951b4a0a2a82c421041ae4f37b8c620ae3225c.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-851725386264-us-east-1/527c4f6e356a5a04ec81f8f1b01ba7c042da351b05e7aafa998513d52f96d2b8.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -254,6 +254,18 @@
           {
             "type": "aws:cdk:logicalId",
             "data": "WebsiteBucketPolicy4618E892"
+          }
+        ],
+        "/SportShop-Dev-Storage/AdminBucket/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AdminBucketB0A70AB7"
+          }
+        ],
+        "/SportShop-Dev-Storage/AdminBucketPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AdminBucketPolicy7851C6B8"
           }
         ],
         "/SportShop-Dev-Storage/CDKMetadata/Default": [

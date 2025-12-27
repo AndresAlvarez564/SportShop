@@ -193,6 +193,87 @@
     "aws:cdk:path": "SportShop-Dev-Storage/WebsiteBucketPolicy/Resource"
    }
   },
+  "AdminBucketB0A70AB7": {
+   "Type": "AWS::S3::Bucket",
+   "Properties": {
+    "BucketName": "sportshop-dev-admin",
+    "PublicAccessBlockConfiguration": {
+     "BlockPublicAcls": false,
+     "BlockPublicPolicy": false,
+     "IgnorePublicAcls": false,
+     "RestrictPublicBuckets": false
+    },
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "development"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "learning"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "Owner",
+      "Value": "Andres"
+     },
+     {
+      "Key": "Project",
+      "Value": "sportshop"
+     }
+    ],
+    "WebsiteConfiguration": {
+     "ErrorDocument": "index.html",
+     "IndexDocument": "index.html"
+    }
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Storage/AdminBucket/Resource"
+   }
+  },
+  "AdminBucketPolicy7851C6B8": {
+   "Type": "AWS::S3::BucketPolicy",
+   "Properties": {
+    "Bucket": {
+     "Ref": "AdminBucketB0A70AB7"
+    },
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "s3:GetObject",
+       "Effect": "Allow",
+       "Principal": {
+        "AWS": "*"
+       },
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          {
+           "Fn::GetAtt": [
+            "AdminBucketB0A70AB7",
+            "Arn"
+           ]
+          },
+          "/*"
+         ]
+        ]
+       },
+       "Sid": "PublicReadGetObject"
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Storage/AdminBucketPolicy/Resource"
+   }
+  },
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {

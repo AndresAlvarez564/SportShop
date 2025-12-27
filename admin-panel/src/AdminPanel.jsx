@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { get, post, put, del } from 'aws-amplify/api'
 import { fetchAuthSession } from 'aws-amplify/auth'
-// Removemos uploadData y getUrl por ahora
 
 function AdminPanel({ user }) {
   const [products, setProducts] = useState([])
@@ -27,7 +26,7 @@ function AdminPanel({ user }) {
 
   const getAuthHeaders = async () => {
     const session = await fetchAuthSession()
-    const token = session.tokens?.idToken?.toString()  // ← Usar IdToken, no AccessToken
+    const token = session.tokens?.idToken?.toString()
     return {
       Authorization: `Bearer ${token}`
     }
@@ -139,7 +138,7 @@ function AdminPanel({ user }) {
     try {
       console.log('Creating product with data:', formData)
       
-      const headers = await getAuthHeaders() // ← RESTAURAR HEADERS
+      const headers = await getAuthHeaders()
       console.log('Auth headers:', headers)
       
       let imageUrl = formData.imageUrl
@@ -155,7 +154,7 @@ function AdminPanel({ user }) {
         ...formData,
         price: parseFloat(formData.price),
         stock: parseInt(formData.stock),
-        imageUrl: imageUrl // Usar la URL de S3 o la URL manual
+        imageUrl: imageUrl
       }
       console.log('Product data to send:', productData)
       
@@ -163,7 +162,7 @@ function AdminPanel({ user }) {
         apiName: 'SportShopAPI',
         path: '/admin/products',
         options: {
-          headers, // ← RESTAURAR HEADERS
+          headers,
           body: productData
         }
       })
@@ -180,7 +179,7 @@ function AdminPanel({ user }) {
         name: '', description: '', price: '', category: '', 
         gender: '', stock: '', imageUrl: ''
       })
-      setSelectedFile(null) // Limpiar archivo seleccionado
+      setSelectedFile(null)
       setShowCreateForm(false)
       fetchProducts()
       
@@ -211,7 +210,7 @@ function AdminPanel({ user }) {
     try {
       console.log('Updating product:', editingProduct.id, 'with data:', formData)
       
-      const headers = await getAuthHeaders() // ← AGREGAR HEADERS
+      const headers = await getAuthHeaders()
       console.log('Auth headers:', headers)
       
       const productData = {
@@ -225,7 +224,7 @@ function AdminPanel({ user }) {
         apiName: 'SportShopAPI',
         path: `/admin/products/${editingProduct.id}`,
         options: {
-          headers, // ← AGREGAR HEADERS
+          headers,
           body: productData
         }
       })
@@ -272,14 +271,14 @@ function AdminPanel({ user }) {
     try {
       console.log('Deleting product:', productId)
       
-      const headers = await getAuthHeaders() // ← AGREGAR HEADERS
+      const headers = await getAuthHeaders()
       console.log('Auth headers:', headers)
       
       const restOperation = del({
         apiName: 'SportShopAPI',
         path: `/admin/products/${productId}`,
         options: {
-          headers // ← AGREGAR HEADERS
+          headers
         }
       })
 
@@ -319,7 +318,6 @@ function AdminPanel({ user }) {
       name: product.name,
       description: product.description,
       price: product.price.toString(),
-      // category: product.category,  ← REMOVER - No se puede cambiar
       gender: product.gender,
       stock: product.stock.toString(),
       imageUrl: product.imageUrl || ''
@@ -352,7 +350,7 @@ function AdminPanel({ user }) {
           <p>Solo los administradores pueden acceder a este panel.</p>
           <p>Si necesitas permisos de administrador, contacta al administrador del sistema.</p>
           <button onClick={() => window.location.href = '/'} className="btn btn-primary">
-            Volver al Inicio
+            Volver al Sitio Principal
           </button>
         </div>
       </div>
@@ -362,7 +360,7 @@ function AdminPanel({ user }) {
   return (
     <div className="container">
       <div className="admin-header">
-        <h1>Panel de Administración</h1>
+        <h1>Gestión de Productos</h1>
         <button 
           onClick={() => setShowCreateForm(!showCreateForm)}
           className="btn btn-primary"

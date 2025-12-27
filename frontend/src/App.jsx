@@ -8,7 +8,6 @@ import Navbar from './components/Navbar'
 import ProductCatalog from './pages/ProductCatalog'
 import Cart from './pages/Cart'
 import ProductDetail from './pages/ProductDetail'
-import AdminPanel from './pages/AdminPanel'
 import './App.css'
 
 function App() {
@@ -50,18 +49,6 @@ function App() {
                 {({ user: authUser }) => {
                   setUser(authUser)
                   return <Cart user={authUser} />
-                }}
-              </Authenticator>
-            } 
-          />
-          <Route 
-            path="/admin" 
-            element={
-              user ? <AdminPanel user={user} /> : 
-              <Authenticator>
-                {({ user: authUser }) => {
-                  setUser(authUser)
-                  return <AdminPanel user={authUser} />
                 }}
               </Authenticator>
             } 
