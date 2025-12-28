@@ -32,6 +32,7 @@ Sistema de e-commerce completo construido con arquitectura serverless en AWS, im
 - **Filtros avanzados** por categoría, género, precio y búsqueda
 - **Carrito de compras** con gestión de cantidades
 - **Checkout completo** con información de cliente
+- **Integración WhatsApp** para pedidos directos
 - **Diseño responsive** y tema dark profesional
 
 ### 🔧 Panel de Administración Empresarial
@@ -49,6 +50,37 @@ Sistema de e-commerce completo construido con arquitectura serverless en AWS, im
 - **API Gateway** con autenticación Cognito
 - **Gestión automática de stock** al completar pedidos
 - **Sistema completo de pedidos y ventas**
+
+### 📱 **Integración WhatsApp**
+- **Pedidos directos** a WhatsApp con mensaje estructurado
+- **Información completa** del cliente y productos
+- **Formato profesional** con emojis y organización clara
+- **Configuración flexible** del número de destino
+- **Sin costos adicionales** de APIs de pago
+- **Comunicación inmediata** entre cliente y tienda
+- **Pago contra entrega** disponible
+
+**Ejemplo de mensaje generado:**
+```
+🏪 *NUEVO PEDIDO - SportShop*
+
+👤 *Cliente:* cliente@email.com
+📅 *Fecha:* 27/12/2024
+🕐 *Hora:* 15:30:45
+
+🛒 *PRODUCTOS SOLICITADOS:*
+──────────────────────────────
+1. *Camiseta Deportiva Premium*
+   📦 Cantidad: 2
+   💰 Precio unitario: $45.99
+   💵 Subtotal: $91.98
+
+📊 *RESUMEN DEL PEDIDO:*
+• Total de artículos: 2
+• *TOTAL A PAGAR: $91.98*
+
+✅ *Por favor confirma tu pedido y proporciona tu dirección de entrega.*
+```
 
 ## 🏗️ Arquitectura AWS
 
@@ -242,7 +274,7 @@ const awsConfig = {
 ### Funcionalidades
 - [ ] Sistema de reseñas
 - [ ] Notificaciones por email
-- [ ] Integración con WhatsApp
+- [x] **Integración con WhatsApp** ✅ **COMPLETADO**
 - [ ] Analytics avanzados
 
 ## 🏆 Logros Arquitectónicos
