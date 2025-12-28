@@ -16,26 +16,7 @@ Sistema de e-commerce completo construido con arquitectura serverless en AWS, im
 - ✅ **CloudFront CDN** para performance global
 - ✅ **Separación empresarial** de aplicaciones
 
-### 🔧 **Correcciones Recientes (Diciembre 2024)**
-
-**✅ Problema 1: Error de sintaxis en `cancel-sale` Lambda**
-- **SOLUCIONADO**: Eliminado `}` extra que causaba error de sintaxis
-- **DESPLEGADO**: Lambda actualizado y funcionando correctamente
-
-**✅ Problema 2: `cancel-sale` no restauraba stock**
-- **CAUSA**: Campo incorrecto `productId` → debía ser `id` para búsqueda en DynamoDB
-- **CAUSA**: Clave incorrecta `productId + createdAt` → debía ser `id + category`
-- **SOLUCIONADO**: Corregida lógica de restauración de stock
-- **DESPLEGADO**: Funcionalidad operativa - cancelar venta ahora restaura stock correctamente
-
-**✅ Problema 3: `update-product` enviaba ID undefined**
-- **CAUSA**: Frontend usaba `product.productId` pero DynamoDB guarda como `id`
-- **SOLUCIONADO**: Corregido frontend para usar `product.id` consistentemente
-- **DESPLEGADO**: Admin panel actualizado - editar productos funciona correctamente
-
-**🎯 Estado Actual**: Todos los sistemas funcionando al 100%
-
-### 👤 **Credenciales de Administrador**
+### �  **Credenciales de Administrador**
 
 - **Email**: jortiwe4@gmail.com
 - **Password**: AdminJorge2024!
@@ -301,18 +282,79 @@ const awsConfig = {
 
 **⭐ Este proyecto demuestra competencias reales de Solutions Architect y desarrollo full-stack empresarial con AWS.**
 
-## 💰 **VALORACIÓN COMERCIAL**
+## 💰 **COSTOS OPERATIVOS AWS (Sin Free Tier)**
 
-### 🏆 **Calidad Técnica: EXCELENTE (9.2/10)**
+### 📊 **Estimación Mensual de Costos**
 
-**Fortalezas Destacadas:**
-- ✅ **Arquitectura Serverless Empresarial** - Nivel Solutions Architect
-- ✅ **21 Lambda Functions** bien estructuradas y organizadas
-- ✅ **Infrastructure as Code** reproducible y escalable
-- ✅ **Sistema Jerárquico de Ventas** - Funcionalidad enterprise
-- ✅ **Gestión Automática de Stock** con lógica de negocio compleja
-- ✅ **UX/UI Profesional** inspirado en marcas premium
-- ✅ **Seguridad y Performance** optimizados
+**Para un e-commerce con tráfico moderado (10,000 usuarios/mes):**
+
+#### 🔧 **Compute (Lambda Functions)**
+- **21 Lambda Functions**: ~$15-25 USD/mes
+- **Invocaciones**: ~1M requests/mes
+- **Duración promedio**: 500ms por función
+- **Memoria**: 512MB por función
+
+#### 🗄️ **Base de Datos (DynamoDB)**
+- **4 Tablas**: ~$20-35 USD/mes
+- **Read/Write Units**: On-demand pricing
+- **Storage**: ~5GB de datos
+- **Backups**: Automáticos incluidos
+
+#### 🌐 **CDN y Storage (CloudFront + S3)**
+- **CloudFront**: ~$10-20 USD/mes
+- **S3 Storage**: ~$5-10 USD/mes
+- **Data Transfer**: ~$5-15 USD/mes
+- **Requests**: GET/PUT operations
+
+#### 🔐 **Autenticación (Cognito)**
+- **User Pool**: ~$5-10 USD/mes
+- **Monthly Active Users**: Hasta 10,000
+- **Authentication requests**: Incluidas
+
+#### 🔌 **API Gateway**
+- **REST API**: ~$10-15 USD/mes
+- **Requests**: ~1M API calls/mes
+- **Data transfer**: Incluido
+
+#### 📊 **Monitoreo (CloudWatch)**
+- **Logs**: ~$5-10 USD/mes
+- **Metrics**: ~$3-5 USD/mes
+- **Alarms**: ~$2-3 USD/mes
+
+### 💵 **TOTAL ESTIMADO MENSUAL**
+
+**🟢 Tráfico Bajo** (1,000 usuarios/mes): **$35-50 USD/mes**
+- Ideal para startups o pruebas de concepto
+- Escalado automático según demanda
+
+**🟡 Tráfico Moderado** (10,000 usuarios/mes): **$75-125 USD/mes**
+- Perfecto para pequeñas/medianas empresas
+- Incluye todas las funcionalidades enterprise
+
+**🔴 Tráfico Alto** (100,000 usuarios/mes): **$200-400 USD/mes**
+- Empresas establecidas con alto volumen
+- Performance optimizada globalmente
+
+### 🎯 **Ventajas del Modelo Serverless**
+
+✅ **Costos Variables**: Solo pagas por lo que usas  
+✅ **Sin Infraestructura**: No hay servidores que mantener  
+✅ **Escalado Automático**: Crece con tu negocio  
+✅ **Alta Disponibilidad**: 99.9% uptime garantizado  
+✅ **Seguridad Incluida**: AWS maneja la seguridad base  
+✅ **Backups Automáticos**: Protección de datos incluida  
+
+### 📈 **Comparación con Alternativas**
+
+**vs Servidor Dedicado**: $200-500 USD/mes + mantenimiento  
+**vs VPS Gestionado**: $100-300 USD/mes + administración  
+**vs Shopify Plus**: $2,000+ USD/mes con limitaciones  
+
+**🚀 Ahorro estimado**: 60-80% vs soluciones tradicionales
+
+---
+
+**🚀 PROYECTO LISTO PARA PRODUCCIÓN**
 
 
 
