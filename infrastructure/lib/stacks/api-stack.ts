@@ -55,12 +55,6 @@ export class ApiStack extends Stack {
       new LambdaIntegration(props.computeStack.getProductDetailFunction.function)
     );
 
-    // GET /products/{id}/reviews - Obtener reseñas del producto
-    const productReviewsResource = productDetailResource.addResource('reviews');
-    productReviewsResource.addMethod('GET',
-      new LambdaIntegration(props.computeStack.getProductReviewsFunction.function)
-    );
-
     // ENDPOINTS DEL CARRITO (requieren autenticación)
     const cartResource = this.api.root.addResource('cart');
     
@@ -113,27 +107,6 @@ export class ApiStack extends Stack {
       }
     );
 
-    // GET /orders - Obtener pedidos del usuario
-    ordersResource.addMethod('GET',
-      new LambdaIntegration(props.computeStack.getUserOrdersFunction.function),
-      {
-        authorizationType: AuthorizationType.COGNITO,
-        authorizer: this.authorizer
-      }
-    );
-
-    // ENDPOINTS DE RESEÑAS (requieren autenticación)
-    const reviewsResource = this.api.root.addResource('reviews');
-    
-    // POST /reviews - Crear reseña
-    reviewsResource.addMethod('POST',
-      new LambdaIntegration(props.computeStack.createReviewFunction.function),
-      {
-        authorizationType: AuthorizationType.COGNITO,
-        authorizer: this.authorizer
-      }
-    );
-
     // ENDPOINTS DE ADMIN (requieren autenticación - IGUAL QUE CART)
     const adminResource = this.api.root.addResource('admin');
     
@@ -170,6 +143,97 @@ export class ApiStack extends Stack {
     // DELETE /admin/products/{id} - Eliminar producto (Admin)
     adminProductDetailResource.addMethod('DELETE',
       new LambdaIntegration(props.computeStack.deleteProductFunction.function),
+      {
+        authorizationType: AuthorizationType.COGNITO,
+        authorizer: this.authorizer
+      }
+    );
+
+    // ENDPOINTS DE GESTIÓN DE PEDIDOS (ADMIN)
+    const adminOrdersResource = adminResource.addResource('orders');
+    
+    // GET /admin/orders - Obtener todos los pedidos (Admin)
+    adminOrdersResource.addMethod('GET',
+      new LambdaIntegration(props.computeStack.getAllOrdersFunction.function),
+      {
+        authorizationType: AuthorizationType.COGNITO,
+        authorizer: this.authorizer
+      }
+    );
+    
+    // GET /admin/orders/{orderId} - Obtener detalle de pedido específico (Admin)
+    const adminOrderDetailResource = adminOrdersResource.addResource('{orderId}');
+    adminOrderDetailResource.addMethod('GET',
+      new LambdaIntegration(props.computeStack.getOrderDetailFunction.function),
+      {
+        authorizationType: AuthorizationType.COGNITO,
+        authorizer: this.authorizer
+      }
+    );
+    
+    // PUT /admin/orders/{orderId}/complete - Completar pedido (Admin)
+    const adminCompleteOrderResource = adminOrderDetailResource.addResource('complete');
+    adminCompleteOrderResource.addMethod('PUT',
+      new LambdaIntegration(props.computeStack.completeOrderFunction.function),
+      {
+        authorizationType: AuthorizationType.COGNITO,
+        authorizer: this.authorizer
+      }
+    );
+
+    // DELETE /admin/orders/{orderId} - Cancelar pedido (Admin)
+    adminOrderDetailResource.addMethod('DELETE',
+      new LambdaIntegration(props.computeStack.cancelOrderFunction.function),
+      {
+        authorizationType: AuthorizationType.COGNITO,
+        authorizer: this.authorizer
+      }
+    );
+
+    // ENDPOINTS DE VENTAS (ADMIN)
+    const adminSalesResource = adminResource.addResource('sales');
+    
+    // GET /admin/sales - Obtener todas las ventas (Admin)
+    adminSalesResource.addMethod('GET',
+      new LambdaIntegration(props.computeStack.getAllSalesFunction.function),
+      {
+        authorizationType: AuthorizationType.COGNITO,
+        authorizer: this.authorizer
+      }
+    );
+
+    // GET /admin/sales/statistics - Obtener estadísticas de ventas (Admin)
+    const adminSalesStatsResource = adminSalesResource.addResource('statistics');
+    adminSalesStatsResource.addMethod('GET',
+      new LambdaIntegration(props.computeStack.getSalesStatisticsFunction.function),
+      {
+        authorizationType: AuthorizationType.COGNITO,
+        authorizer: this.authorizer
+      }
+    );
+
+    // GET /admin/sales/{saleId} - Obtener detalle de venta específica (Admin)
+    const adminSaleDetailResource = adminSalesResource.addResource('{saleId}');
+    adminSaleDetailResource.addMethod('GET',
+      new LambdaIntegration(props.computeStack.getSalesDetailFunction.function),
+      {
+        authorizationType: AuthorizationType.COGNITO,
+        authorizer: this.authorizer
+      }
+    );
+
+    // PUT /admin/sales/{saleId} - Actualizar información de venta (Admin)
+    adminSaleDetailResource.addMethod('PUT',
+      new LambdaIntegration(props.computeStack.updateSalesFunction.function),
+      {
+        authorizationType: AuthorizationType.COGNITO,
+        authorizer: this.authorizer
+      }
+    );
+
+    // DELETE /admin/sales/{saleId} - Cancelar venta y restaurar stock (Admin)
+    adminSaleDetailResource.addMethod('DELETE',
+      new LambdaIntegration(props.computeStack.cancelSaleFunction.function),
       {
         authorizationType: AuthorizationType.COGNITO,
         authorizer: this.authorizer

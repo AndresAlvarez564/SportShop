@@ -1,34 +1,54 @@
-import { useState, useEffect } from 'react'
-import { get, post, put, del } from 'aws-amplify/api'
-import { fetchAuthSession } from 'aws-amplify/auth'
+import React, { useState, useEffect } from 'react';
+import { get, post, put, del } from 'aws-amplify/api';
+import { fetchAuthSession } from 'aws-amplify/auth';
 
-function AdminPanel({ user }) {
-  const [products, setProducts] = useState([])
-  const [filteredProducts, setFilteredProducts] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [showCreateForm, setShowCreateForm] = useState(false)
-  const [editingProduct, setEditingProduct] = useState(null)
-  const [uploadingImage, setUploadingImage] = useState(false)
-  const [selectedFile, setSelectedFile] = useState(null)
-  const [accessDenied, setAccessDenied] = useState(false)
-  
-  // Estados para filtros
-  const [filters, setFilters] = useState({
+const AdminPanel = ({ user }) => {
+  // Estados principales
+  const [activeTab, setActiveTab] = useState('dashboard');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+  const [accessDenied, setAccessDenied] = useState(false);
+
+  // Estados de productos
+  const [products, setProducts] = useState([]);
+  const [showProductForm, setShowProductForm] = useState(false);
+  const [editingProduct, setEditingProduct] = useState(null);
+  const [productFilters, setProductFilters] = useState({
     search: '',
     category: 'all',
     gender: 'all',
     stockStatus: 'all',
     priceRange: 'all'
-  })
+  });
   
-  // Estados para ordenamiento
-  const [sortBy, setSortBy] = useState('name')
-  const [sortOrder, setSortOrder] = useState('asc')
+  // Estados de pedidos (solo últimos 7 días)
+  const [orders, setOrders] = useState([]);
+  const [selectedOrder, setSelectedOrder] = useState(null);
   
-  // Estados para vista
-  const [viewMode, setViewMode] = useState('grid') // 'grid' o 'table'
+  // Estados de ventas con vista jerárquica
+  const [sales, setSales] = useState([]);
+  const [selectedSale, setSelectedSale] = useState(null);
+  const [salesStats, setSalesStats] = useState({});
+  const [salesView, setSalesView] = useState({
+    level: 'year', // year, month, day, detail
+    year: null,
+    month: null,
+    day: null
+  });
+  const [salesFilters, setSalesFilters] = useState({
+    selectedYear: new Date().getFullYear(),
+    selectedMonth: null,
+    selectedDay: null,
+    customerSearch: '',
+    minAmount: '',
+    maxAmount: '',
+    sortBy: 'date',
+    sortOrder: 'desc'
+  });
   
-  const [formData, setFormData] = useState({
+  // Estados de formulario de producto
+  const [productFormData, setProductFormData] = useState({
     name: '',
     description: '',
     price: '',
@@ -36,938 +56,1430 @@ function AdminPanel({ user }) {
     gender: '',
     stock: '',
     imageUrl: ''
-  })
+  });
+
+  const [imageFile, setImageFile] = useState(null);
+  const [uploadingImage, setUploadingImage] = useState(false);
+
+  // Estados de estadísticas
+  const [dashboardStats, setDashboardStats] = useState({
+    totalProducts: 0,
+    lowStock: 0,
+    outOfStock: 0,
+    totalOrders: 0,
+    pendingOrders: 0,
+    completedOrders: 0,
+    totalSales: 0,
+    totalRevenue: 0
+  });
 
   useEffect(() => {
-    fetchProducts()
-  }, [])
-
-  useEffect(() => {
-    applyFiltersAndSort()
-  }, [products, filters, sortBy, sortOrder])
+    loadInitialData();
+  }, []);
 
   const getAuthHeaders = async () => {
-    const session = await fetchAuthSession()
-    const token = session.tokens?.idToken?.toString()
-    return {
-      Authorization: `Bearer ${token}`
-    }
-  }
-
-  // Función para aplicar filtros y ordenamiento
-  const applyFiltersAndSort = () => {
-    console.log('🔍 Aplicando filtros:', filters)
-    console.log('📦 Productos totales:', products.length)
-    
-    let filtered = [...products]
-
-    // Aplicar filtros
-    if (filters.search) {
-      filtered = filtered.filter(product =>
-        product.name.toLowerCase().includes(filters.search.toLowerCase()) ||
-        product.description.toLowerCase().includes(filters.search.toLowerCase())
-      )
-      console.log('🔍 Después de búsqueda:', filtered.length)
-    }
-
-    if (filters.category !== 'all') {
-      filtered = filtered.filter(product => product.category.toLowerCase() === filters.category.toLowerCase())
-      console.log('📂 Después de categoría:', filtered.length)
-    }
-
-    if (filters.gender !== 'all') {
-      filtered = filtered.filter(product => product.gender.toLowerCase() === filters.gender.toLowerCase())
-      console.log('👥 Después de género:', filtered.length)
-    }
-
-    if (filters.stockStatus !== 'all') {
-      switch (filters.stockStatus) {
-        case 'in-stock':
-          filtered = filtered.filter(product => parseInt(product.stock) > 0)
-          break
-        case 'low-stock':
-          filtered = filtered.filter(product => parseInt(product.stock) > 0 && parseInt(product.stock) <= 5)
-          break
-        case 'out-of-stock':
-          filtered = filtered.filter(product => parseInt(product.stock) === 0)
-          break
-      }
-      console.log('📦 Después de stock:', filtered.length)
-    }
-
-    if (filters.priceRange !== 'all') {
-      switch (filters.priceRange) {
-        case 'under-25':
-          filtered = filtered.filter(product => parseFloat(product.price) < 25)
-          break
-        case '25-50':
-          filtered = filtered.filter(product => parseFloat(product.price) >= 25 && parseFloat(product.price) <= 50)
-          break
-        case '50-100':
-          filtered = filtered.filter(product => parseFloat(product.price) > 50 && parseFloat(product.price) <= 100)
-          break
-        case 'over-100':
-          filtered = filtered.filter(product => parseFloat(product.price) > 100)
-          break
-      }
-      console.log('💰 Después de precio:', filtered.length)
-    }
-
-    // Aplicar ordenamiento
-    filtered.sort((a, b) => {
-      let aValue, bValue
-
-      switch (sortBy) {
-        case 'name':
-          aValue = a.name.toLowerCase()
-          bValue = b.name.toLowerCase()
-          break
-        case 'price':
-          aValue = parseFloat(a.price)
-          bValue = parseFloat(b.price)
-          break
-        case 'stock':
-          aValue = parseInt(a.stock)
-          bValue = parseInt(b.stock)
-          break
-        case 'category':
-          aValue = a.category.toLowerCase()
-          bValue = b.category.toLowerCase()
-          break
-        default:
-          aValue = a.name.toLowerCase()
-          bValue = b.name.toLowerCase()
-      }
-
-      if (sortOrder === 'asc') {
-        return aValue > bValue ? 1 : -1
-      } else {
-        return aValue < bValue ? 1 : -1
-      }
-    })
-
-    console.log('✅ Productos filtrados finales:', filtered.length)
-    setFilteredProducts(filtered)
-  }
-
-  // Función para limpiar filtros
-  const clearFilters = () => {
-    setFilters({
-      search: '',
-      category: 'all',
-      gender: 'all',
-      stockStatus: 'all',
-      priceRange: 'all'
-    })
-    setSortBy('name')
-    setSortOrder('asc')
-  }
-
-  // Obtener estadísticas
-  const getStats = () => {
-    const totalProducts = products.length
-    const inStock = products.filter(p => p.stock > 0).length
-    const lowStock = products.filter(p => p.stock > 0 && p.stock <= 5).length
-    const outOfStock = products.filter(p => p.stock === 0).length
-    const categories = [...new Set(products.map(p => p.category))].length
-
-    return { totalProducts, inStock, lowStock, outOfStock, categories }
-  }
-
-  // Función para manejar errores de autorización
-  const handleAuthError = (error, action = 'realizar esta acción') => {
-    if (error.response?.status === 403) {
-      setAccessDenied(true)
-      alert('❌ Acceso Denegado: Solo los administradores pueden ' + action + '. Contacta al administrador del sistema para obtener permisos.')
-      return true
-    }
-    return false
-  }
-
-  // Función para manejar selección de archivo
-  const handleFileSelect = (e) => {
-    const file = e.target.files[0]
-    if (file) {
-      // Validar tipo de archivo
-      if (!file.type.startsWith('image/')) {
-        alert('Por favor selecciona un archivo de imagen válido')
-        return
-      }
-      
-      // Validar tamaño (máximo 5MB)
-      if (file.size > 5 * 1024 * 1024) {
-        alert('La imagen debe ser menor a 5MB')
-        return
-      }
-      
-      setSelectedFile(file)
-      console.log('Archivo seleccionado:', file.name, 'Tamaño:', file.size)
-    }
-  }
-
-  // Función para subir imagen usando presigned URL
-  const uploadImageToS3 = async (file) => {
     try {
-      setUploadingImage(true)
-      console.log('Subiendo imagen usando presigned URL:', file.name)
+      const session = await fetchAuthSession();
+      return {
+        Authorization: `Bearer ${session.tokens.idToken.toString()}`
+      };
+    } catch (error) {
+      console.error('Error getting auth headers:', error);
+      throw error;
+    }
+  };
+
+  const loadInitialData = async () => {
+    setLoading(true);
+    try {
+      await Promise.all([
+        fetchProducts(),
+        fetchOrders(),
+        fetchSales(),
+        fetchSalesStatistics()
+      ]);
+    } catch (error) {
+      console.error('Error loading initial data:', error);
+      if (error.response?.status === 403) {
+        setAccessDenied(true);
+      } else {
+        setError('Error cargando datos del panel');
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // ===== FUNCIONES DE PRODUCTOS =====
+  const fetchProducts = async () => {
+    try {
+      const headers = await getAuthHeaders();
+      const response = await get({
+        apiName: 'SportShopAPI',
+        path: '/products',
+        options: { headers }
+      }).response;
       
-      const headers = await getAuthHeaders()
+      const data = await response.body.json();
+      console.log('Products data:', data); // Debug
+      setProducts(data.products || []);
+      updateProductStats(data.products || []);
+    } catch (error) {
+      console.error('Error fetching products:', error);
+      if (error.response?.status === 403) {
+        setAccessDenied(true);
+      } else {
+        setError('Error al cargar productos');
+      }
+    }
+  };
+
+  const updateProductStats = (productList) => {
+    const stats = {
+      totalProducts: productList.length,
+      lowStock: productList.filter(p => p.stock > 0 && p.stock <= 10).length,
+      outOfStock: productList.filter(p => p.stock === 0).length,
+      totalValue: productList.reduce((sum, p) => sum + (p.price * p.stock), 0)
+    };
+    setDashboardStats(prev => ({ ...prev, ...stats }));
+  };
+
+  const handleCreateProduct = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+    setSuccess('');
+
+    try {
+      let imageUrl = productFormData.imageUrl;
       
-      // 1. Obtener presigned URL del Lambda
-      console.log('Solicitando presigned URL...')
-      const urlRequest = post({
+      if (imageFile) {
+        imageUrl = await uploadImage();
+      }
+
+      const headers = await getAuthHeaders();
+      await post({
+        apiName: 'SportShopAPI',
+        path: '/admin/products',
+        options: {
+          headers,
+          body: {
+            ...productFormData,
+            price: parseFloat(productFormData.price),
+            stock: parseInt(productFormData.stock),
+            imageUrl
+          }
+        }
+      }).response;
+
+      setSuccess('Producto creado exitosamente');
+      resetProductForm();
+      fetchProducts();
+    } catch (error) {
+      console.error('Error creating product:', error);
+      setError('Error al crear producto');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleUpdateProduct = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+    setSuccess('');
+
+    try {
+      // Obtener ID de manera más robusta
+      const productId = editingProduct?.id || editingProduct?.productId;
+      
+      if (!productId) {
+        setError('Error: ID de producto no encontrado');
+        return;
+      }
+      
+      let imageUrl = productFormData.imageUrl;
+      
+      if (imageFile) {
+        imageUrl = await uploadImage();
+      }
+
+      const headers = await getAuthHeaders();
+      
+      await put({
+        apiName: 'SportShopAPI',
+        path: `/admin/products/${productId}`,
+        options: {
+          headers,
+          body: {
+            ...productFormData,
+            price: parseFloat(productFormData.price),
+            stock: parseInt(productFormData.stock),
+            imageUrl
+          }
+        }
+      }).response;
+
+      setSuccess('Producto actualizado exitosamente');
+      resetProductForm();
+      fetchProducts();
+    } catch (error) {
+      console.error('Error updating product:', error);
+      setError('Error al actualizar producto');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleDeleteProduct = async (productId) => {
+    if (!confirm('¿Estás seguro de que quieres eliminar este producto?')) return;
+
+    setLoading(true);
+    try {
+      const headers = await getAuthHeaders();
+      await del({
+        apiName: 'SportShopAPI',
+        path: `/admin/products/${productId}`,
+        options: { headers }
+      }).response;
+
+      setSuccess('Producto eliminado exitosamente');
+      fetchProducts();
+    } catch (error) {
+      console.error('Error deleting product:', error);
+      setError('Error al eliminar producto');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const uploadImage = async () => {
+    if (!imageFile) return '';
+
+    setUploadingImage(true);
+    try {
+      const headers = await getAuthHeaders();
+      
+      // Generar presigned URL
+      const response = await post({
         apiName: 'SportShopAPI',
         path: '/admin/upload-url',
         options: {
           headers,
           body: {
-            fileName: file.name,
-            fileType: file.type
+            fileName: imageFile.name,
+            fileType: imageFile.type
           }
         }
-      })
+      }).response;
+
+      const data = await response.body.json();
+      console.log('Upload URL response:', data); // Debug
       
-      const { body } = await urlRequest.response
-      const urlData = await body.json()
-      
-      console.log('Presigned URL obtenida:', urlData)
-      
-      // 2. Subir archivo directamente a S3 usando presigned URL
-      console.log('Subiendo archivo a S3...')
-      const uploadResponse = await fetch(urlData.uploadUrl, {
+      // Subir archivo a S3
+      const uploadResponse = await fetch(data.uploadUrl, {
         method: 'PUT',
+        body: imageFile,
         headers: {
-          'Content-Type': file.type
-        },
-        body: file
-      })
-      
+          'Content-Type': imageFile.type
+        }
+      });
+
       if (!uploadResponse.ok) {
-        throw new Error(`Upload failed: ${uploadResponse.status} ${uploadResponse.statusText}`)
+        throw new Error(`Upload failed: ${uploadResponse.status} ${uploadResponse.statusText}`);
       }
-      
-      console.log('Archivo subido exitosamente a S3')
-      return urlData.publicUrl
-      
+
+      console.log('Image uploaded successfully to:', data.publicUrl); // Debug
+      return data.publicUrl; // Usar publicUrl en lugar de imageUrl
     } catch (error) {
-      console.error('Error subiendo imagen:', error)
-      throw new Error('Error al subir la imagen: ' + error.message)
+      console.error('Error uploading image:', error);
+      throw error;
     } finally {
-      setUploadingImage(false)
+      setUploadingImage(false);
     }
-  }
+  };
 
-  const fetchProducts = async () => {
-    try {
-      setLoading(true)
-      console.log('📡 Obteniendo productos...')
-      
-      const restOperation = get({
-        apiName: 'SportShopAPI',
-        path: '/products'
-      })
-      
-      const { body } = await restOperation.response
-      const data = await body.json()
-      
-      console.log('📦 Datos recibidos:', data)
-      console.log('📦 Productos:', data.products?.length || 0)
-      
-      if (data.products && data.products.length > 0) {
-        console.log('📦 Primer producto ejemplo:', data.products[0])
-      }
-      
-      setProducts(data.products || [])
-    } catch (err) {
-      console.error('❌ Error fetching products:', err)
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const createProduct = async (e) => {
-    e.preventDefault()
-    try {
-      console.log('Creating product with data:', formData)
-      
-      const headers = await getAuthHeaders()
-      console.log('Auth headers:', headers)
-      
-      let imageUrl = formData.imageUrl
-      
-      // Si hay un archivo seleccionado, subirlo a S3 primero
-      if (selectedFile) {
-        console.log('Subiendo imagen antes de crear producto...')
-        imageUrl = await uploadImageToS3(selectedFile)
-        console.log('Imagen subida exitosamente:', imageUrl)
-      }
-      
-      const productData = {
-        ...formData,
-        price: parseFloat(formData.price),
-        stock: parseInt(formData.stock),
-        imageUrl: imageUrl
-      }
-      console.log('Product data to send:', productData)
-      
-      const restOperation = post({
-        apiName: 'SportShopAPI',
-        path: '/admin/products',
-        options: {
-          headers,
-          body: productData
-        }
-      })
-
-      console.log('Sending request...')
-      const { body } = await restOperation.response
-      const result = await body.json()
-      
-      console.log('Product created successfully:', result)
-      alert('¡Producto creado exitosamente!')
-      
-      // Limpiar formulario y recargar productos
-      setFormData({
-        name: '', description: '', price: '', category: '', 
-        gender: '', stock: '', imageUrl: ''
-      })
-      setSelectedFile(null)
-      setShowCreateForm(false)
-      fetchProducts()
-      
-    } catch (err) {
-      console.error('Error creating product - Full error:', err)
-      
-      // Verificar si es error de autorización
-      if (handleAuthError(err, 'crear productos')) return
-      
-      // Verificar si es un error de respuesta HTTP
-      if (err.response) {
-        try {
-          const errorBody = await err.response.body.json()
-          console.error('Error response body:', errorBody)
-          alert('Error: ' + (errorBody.message || 'Error desconocido'))
-        } catch (parseError) {
-          console.error('Could not parse error response:', parseError)
-          alert('Error al crear producto: ' + err.message)
-        }
-      } else {
-        alert('Error al crear producto: ' + err.message)
-      }
-    }
-  }
-
-  const updateProduct = async (e) => {
-    e.preventDefault()
-    try {
-      console.log('Updating product:', editingProduct.id, 'with data:', formData)
-      
-      const headers = await getAuthHeaders()
-      console.log('Auth headers:', headers)
-      
-      const productData = {
-        ...formData,
-        price: parseFloat(formData.price),
-        stock: parseInt(formData.stock)
-      }
-      console.log('Product data to send:', productData)
-      
-      const restOperation = put({
-        apiName: 'SportShopAPI',
-        path: `/admin/products/${editingProduct.id}`,
-        options: {
-          headers,
-          body: productData
-        }
-      })
-
-      console.log('Sending update request...')
-      const { body } = await restOperation.response
-      const result = await body.json()
-      
-      console.log('Product updated successfully:', result)
-      alert('¡Producto actualizado exitosamente!')
-      
-      setEditingProduct(null)
-      setFormData({
-        name: '', description: '', price: '', category: '', 
-        gender: '', stock: '', imageUrl: ''
-      })
-      fetchProducts()
-      
-    } catch (err) {
-      console.error('Error updating product - Full error:', err)
-      
-      // Verificar si es error de autorización
-      if (handleAuthError(err, 'actualizar productos')) return
-      
-      // Verificar si es un error de respuesta HTTP
-      if (err.response) {
-        try {
-          const errorBody = await err.response.body.json()
-          console.error('Error response body:', errorBody)
-          alert('Error: ' + (errorBody.message || 'Error desconocido'))
-        } catch (parseError) {
-          console.error('Could not parse error response:', parseError)
-          alert('Error al actualizar producto: ' + err.message)
-        }
-      } else {
-        alert('Error al actualizar producto: ' + err.message)
-      }
-    }
-  }
-
-  const deleteProduct = async (productId, productName) => {
-    if (!confirm(`¿Estás seguro de eliminar "${productName}"?`)) return
+  // ===== FUNCIONES DE FILTRADO SIMPLIFICADO =====
+  
+  // Filtrar pedidos - solo últimos 7 días
+  const getFilteredOrders = () => {
+    let filtered = [...orders];
     
+    // Filtrar solo pedidos de los últimos 7 días
+    const sevenDaysAgo = new Date();
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+    sevenDaysAgo.setHours(0, 0, 0, 0); // Inicio del día hace 7 días
+    
+    filtered = filtered.filter(order => {
+      if (!order.createdAt) return false;
+      const orderDate = new Date(order.createdAt);
+      return orderDate >= sevenDaysAgo;
+    });
+    
+    // Ordenar por fecha (más recientes primero)
+    filtered.sort((a, b) => {
+      const aDate = new Date(a.createdAt);
+      const bDate = new Date(b.createdAt);
+      return bDate - aDate; // Descendente (más recientes primero)
+    });
+    
+    return filtered;
+  };
+  
+  // Limpiar filtros de ventas
+  const clearSalesFilters = () => {
+    setSalesFilters({
+      selectedYear: new Date().getFullYear(),
+      selectedMonth: null,
+      selectedDay: null,
+      customerSearch: '',
+      minAmount: '',
+      maxAmount: '',
+      sortBy: 'date',
+      sortOrder: 'desc'
+    });
+    setSalesView('year');
+  };
+  const fetchOrders = async () => {
     try {
-      console.log('Deleting product:', productId)
-      
-      const headers = await getAuthHeaders()
-      console.log('Auth headers:', headers)
-      
-      const restOperation = del({
+      const headers = await getAuthHeaders();
+      const response = await get({
         apiName: 'SportShopAPI',
-        path: `/admin/products/${productId}`,
-        options: {
-          headers
-        }
-      })
-
-      console.log('Sending delete request...')
-      const { body } = await restOperation.response
-      const result = await body.json()
+        path: '/admin/orders',
+        options: { headers }
+      }).response;
       
-      console.log('Product deleted successfully:', result)
-      alert('Producto eliminado exitosamente')
-      fetchProducts()
-      
-    } catch (err) {
-      console.error('Error deleting product - Full error:', err)
-      
-      // Verificar si es error de autorización
-      if (handleAuthError(err, 'eliminar productos')) return
-      
-      // Verificar si es un error de respuesta HTTP
-      if (err.response) {
-        try {
-          const errorBody = await err.response.body.json()
-          console.error('Error response body:', errorBody)
-          alert('Error: ' + (errorBody.message || 'Error desconocido'))
-        } catch (parseError) {
-          console.error('Could not parse error response:', parseError)
-          alert('Error al eliminar producto: ' + err.message)
-        }
+      const data = await response.body.json();
+      setOrders(data.orders || []);
+      updateOrderStats(data.orders || []);
+    } catch (error) {
+      console.error('Error fetching orders:', error);
+      if (error.response?.status === 403) {
+        setAccessDenied(true);
       } else {
-        alert('Error al eliminar producto: ' + err.message)
+        setError('Error al cargar pedidos');
       }
     }
-  }
+  };
 
-  const startEdit = (product) => {
-    setEditingProduct(product)
-    setFormData({
+  const updateOrderStats = (orderList) => {
+    const stats = {
+      totalOrders: orderList.length,
+      pendingOrders: orderList.filter(o => o.status === 'pending').length,
+      completedOrders: orderList.filter(o => o.status === 'completed').length
+    };
+    setDashboardStats(prev => ({ ...prev, ...stats }));
+  };
+
+  const handleCompleteOrder = async (orderId) => {
+    if (!confirm('¿Completar este pedido? Esto reducirá el stock y creará una venta.')) return;
+
+    setLoading(true);
+    setError('');
+    try {
+      const headers = await getAuthHeaders();
+      console.log('Completing order:', orderId); // Debug
+      
+      const response = await put({
+        apiName: 'SportShopAPI',
+        path: `/admin/orders/${orderId}/complete`,
+        options: { headers }
+      }).response;
+
+      const result = await response.body.json();
+      console.log('Complete order result:', result); // Debug
+      
+      setSuccess('Pedido completado exitosamente');
+      await Promise.all([fetchOrders(), fetchSales(), fetchProducts()]);
+    } catch (error) {
+      console.error('Error completing order:', error);
+      setError(`Error al completar pedido: ${error.message || 'Error desconocido'}`);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleCancelOrder = async (orderId) => {
+    if (!confirm('¿Cancelar este pedido? Esta acción no se puede deshacer.')) return;
+
+    setLoading(true);
+    setError('');
+    try {
+      const headers = await getAuthHeaders();
+      console.log('Canceling order:', orderId); // Debug
+      
+      await del({
+        apiName: 'SportShopAPI',
+        path: `/admin/orders/${orderId}`,
+        options: { headers }
+      }).response;
+
+      setSuccess('Pedido cancelado exitosamente');
+      await fetchOrders();
+    } catch (error) {
+      console.error('Error canceling order:', error);
+      setError(`Error al cancelar pedido: ${error.message || 'Error desconocido'}`);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // ===== FUNCIONES DE VENTAS =====
+  const fetchSales = async () => {
+    try {
+      const headers = await getAuthHeaders();
+      const response = await get({
+        apiName: 'SportShopAPI',
+        path: '/admin/sales',
+        options: { headers }
+      }).response;
+      
+      const data = await response.body.json();
+      console.log('Sales data:', data); // Debug
+      setSales(data.sales || []);
+      updateSalesStats(data.sales || []);
+    } catch (error) {
+      console.error('Error fetching sales:', error);
+      if (error.response?.status === 403) {
+        setAccessDenied(true);
+      } else {
+        setError('Error al cargar ventas');
+      }
+    }
+  };
+
+  const fetchSalesStatistics = async () => {
+    try {
+      const headers = await getAuthHeaders();
+      const response = await get({
+        apiName: 'SportShopAPI',
+        path: '/admin/sales/statistics',
+        options: { headers }
+      }).response;
+      
+      const data = await response.body.json();
+      console.log('Sales statistics:', data); // Debug
+      setSalesStats(data);
+    } catch (error) {
+      console.error('Error fetching sales statistics:', error);
+      // No mostrar error si las estadísticas fallan, es opcional
+    }
+  };
+
+  const updateSalesStats = (salesList) => {
+    const stats = {
+      totalSales: salesList.length,
+      totalRevenue: salesList.reduce((sum, s) => sum + s.totalAmount, 0)
+    };
+    setDashboardStats(prev => ({ ...prev, ...stats }));
+  };
+
+  const handleCancelSale = async (saleId) => {
+    if (!confirm('¿Cancelar esta venta? Esto restaurará el stock de los productos.')) return;
+
+    setLoading(true);
+    setError('');
+    try {
+      const headers = await getAuthHeaders();
+      console.log('Canceling sale:', saleId); // Debug
+      
+      await del({
+        apiName: 'SportShopAPI',
+        path: `/admin/sales/${saleId}`,
+        options: { headers }
+      }).response;
+
+      setSuccess('Venta cancelada exitosamente');
+      await Promise.all([fetchSales(), fetchProducts()]);
+    } catch (error) {
+      console.error('Error canceling sale:', error);
+      setError(`Error al cancelar venta: ${error.message || 'Error desconocido'}`);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // ===== FUNCIONES AUXILIARES =====
+  
+  // Funciones para vista jerárquica de ventas
+  const getYearlyData = () => {
+    const yearlyData = {};
+    
+    sales.forEach(sale => {
+      if (!sale.completedAt) return;
+      
+      const saleDate = new Date(sale.completedAt);
+      const year = saleDate.getFullYear();
+      
+      if (!yearlyData[year]) {
+        yearlyData[year] = {
+          year,
+          count: 0,
+          total: 0
+        };
+      }
+      
+      yearlyData[year].count++;
+      yearlyData[year].total += parseFloat(sale.totalAmount || 0);
+    });
+    
+    return Object.values(yearlyData).sort((a, b) => b.year - a.year);
+  };
+  
+  const getMonthlyData = (year) => {
+    const monthlyData = {};
+    
+    sales.forEach(sale => {
+      if (!sale.completedAt) return;
+      
+      const saleDate = new Date(sale.completedAt);
+      if (saleDate.getFullYear() !== parseInt(year)) return;
+      
+      const month = saleDate.getMonth() + 1; // 1-12
+      
+      if (!monthlyData[month]) {
+        monthlyData[month] = {
+          month,
+          count: 0,
+          total: 0
+        };
+      }
+      
+      monthlyData[month].count++;
+      monthlyData[month].total += parseFloat(sale.totalAmount || 0);
+    });
+    
+    return Object.values(monthlyData).sort((a, b) => b.month - a.month);
+  };
+  
+  const getDailyData = (year, month) => {
+    const dailyData = {};
+    
+    sales.forEach(sale => {
+      if (!sale.completedAt) return;
+      
+      const saleDate = new Date(sale.completedAt);
+      if (saleDate.getFullYear() !== parseInt(year) || 
+          saleDate.getMonth() !== parseInt(month) - 1) return;
+      
+      const day = saleDate.getDate();
+      
+      if (!dailyData[day]) {
+        dailyData[day] = {
+          day,
+          count: 0,
+          total: 0
+        };
+      }
+      
+      dailyData[day].count++;
+      dailyData[day].total += parseFloat(sale.totalAmount || 0);
+    });
+    
+    return Object.values(dailyData).sort((a, b) => b.day - a.day);
+  };
+  
+  const getMonthName = (monthNumber) => {
+    const months = [
+      'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+      'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+    ];
+    return months[parseInt(monthNumber) - 1] || 'Mes desconocido';
+  };
+  
+  const exportDayData = (year, month, day) => {
+    const daySales = sales.filter(sale => {
+      const saleDate = new Date(sale.completedAt);
+      return saleDate.getFullYear() === parseInt(year) && 
+             saleDate.getMonth() === parseInt(month) - 1 &&
+             saleDate.getDate() === parseInt(day);
+    });
+    
+    const csvContent = [
+      ['ID Venta', 'Hora', 'Cliente', 'Email', 'Teléfono', 'Total', 'Productos'].join(','),
+      ...daySales.map(sale => [
+        sale.saleId || '',
+        sale.completedAt ? new Date(sale.completedAt).toLocaleTimeString() : '',
+        sale.customerName || '',
+        sale.customerEmail || '',
+        sale.customerPhone || '',
+        sale.totalAmount || 0,
+        sale.items ? sale.items.map(item => `${item.productName}(${item.quantity})`).join(';') : ''
+      ].join(','))
+    ].join('\n');
+    
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `ventas-${day}-${getMonthName(month)}-${year}.csv`;
+    a.click();
+    window.URL.revokeObjectURL(url);
+  };
+
+  const resetProductForm = () => {
+    setProductFormData({
+      name: '',
+      description: '',
+      price: '',
+      category: '',
+      gender: '',
+      stock: '',
+      imageUrl: ''
+    });
+    setImageFile(null);
+    setShowProductForm(false);
+    setEditingProduct(null);
+  };
+
+  const startEditProduct = (product) => {
+    // Asegurar que tenemos el ID correcto
+    const productId = product.id || product.productId;
+    
+    const productToEdit = {
+      ...product,
+      id: productId // Asegurar que siempre tenga id
+    };
+    
+    setEditingProduct(productToEdit);
+    setProductFormData({
       name: product.name,
       description: product.description,
       price: product.price.toString(),
+      category: product.category,
       gender: product.gender,
       stock: product.stock.toString(),
       imageUrl: product.imageUrl || ''
-    })
-    setShowCreateForm(true)
-  }
+    });
+    setShowProductForm(true);
+  };
 
-  const cancelEdit = () => {
-    setEditingProduct(null)
-    setShowCreateForm(false)
-    setFormData({
-      name: '', description: '', price: '', category: '', 
-      gender: '', stock: '', imageUrl: ''
-    })
-  }
+  const filteredProducts = products.filter(product => {
+    const matchesSearch = product.name.toLowerCase().includes(productFilters.search.toLowerCase());
+    const matchesCategory = productFilters.category === 'all' || product.category === productFilters.category;
+    const matchesGender = productFilters.gender === 'all' || product.gender === productFilters.gender;
+    const matchesStock = productFilters.stockStatus === 'all' || 
+      (productFilters.stockStatus === 'in-stock' && product.stock > 0) ||
+      (productFilters.stockStatus === 'low-stock' && product.stock > 0 && product.stock <= 10) ||
+      (productFilters.stockStatus === 'out-of-stock' && product.stock === 0);
+    
+    return matchesSearch && matchesCategory && matchesGender && matchesStock;
+  });
 
-  if (loading) {
-    return (
-      <div className="container">
-        <div className="loading">Cargando panel de administración...</div>
-      </div>
-    )
-  }
+  // Usar las funciones de filtrado avanzado
+  const filteredOrders = getFilteredOrders();
+  
+  // Para ventas, usar diferentes datos según la vista
+  const salesData = (() => {
+    switch (salesView) {
+      case 'year':
+        return getSalesGroupedByYear();
+      case 'month':
+        return getSalesGroupedByMonth(salesFilters.selectedYear);
+      case 'day':
+        return getSalesGroupedByDay(salesFilters.selectedYear, salesFilters.selectedMonth);
+      case 'detail':
+        const dayData = getSalesGroupedByDay(salesFilters.selectedYear, salesFilters.selectedMonth);
+        const selectedDayData = dayData.find(d => d.day === salesFilters.selectedDay);
+        return selectedDayData ? selectedDayData.sales : [];
+      default:
+        return [];
+    }
+  })();
 
   if (accessDenied) {
     return (
-      <div className="container">
-        <div className="access-denied">
+      <div className="access-denied">
+        <div className="access-denied-content">
           <h2>🚫 Acceso Denegado</h2>
-          <p>Solo los administradores pueden acceder a este panel.</p>
-          <p>Si necesitas permisos de administrador, contacta al administrador del sistema.</p>
-          <button onClick={() => window.location.href = '/'} className="btn btn-primary">
-            Volver al Sitio Principal
-          </button>
+          <p>No tienes permisos de administrador para acceder a este panel.</p>
+          <p>Contacta al administrador del sistema para obtener acceso.</p>
         </div>
       </div>
-    )
+    );
   }
 
-  const stats = getStats()
-
   return (
-    <div className="container">
-      {/* Header con estadísticas */}
-      <div className="admin-header">
-        <div className="admin-title-section">
-          <h1>📊 Panel de Administración</h1>
-          <div className="admin-stats">
-            <div className="stat-card">
-              <span className="stat-number">{stats.totalProducts}</span>
-              <span className="stat-label">Total Productos</span>
-            </div>
-            <div className="stat-card">
-              <span className="stat-number">{stats.inStock}</span>
-              <span className="stat-label">En Stock</span>
-            </div>
-            <div className="stat-card warning">
-              <span className="stat-number">{stats.lowStock}</span>
-              <span className="stat-label">Stock Bajo</span>
-            </div>
-            <div className="stat-card danger">
-              <span className="stat-number">{stats.outOfStock}</span>
-              <span className="stat-label">Sin Stock</span>
-            </div>
+    <div className="admin-panel">
+      {/* Header */}
+      <header className="admin-header">
+        <div className="admin-header-content">
+          <h1>🏪 Panel de Administración v3</h1>
+          <div className="admin-user-info">
+            <span>👤 {user?.signInDetails?.loginId || 'Admin'}</span>
           </div>
         </div>
-        <button 
-          onClick={() => setShowCreateForm(!showCreateForm)}
-          className="btn btn-primary create-btn"
-        >
-          {showCreateForm ? '✕ Cancelar' : '+ Crear Producto'}
-        </button>
-      </div>
+      </header>
 
-      {/* Filtros y controles */}
-      <div className="admin-controls">
-        <div className="filters-section">
-          <div className="search-filter">
-            <input
-              type="text"
-              placeholder="🔍 Buscar productos..."
-              value={filters.search}
-              onChange={(e) => setFilters({...filters, search: e.target.value})}
-              className="search-input"
-            />
-          </div>
-          
-          <div className="filter-group">
-            <select
-              value={filters.category}
-              onChange={(e) => setFilters({...filters, category: e.target.value})}
-              className="filter-select"
-            >
-              <option value="all">📂 Todas las categorías</option>
-              <option value="camisetas">👕 Camisetas</option>
-              <option value="pantalones">👖 Pantalones</option>
-              <option value="zapatos">👟 Zapatos</option>
-              <option value="accesorios">🎒 Accesorios</option>
-            </select>
-          </div>
-
-          <div className="filter-group">
-            <select
-              value={filters.gender}
-              onChange={(e) => setFilters({...filters, gender: e.target.value})}
-              className="filter-select"
-            >
-              <option value="all">👥 Todos los géneros</option>
-              <option value="hombre">👨 Hombre</option>
-              <option value="mujer">👩 Mujer</option>
-              <option value="unisex">⚧ Unisex</option>
-            </select>
-          </div>
-
-          <div className="filter-group">
-            <select
-              value={filters.stockStatus}
-              onChange={(e) => setFilters({...filters, stockStatus: e.target.value})}
-              className="filter-select"
-            >
-              <option value="all">📦 Todo el stock</option>
-              <option value="in-stock">✅ En stock</option>
-              <option value="low-stock">⚠️ Stock bajo</option>
-              <option value="out-of-stock">❌ Sin stock</option>
-            </select>
-          </div>
-
-          <div className="filter-group">
-            <select
-              value={filters.priceRange}
-              onChange={(e) => setFilters({...filters, priceRange: e.target.value})}
-              className="filter-select"
-            >
-              <option value="all">💰 Todos los precios</option>
-              <option value="under-25">💵 Menos de $25</option>
-              <option value="25-50">💴 $25 - $50</option>
-              <option value="50-100">💶 $50 - $100</option>
-              <option value="over-100">💷 Más de $100</option>
-            </select>
-          </div>
-        </div>
-
-        <div className="controls-section">
-          <div className="sort-controls">
-            <select
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
-              className="sort-select"
-            >
-              <option value="name">📝 Ordenar por Nombre</option>
-              <option value="price">💰 Ordenar por Precio</option>
-              <option value="stock">📦 Ordenar por Stock</option>
-              <option value="category">📂 Ordenar por Categoría</option>
-            </select>
-            
-            <button
-              onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
-              className="sort-order-btn"
-              title={sortOrder === 'asc' ? 'Cambiar a descendente' : 'Cambiar a ascendente'}
-            >
-              {sortOrder === 'asc' ? '⬆️' : '⬇️'}
-            </button>
-          </div>
-
-          <div className="view-controls">
-            <button
-              onClick={() => setViewMode('grid')}
-              className={`view-btn ${viewMode === 'grid' ? 'active' : ''}`}
-              title="Vista en cuadrícula"
-            >
-              ⊞
-            </button>
-            <button
-              onClick={() => setViewMode('table')}
-              className={`view-btn ${viewMode === 'table' ? 'active' : ''}`}
-              title="Vista en tabla"
-            >
-              ☰
-            </button>
-          </div>
-
-          <button
-            onClick={clearFilters}
-            className="clear-filters-btn"
-            title="Limpiar todos los filtros"
+      {/* Navigation Tabs */}
+      <nav className="admin-nav">
+        <div className="admin-nav-tabs">
+          <button 
+            className={`nav-tab ${activeTab === 'dashboard' ? 'active' : ''}`}
+            onClick={() => setActiveTab('dashboard')}
           >
-            🗑️ Limpiar
+            📊 Dashboard
+          </button>
+          <button 
+            className={`nav-tab ${activeTab === 'products' ? 'active' : ''}`}
+            onClick={() => setActiveTab('products')}
+          >
+            📦 Productos
+          </button>
+          <button 
+            className={`nav-tab ${activeTab === 'orders' ? 'active' : ''}`}
+            onClick={() => setActiveTab('orders')}
+          >
+            🛒 Pedidos
+          </button>
+          <button 
+            className={`nav-tab ${activeTab === 'sales' ? 'active' : ''}`}
+            onClick={() => setActiveTab('sales')}
+          >
+            💰 Ventas
           </button>
         </div>
-      </div>
+      </nav>
 
-      {/* Resultados */}
-      <div className="results-info">
-        <span>Mostrando {filteredProducts.length} de {products.length} productos</span>
-      </div>
-
-      {showCreateForm && (
-        <ProductForm
-          formData={formData}
-          setFormData={setFormData}
-          editingProduct={editingProduct}
-          selectedFile={selectedFile}
-          uploadingImage={uploadingImage}
-          onSubmit={editingProduct ? updateProduct : createProduct}
-          onCancel={cancelEdit}
-          onFileSelect={handleFileSelect}
-        />
+      {/* Messages */}
+      {error && (
+        <div className="message error-message">
+          ❌ {error}
+          <button onClick={() => setError('')}>×</button>
+        </div>
+      )}
+      {success && (
+        <div className="message success-message">
+          ✅ {success}
+          <button onClick={() => setSuccess('')}>×</button>
+        </div>
       )}
 
-      <div className="admin-products">
-        {filteredProducts.length === 0 ? (
-          <div className="no-products-found">
-            <h3>🔍 No se encontraron productos</h3>
-            <p>Intenta ajustar los filtros o crear un nuevo producto</p>
-            <button onClick={clearFilters} className="btn btn-outline">
-              Limpiar Filtros
-            </button>
+      {/* Main Content */}
+      <main className="admin-main">
+        {loading && <div className="loading-overlay">⏳ Cargando...</div>}
+
+        {/* Dashboard Tab */}
+        {activeTab === 'dashboard' && (
+          <div className="dashboard-content">
+            <h2>📊 Resumen General</h2>
+            
+            <div className="stats-grid">
+              <div className="stat-card products-stat">
+                <div className="stat-icon">📦</div>
+                <div className="stat-info">
+                  <h3>Productos</h3>
+                  <div className="stat-number">{dashboardStats.totalProducts}</div>
+                  <div className="stat-details">
+                    <span className="low-stock">⚠️ {dashboardStats.lowStock} Bajo Stock</span>
+                    <span className="out-stock">❌ {dashboardStats.outOfStock} Sin Stock</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="stat-card orders-stat">
+                <div className="stat-icon">🛒</div>
+                <div className="stat-info">
+                  <h3>Pedidos</h3>
+                  <div className="stat-number">{dashboardStats.totalOrders}</div>
+                  <div className="stat-details">
+                    <span className="pending">⏳ {dashboardStats.pendingOrders} Pendientes</span>
+                    <span className="completed">✅ {dashboardStats.completedOrders} Completados</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="stat-card sales-stat">
+                <div className="stat-icon">💰</div>
+                <div className="stat-info">
+                  <h3>Ventas</h3>
+                  <div className="stat-number">{dashboardStats.totalSales}</div>
+                  <div className="stat-details">
+                    <span className="revenue">💵 ${dashboardStats.totalRevenue?.toFixed(2)}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Recent Activity */}
+            <div className="recent-activity">
+              <h3>📈 Actividad Reciente</h3>
+              <div className="activity-grid">
+                <div className="activity-section">
+                  <h4>🛒 Últimos Pedidos</h4>
+                  <div className="activity-list">
+                    {orders.slice(0, 5).map(order => (
+                      <div key={order.orderId} className="activity-item">
+                        <span className="activity-id">#{order.orderId.slice(-8)}</span>
+                        <span className="activity-customer">{order.customerName}</span>
+                        <span className={`activity-status status-${order.status}`}>
+                          {order.status === 'pending' ? '⏳ Pendiente' : '✅ Completado'}
+                        </span>
+                        <span className="activity-amount">${order.totalAmount}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="activity-section">
+                  <h4>💰 Últimas Ventas</h4>
+                  <div className="activity-list">
+                    {sales.slice(0, 5).map(sale => (
+                      <div key={sale.saleId} className="activity-item">
+                        <span className="activity-id">#{sale.saleId.slice(-8)}</span>
+                        <span className="activity-customer">{sale.customerName}</span>
+                        <span className="activity-date">{new Date(sale.saleDate).toLocaleDateString()}</span>
+                        <span className="activity-amount">${sale.totalAmount}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-        ) : (
-          <ProductsList
-            products={filteredProducts}
-            viewMode={viewMode}
-            onEdit={startEdit}
-            onDelete={deleteProduct}
-          />
         )}
-      </div>
-    </div>
-  )
-}
 
-// Componente para el formulario de producto
-function ProductForm({ formData, setFormData, editingProduct, selectedFile, uploadingImage, onSubmit, onCancel, onFileSelect }) {
-  return (
-    <div className="admin-form-container">
-      <h2>{editingProduct ? '✏️ Editar Producto' : '➕ Crear Nuevo Producto'}</h2>
-      <form onSubmit={onSubmit} className="admin-form">
-        <div className="form-row">
-          <div className="form-group">
-            <label>Nombre del Producto</label>
-            <input
-              type="text"
-              value={formData.name}
-              onChange={(e) => setFormData({...formData, name: e.target.value})}
-              required
-              placeholder="Ej: Camiseta Nike Dri-FIT"
-            />
-          </div>
-          <div className="form-group">
-            <label>Precio ($)</label>
-            <input
-              type="number"
-              step="0.01"
-              value={formData.price}
-              onChange={(e) => setFormData({...formData, price: e.target.value})}
-              required
-              placeholder="29.99"
-            />
-          </div>
-        </div>
-
-        <div className="form-group">
-          <label>Descripción</label>
-          <textarea
-            value={formData.description}
-            onChange={(e) => setFormData({...formData, description: e.target.value})}
-            rows="3"
-            required
-            placeholder="Describe las características del producto..."
-          />
-        </div>
-
-        <div className="form-row">
-          {!editingProduct && (
-            <div className="form-group">
-              <label>Categoría</label>
-              <select
-                value={formData.category}
-                onChange={(e) => setFormData({...formData, category: e.target.value})}
-                required
+        {/* Products Tab */}
+        {activeTab === 'products' && (
+          <div className="products-content">
+            <div className="products-header">
+              <h2>📦 Gestión de Productos</h2>
+              <button 
+                className="btn btn-primary"
+                onClick={() => setShowProductForm(true)}
               >
-                <option value="">Seleccionar categoría</option>
-                <option value="camisetas">👕 Camisetas</option>
-                <option value="pantalones">👖 Pantalones</option>
-                <option value="zapatos">👟 Zapatos</option>
-                <option value="accesorios">🎒 Accesorios</option>
-              </select>
+                ➕ Nuevo Producto
+              </button>
             </div>
-          )}
-          {editingProduct && (
-            <div className="form-group">
-              <label>Categoría (no se puede cambiar)</label>
-              <input
-                type="text"
-                value={editingProduct.category}
-                disabled
-                className="disabled-input"
-              />
-            </div>
-          )}
-          <div className="form-group">
-            <label>Género</label>
-            <select
-              value={formData.gender}
-              onChange={(e) => setFormData({...formData, gender: e.target.value})}
-              required
-            >
-              <option value="">Seleccionar género</option>
-              <option value="hombre">👨 Hombre</option>
-              <option value="mujer">👩 Mujer</option>
-              <option value="unisex">⚧ Unisex</option>
-            </select>
-          </div>
-          <div className="form-group">
-            <label>Stock</label>
-            <input
-              type="number"
-              value={formData.stock}
-              onChange={(e) => setFormData({...formData, stock: e.target.value})}
-              required
-              min="0"
-              placeholder="100"
-            />
-          </div>
-        </div>
 
-        <div className="form-group">
-          <label>Imagen del Producto</label>
-          
-          <div className="image-upload-section">
-            <div className="upload-option">
-              <label className="upload-label">📁 Subir desde computadora:</label>
-              <input
-                type="file"
-                accept="image/*"
-                onChange={onFileSelect}
-                className="file-input"
-              />
-              {selectedFile && (
-                <div className="file-selected">
-                  ✅ {selectedFile.name}
-                </div>
-              )}
-              {uploadingImage && (
-                <div className="uploading">
-                  ⏳ Subiendo imagen...
-                </div>
-              )}
-            </div>
-            
-            <div className="upload-divider">- O -</div>
-            
-            <div className="upload-option">
-              <label className="upload-label">🔗 URL de imagen:</label>
-              <input
-                type="url"
-                value={formData.imageUrl}
-                onChange={(e) => setFormData({...formData, imageUrl: e.target.value})}
-                placeholder="https://ejemplo.com/imagen.jpg"
-                className="url-input"
-              />
-            </div>
-          </div>
-        </div>
-
-        <div className="form-actions">
-          <button type="submit" className="btn btn-primary" disabled={uploadingImage}>
-            {uploadingImage ? '⏳ Subiendo...' : (editingProduct ? '💾 Actualizar' : '➕ Crear')}
-          </button>
-          <button type="button" onClick={onCancel} className="btn btn-outline">
-            ❌ Cancelar
-          </button>
-        </div>
-      </form>
-    </div>
-  )
-}
-
-// Componente para la lista de productos
-function ProductsList({ products, viewMode, onEdit, onDelete }) {
-  if (viewMode === 'table') {
-    return (
-      <div className="products-table-view">
-        <div className="table-header">
-          <div className="table-cell">Imagen</div>
-          <div className="table-cell">Producto</div>
-          <div className="table-cell">Categoría</div>
-          <div className="table-cell">Precio</div>
-          <div className="table-cell">Stock</div>
-          <div className="table-cell">Acciones</div>
-        </div>
-        {products.map((product) => (
-          <div key={product.id} className="table-row">
-            <div className="table-cell">
-              <div className="product-image-small">
-                {product.imageUrl ? (
-                  <img src={product.imageUrl} alt={product.name} />
-                ) : (
-                  <div className="no-image-small">📷</div>
-                )}
-              </div>
-            </div>
-            <div className="table-cell">
-              <div className="product-name-cell">
-                <strong>{product.name}</strong>
-                <span className="product-gender">{product.gender}</span>
-              </div>
-            </div>
-            <div className="table-cell">
-              <span className="category-badge">{product.category}</span>
-            </div>
-            <div className="table-cell">
-              <span className="price-cell">${product.price}</span>
-            </div>
-            <div className="table-cell">
-              <span className={`stock-badge ${getStockStatus(product.stock)}`}>
-                {product.stock}
-              </span>
-            </div>
-            <div className="table-cell">
-              <div className="table-actions">
-                <button 
-                  onClick={() => onEdit(product)}
-                  className="btn btn-sm btn-outline"
-                  title="Editar producto"
+            {/* Product Filters */}
+            <div className="filters-section">
+              <div className="filters-row">
+                <input
+                  type="text"
+                  placeholder="🔍 Buscar productos..."
+                  value={productFilters.search}
+                  onChange={(e) => setProductFilters({...productFilters, search: e.target.value})}
+                  className="filter-input search-input"
+                />
+                
+                <select
+                  value={productFilters.category}
+                  onChange={(e) => setProductFilters({...productFilters, category: e.target.value})}
+                  className="filter-select"
                 >
-                  ✏️
-                </button>
-                <button 
-                  onClick={() => onDelete(product.id, product.name)}
-                  className="btn btn-sm remove-btn"
-                  title="Eliminar producto"
+                  <option value="all">Todas las categorías</option>
+                  <option value="camisetas">Camisetas</option>
+                  <option value="pantalones">Pantalones</option>
+                  <option value="shorts">Shorts</option>
+                  <option value="hoodies">Hoodies</option>
+                  <option value="accesorios">Accesorios</option>
+                </select>
+
+                <select
+                  value={productFilters.gender}
+                  onChange={(e) => setProductFilters({...productFilters, gender: e.target.value})}
+                  className="filter-select"
                 >
-                  🗑️
-                </button>
+                  <option value="all">Todos los géneros</option>
+                  <option value="hombre">Hombre</option>
+                  <option value="mujer">Mujer</option>
+                  <option value="unisex">Unisex</option>
+                </select>
+
+                <select
+                  value={productFilters.stockStatus}
+                  onChange={(e) => setProductFilters({...productFilters, stockStatus: e.target.value})}
+                  className="filter-select"
+                >
+                  <option value="all">Todo el stock</option>
+                  <option value="in-stock">En stock</option>
+                  <option value="low-stock">Bajo stock</option>
+                  <option value="out-of-stock">Sin stock</option>
+                </select>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
-    )
-  }
 
-  return (
-    <div className="products-grid-view">
-      {products.map((product) => (
-        <div key={product.id} className="product-card-admin">
-          <div className="product-image-admin">
-            {product.imageUrl ? (
-              <img src={product.imageUrl} alt={product.name} />
+            {/* Products Grid */}
+            <div className="products-grid">
+              {filteredProducts.map(product => (
+                <div key={product.id} className="product-card">
+                  <div className="product-image">
+                    {product.imageUrl ? (
+                      <img src={product.imageUrl} alt={product.name} />
+                    ) : (
+                      <div className="no-image">📷</div>
+                    )}
+                    <div className={`stock-badge ${product.stock === 0 ? 'out-of-stock' : product.stock <= 10 ? 'low-stock' : 'in-stock'}`}>
+                      {product.stock === 0 ? 'Sin Stock' : product.stock <= 10 ? 'Bajo Stock' : 'En Stock'}
+                    </div>
+                  </div>
+                  
+                  <div className="product-info">
+                    <h3 className="product-name">{product.name}</h3>
+                    <p className="product-description">{product.description}</p>
+                    <div className="product-details">
+                      <span className="product-category">{product.category}</span>
+                      <span className="product-gender">{product.gender}</span>
+                    </div>
+                    <div className="product-pricing">
+                      <span className="product-price">${product.price}</span>
+                      <span className="product-stock">Stock: {product.stock}</span>
+                    </div>
+                  </div>
+                  
+                  <div className="product-actions">
+                    <button 
+                      className="btn btn-secondary"
+                      onClick={() => startEditProduct(product)}
+                    >
+                      ✏️ Editar
+                    </button>
+                    <button 
+                      className="btn btn-danger"
+                      onClick={() => handleDeleteProduct(product.id)}
+                    >
+                      🗑️ Eliminar
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Orders Tab */}
+        {activeTab === 'orders' && (
+          <div className="orders-content">
+            <div className="orders-header">
+              <h2>🛒 Gestión de Pedidos</h2>
+              <div className="orders-info">
+                <div className="info-text">
+                  <span className="info-label">📅 Mostrando:</span>
+                  <span className="info-value">Pedidos de los últimos 7 días</span>
+                </div>
+                <div className="orders-actions">
+                  <button 
+                    className="btn btn-secondary btn-sm"
+                    onClick={fetchOrders}
+                  >
+                    🔄 Actualizar
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {filteredOrders.length === 0 ? (
+              <div className="no-data">
+                <div className="no-data-icon">🛒</div>
+                <h3>No hay pedidos recientes</h3>
+                <p>No se encontraron pedidos en los últimos 7 días</p>
+              </div>
             ) : (
-              <div className="no-image-admin">
-                <span>📷</span>
-                <p>Sin imagen</p>
+              <div className="orders-list">
+                {filteredOrders.map(order => (
+                  <div key={order.orderId} className="order-card">
+                    <div className="order-header">
+                      <div className="order-id">
+                        <strong>Pedido #{order.orderId?.slice(-8) || 'N/A'}</strong>
+                        <span className={`order-status status-${order.status || 'pending'}`}>
+                          {order.status === 'pending' ? '⏳ Pendiente' : 
+                           order.status === 'completed' ? '✅ Completado' : 
+                           '❓ Desconocido'}
+                        </span>
+                      </div>
+                      <div className="order-date">
+                        📅 {order.createdAt ? new Date(order.createdAt).toLocaleDateString() : 'Fecha no disponible'}
+                      </div>
+                    </div>
+                    
+                    <div className="order-customer">
+                      <strong>👤 Cliente:</strong> {order.customerInfo?.name || order.customerName || 'No especificado'}
+                      <br />
+                      <strong>📧 Email:</strong> {order.customerInfo?.email || order.customerEmail || 'No especificado'}
+                      <br />
+                      <strong>📱 Teléfono:</strong> {order.customerInfo?.phone || order.customerPhone || 'No especificado'}
+                    </div>
+                    
+                    <div className="order-items">
+                      <strong>📦 Productos:</strong>
+                      {order.items && order.items.length > 0 ? (
+                        order.items.map((item, index) => (
+                          <div key={index} className="order-item">
+                            <span>{item.productName || 'Producto'}</span>
+                            <span>Cantidad: {item.quantity || 1}</span>
+                            <span>${item.unitPrice || item.price || 0}</span>
+                          </div>
+                        ))
+                      ) : (
+                        <div className="order-item">
+                          <span>No hay información de productos</span>
+                        </div>
+                      )}
+                    </div>
+                    
+                    <div className="order-total">
+                      <strong>💰 Total: ${order.summary?.totalAmount || order.totalAmount || 0}</strong>
+                    </div>
+                    
+                    {order.status === 'pending' && (
+                      <div className="order-actions">
+                        <button 
+                          className="btn btn-success"
+                          onClick={() => handleCompleteOrder(order.orderId)}
+                          disabled={loading}
+                        >
+                          ✅ Completar Pedido
+                        </button>
+                        <button 
+                          className="btn btn-danger"
+                          onClick={() => handleCancelOrder(order.orderId)}
+                          disabled={loading}
+                        >
+                          ❌ Cancelar Pedido
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                ))}
               </div>
             )}
-            <div className={`stock-indicator ${getStockStatus(product.stock)}`}>
-              {product.stock === 0 ? 'Sin Stock' : product.stock <= 5 ? 'Stock Bajo' : 'En Stock'}
-            </div>
           </div>
-          
-          <div className="product-info-admin">
-            <h4 className="product-name-admin">{product.name}</h4>
-            <div className="product-meta">
-              <span className="category-tag">{product.category}</span>
-              <span className="gender-tag">{product.gender}</span>
+        )}
+
+        {/* Sales Tab */}
+        {activeTab === 'sales' && (
+          <div className="sales-content">
+            <div className="sales-header">
+              <h2>💰 Gestión de Ventas Profesional</h2>
+              <div className="sales-navigation">
+                <div className="breadcrumb">
+                  {salesView.level === 'year' && <span className="breadcrumb-item active">📊 Vista por Años</span>}
+                  {salesView.level === 'month' && (
+                    <>
+                      <button className="breadcrumb-item" onClick={() => setSalesView({level: 'year', year: null, month: null, day: null})}>
+                        📊 Años
+                      </button>
+                      <span className="breadcrumb-separator">›</span>
+                      <span className="breadcrumb-item active">📅 {salesView.year}</span>
+                    </>
+                  )}
+                  {salesView.level === 'day' && (
+                    <>
+                      <button className="breadcrumb-item" onClick={() => setSalesView({level: 'year', year: null, month: null, day: null})}>
+                        📊 Años
+                      </button>
+                      <span className="breadcrumb-separator">›</span>
+                      <button className="breadcrumb-item" onClick={() => setSalesView({level: 'month', year: salesView.year, month: null, day: null})}>
+                        📅 {salesView.year}
+                      </button>
+                      <span className="breadcrumb-separator">›</span>
+                      <span className="breadcrumb-item active">🗓️ {getMonthName(salesView.month)}</span>
+                    </>
+                  )}
+                  {salesView.level === 'detail' && (
+                    <>
+                      <button className="breadcrumb-item" onClick={() => setSalesView({level: 'year', year: null, month: null, day: null})}>
+                        📊 Años
+                      </button>
+                      <span className="breadcrumb-separator">›</span>
+                      <button className="breadcrumb-item" onClick={() => setSalesView({level: 'month', year: salesView.year, month: null, day: null})}>
+                        📅 {salesView.year}
+                      </button>
+                      <span className="breadcrumb-separator">›</span>
+                      <button className="breadcrumb-item" onClick={() => setSalesView({level: 'day', year: salesView.year, month: salesView.month, day: null})}>
+                        🗓️ {getMonthName(salesView.month)}
+                      </button>
+                      <span className="breadcrumb-separator">›</span>
+                      <span className="breadcrumb-item active">📋 {salesView.day}</span>
+                    </>
+                  )}
+                </div>
+                <button 
+                  className="btn btn-secondary btn-sm"
+                  onClick={() => Promise.all([fetchSales(), fetchSalesStatistics()])}
+                >
+                  🔄 Actualizar
+                </button>
+              </div>
             </div>
-            <div className="product-price-admin">${product.price}</div>
-            <div className="product-stock-admin">Stock: {product.stock}</div>
+
+            {/* Year View */}
+            {salesView.level === 'year' && (
+              <div className="hierarchical-view">
+                <div className="view-header">
+                  <h3>📊 Ventas por Año</h3>
+                  <div className="total-stats">
+                    <span className="stat-item">
+                      <strong>Total Ventas:</strong> {sales.length}
+                    </span>
+                    <span className="stat-item">
+                      <strong>Ingresos Totales:</strong> ${sales.reduce((sum, sale) => sum + parseFloat(sale.totalAmount || 0), 0).toFixed(2)}
+                    </span>
+                  </div>
+                </div>
+                
+                <div className="hierarchical-grid">
+                  {getYearlyData().map(yearData => (
+                    <div 
+                      key={yearData.year} 
+                      className="hierarchical-card year-card"
+                      onClick={() => setSalesView({level: 'month', year: yearData.year, month: null, day: null})}
+                    >
+                      <div className="card-header">
+                        <h4>📅 {yearData.year}</h4>
+                        <span className="card-arrow">›</span>
+                      </div>
+                      <div className="card-stats">
+                        <div className="stat-row">
+                          <span className="stat-label">Ventas:</span>
+                          <span className="stat-value">{yearData.count}</span>
+                        </div>
+                        <div className="stat-row">
+                          <span className="stat-label">Ingresos:</span>
+                          <span className="stat-value">${yearData.total.toFixed(2)}</span>
+                        </div>
+                        <div className="stat-row">
+                          <span className="stat-label">Promedio:</span>
+                          <span className="stat-value">${(yearData.total / yearData.count).toFixed(2)}</span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Month View */}
+            {salesView.level === 'month' && (
+              <div className="hierarchical-view">
+                <div className="view-header">
+                  <h3>📅 Ventas de {salesView.year} por Mes</h3>
+                  <div className="total-stats">
+                    {(() => {
+                      const yearSales = sales.filter(sale => {
+                        const saleDate = new Date(sale.completedAt);
+                        return saleDate.getFullYear() === parseInt(salesView.year);
+                      });
+                      return (
+                        <>
+                          <span className="stat-item">
+                            <strong>Ventas del Año:</strong> {yearSales.length}
+                          </span>
+                          <span className="stat-item">
+                            <strong>Ingresos del Año:</strong> ${yearSales.reduce((sum, sale) => sum + parseFloat(sale.totalAmount || 0), 0).toFixed(2)}
+                          </span>
+                        </>
+                      );
+                    })()}
+                  </div>
+                </div>
+                
+                <div className="hierarchical-grid">
+                  {getMonthlyData(salesView.year).map(monthData => (
+                    <div 
+                      key={monthData.month} 
+                      className="hierarchical-card month-card"
+                      onClick={() => setSalesView({level: 'day', year: salesView.year, month: monthData.month, day: null})}
+                    >
+                      <div className="card-header">
+                        <h4>🗓️ {getMonthName(monthData.month)}</h4>
+                        <span className="card-arrow">›</span>
+                      </div>
+                      <div className="card-stats">
+                        <div className="stat-row">
+                          <span className="stat-label">Ventas:</span>
+                          <span className="stat-value">{monthData.count}</span>
+                        </div>
+                        <div className="stat-row">
+                          <span className="stat-label">Ingresos:</span>
+                          <span className="stat-value">${monthData.total.toFixed(2)}</span>
+                        </div>
+                        <div className="stat-row">
+                          <span className="stat-label">Promedio:</span>
+                          <span className="stat-value">${(monthData.total / monthData.count).toFixed(2)}</span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Day View */}
+            {salesView.level === 'day' && (
+              <div className="hierarchical-view">
+                <div className="view-header">
+                  <h3>🗓️ Ventas de {getMonthName(salesView.month)} {salesView.year} por Día</h3>
+                  <div className="total-stats">
+                    {(() => {
+                      const monthSales = sales.filter(sale => {
+                        const saleDate = new Date(sale.completedAt);
+                        return saleDate.getFullYear() === parseInt(salesView.year) && 
+                               saleDate.getMonth() === parseInt(salesView.month) - 1;
+                      });
+                      return (
+                        <>
+                          <span className="stat-item">
+                            <strong>Ventas del Mes:</strong> {monthSales.length}
+                          </span>
+                          <span className="stat-item">
+                            <strong>Ingresos del Mes:</strong> ${monthSales.reduce((sum, sale) => sum + parseFloat(sale.totalAmount || 0), 0).toFixed(2)}
+                          </span>
+                        </>
+                      );
+                    })()}
+                  </div>
+                </div>
+                
+                <div className="hierarchical-grid">
+                  {getDailyData(salesView.year, salesView.month).map(dayData => (
+                    <div 
+                      key={dayData.day} 
+                      className="hierarchical-card day-card"
+                      onClick={() => setSalesView({level: 'detail', year: salesView.year, month: salesView.month, day: dayData.day})}
+                    >
+                      <div className="card-header">
+                        <h4>📋 Día {dayData.day}</h4>
+                        <span className="card-arrow">›</span>
+                      </div>
+                      <div className="card-stats">
+                        <div className="stat-row">
+                          <span className="stat-label">Ventas:</span>
+                          <span className="stat-value">{dayData.count}</span>
+                        </div>
+                        <div className="stat-row">
+                          <span className="stat-label">Ingresos:</span>
+                          <span className="stat-value">${dayData.total.toFixed(2)}</span>
+                        </div>
+                        <div className="stat-row">
+                          <span className="stat-label">Promedio:</span>
+                          <span className="stat-value">${(dayData.total / dayData.count).toFixed(2)}</span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Detail View */}
+            {salesView.level === 'detail' && (
+              <div className="detail-view">
+                <div className="view-header">
+                  <h3>📋 Ventas del {salesView.day} de {getMonthName(salesView.month)} {salesView.year}</h3>
+                  <div className="detail-actions">
+                    <button 
+                      className="btn btn-secondary btn-sm"
+                      onClick={() => exportDayData(salesView.year, salesView.month, salesView.day)}
+                    >
+                      📊 Exportar
+                    </button>
+                  </div>
+                </div>
+                
+                {(() => {
+                  const daySales = sales.filter(sale => {
+                    const saleDate = new Date(sale.completedAt);
+                    return saleDate.getFullYear() === parseInt(salesView.year) && 
+                           saleDate.getMonth() === parseInt(salesView.month) - 1 &&
+                           saleDate.getDate() === parseInt(salesView.day);
+                  });
+                  
+                  return daySales.length === 0 ? (
+                    <div className="no-data">
+                      <div className="no-data-icon">💰</div>
+                      <h3>No hay ventas este día</h3>
+                      <p>No se registraron ventas para esta fecha</p>
+                    </div>
+                  ) : (
+                    <div className="sales-detail-list">
+                      {daySales.map(sale => (
+                        <div key={sale.saleId} className="sale-detail-card">
+                          <div className="sale-detail-header">
+                            <div className="sale-id">
+                              <strong>Venta #{sale.saleId?.slice(-8) || 'N/A'}</strong>
+                            </div>
+                            <div className="sale-time">
+                              🕐 {sale.completedAt ? new Date(sale.completedAt).toLocaleTimeString() : 'Hora no disponible'}
+                            </div>
+                            <div className="sale-amount">
+                              <strong>${sale.totalAmount || 0}</strong>
+                            </div>
+                          </div>
+                          
+                          <div className="sale-detail-customer">
+                            <div className="customer-info">
+                              <span><strong>👤</strong> {sale.customerName || 'No especificado'}</span>
+                              <span><strong>📧</strong> {sale.customerEmail || 'No especificado'}</span>
+                              <span><strong>📱</strong> {sale.customerPhone || 'No especificado'}</span>
+                            </div>
+                          </div>
+                          
+                          <div className="sale-detail-products">
+                            <h5>📦 Productos:</h5>
+                            {sale.items && sale.items.length > 0 ? (
+                              <div className="products-grid">
+                                {sale.items.map((item, index) => (
+                                  <div key={index} className="product-detail-item">
+                                    <div className="product-name">{item.productName || 'Producto'}</div>
+                                    <div className="product-details">
+                                      <span>Cantidad: {item.quantity || 1}</span>
+                                      <span>Precio: ${item.unitPrice || item.price || 0}</span>
+                                      <span>Subtotal: ${((item.quantity || 1) * (item.unitPrice || item.price || 0)).toFixed(2)}</span>
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
+                            ) : (
+                              <div className="no-products">
+                                <span>Pedido original: {sale.originalOrderId || 'N/A'}</span>
+                              </div>
+                            )}
+                          </div>
+                          
+                          <div className="sale-detail-actions">
+                            <button 
+                              className="btn btn-danger btn-sm"
+                              onClick={() => handleCancelSale(sale.saleId)}
+                              disabled={loading}
+                            >
+                              ❌ Cancelar Venta
+                            </button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  );
+                })()}
+              </div>
+            )}
           </div>
-          
-          <div className="product-actions-admin">
-            <button 
-              onClick={() => onEdit(product)}
-              className="btn btn-outline action-btn"
-              title="Editar producto"
-            >
-              ✏️ Editar
-            </button>
-            <button 
-              onClick={() => onDelete(product.id, product.name)}
-              className="btn remove-btn action-btn"
-              title="Eliminar producto"
-            >
-              🗑️ Eliminar
-            </button>
+        )}
+      </main>
+
+      {/* Product Form Modal */}
+      {showProductForm && (
+        <div className="modal-overlay">
+          <div className="modal-content product-form-modal">
+            <div className="modal-header">
+              <h3>{editingProduct ? '✏️ Editar Producto' : '➕ Crear Producto'}</h3>
+              <button className="modal-close" onClick={resetProductForm}>×</button>
+            </div>
+            
+            <form onSubmit={editingProduct ? handleUpdateProduct : handleCreateProduct} className="product-form">
+              <div className="form-row">
+                <div className="form-group">
+                  <label>Nombre del Producto</label>
+                  <input
+                    type="text"
+                    value={productFormData.name}
+                    onChange={(e) => setProductFormData({...productFormData, name: e.target.value})}
+                    required
+                  />
+                </div>
+                
+                <div className="form-group">
+                  <label>Precio</label>
+                  <input
+                    type="number"
+                    step="0.01"
+                    value={productFormData.price}
+                    onChange={(e) => setProductFormData({...productFormData, price: e.target.value})}
+                    required
+                  />
+                </div>
+              </div>
+              
+              <div className="form-group">
+                <label>Descripción</label>
+                <textarea
+                  value={productFormData.description}
+                  onChange={(e) => setProductFormData({...productFormData, description: e.target.value})}
+                  rows="3"
+                  required
+                />
+              </div>
+              
+              <div className="form-row">
+                <div className="form-group">
+                  <label>Categoría</label>
+                  <select
+                    value={productFormData.category}
+                    onChange={(e) => setProductFormData({...productFormData, category: e.target.value})}
+                    required
+                  >
+                    <option value="">Seleccionar categoría</option>
+                    <option value="camisetas">Camisetas</option>
+                    <option value="pantalones">Pantalones</option>
+                    <option value="shorts">Shorts</option>
+                    <option value="hoodies">Hoodies</option>
+                    <option value="accesorios">Accesorios</option>
+                  </select>
+                </div>
+                
+                <div className="form-group">
+                  <label>Género</label>
+                  <select
+                    value={productFormData.gender}
+                    onChange={(e) => setProductFormData({...productFormData, gender: e.target.value})}
+                    required
+                  >
+                    <option value="">Seleccionar género</option>
+                    <option value="hombre">Hombre</option>
+                    <option value="mujer">Mujer</option>
+                    <option value="unisex">Unisex</option>
+                  </select>
+                </div>
+                
+                <div className="form-group">
+                  <label>Stock</label>
+                  <input
+                    type="number"
+                    value={productFormData.stock}
+                    onChange={(e) => setProductFormData({...productFormData, stock: e.target.value})}
+                    required
+                  />
+                </div>
+              </div>
+              
+              <div className="form-group">
+                <label>Imagen del Producto</label>
+                <div className="image-upload-section">
+                  <input
+                    id="product-image-input"
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => setImageFile(e.target.files[0])}
+                    className="file-input"
+                  />
+                  <label htmlFor="product-image-input" className="file-input-label">
+                    📷 {imageFile ? imageFile.name : 'Seleccionar imagen'}
+                  </label>
+                </div>
+                <small>O ingresa una URL de imagen:</small>
+                <input
+                  type="url"
+                  placeholder="https://ejemplo.com/imagen.jpg"
+                  value={productFormData.imageUrl}
+                  onChange={(e) => setProductFormData({...productFormData, imageUrl: e.target.value})}
+                />
+              </div>
+              
+              <div className="form-actions">
+                <button type="button" className="btn btn-secondary" onClick={resetProductForm}>
+                  Cancelar
+                </button>
+                <button type="submit" className="btn btn-primary" disabled={loading || uploadingImage}>
+                  {uploadingImage ? '📤 Subiendo imagen...' : editingProduct ? '💾 Actualizar' : '➕ Crear'}
+                </button>
+              </div>
+            </form>
           </div>
         </div>
-      ))}
+      )}
     </div>
-  )
-}
+  );
+};
 
-// Función helper para obtener el estado del stock
-function getStockStatus(stock) {
-  if (stock === 0) return 'out-of-stock'
-  if (stock <= 5) return 'low-stock'
-  return 'in-stock'
-}
-
-export default AdminPanel
+export default AdminPanel;

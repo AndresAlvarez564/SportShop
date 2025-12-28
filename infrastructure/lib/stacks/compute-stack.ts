@@ -15,6 +15,7 @@ interface ComputeStackProps extends StackProps {
   productsTable: Table;
   cartTable: Table;
   ordersTable: Table;
+  salesTable: Table;
   imagesBucket: Bucket;
 }
 
@@ -29,13 +30,19 @@ export class ComputeStack extends Stack {
   public readonly removeFromCartFunction: SportShopLambda;
   public readonly updateCartQuantityFunction: SportShopLambda;
   public readonly createOrderFunction: SportShopLambda;
-  public readonly getUserOrdersFunction: SportShopLambda;
-  public readonly createReviewFunction: SportShopLambda;
-  public readonly getProductReviewsFunction: SportShopLambda;
   public readonly createProductFunction: SportShopLambda;
   public readonly updateProductFunction: SportShopLambda;
   public readonly deleteProductFunction: SportShopLambda;
   public readonly generateUploadUrlFunction: SportShopLambda;
+  public readonly completeOrderFunction: SportShopLambda;
+  public readonly cancelOrderFunction: SportShopLambda;
+  public readonly getAllOrdersFunction: SportShopLambda;
+  public readonly getOrderDetailFunction: SportShopLambda;
+  public readonly getAllSalesFunction: SportShopLambda;
+  public readonly getSalesDetailFunction: SportShopLambda;
+  public readonly updateSalesFunction: SportShopLambda;
+  public readonly cancelSaleFunction: SportShopLambda;
+  public readonly getSalesStatisticsFunction: SportShopLambda;
 
   constructor(scope: Construct, id: string, props: ComputeStackProps) {
     super(scope, id, props);
@@ -149,44 +156,6 @@ export class ComputeStack extends Stack {
     props.ordersTable.grantWriteData(this.createOrderFunction.function);
     props.productsTable.grantReadData(this.createOrderFunction.function);
 
-    // Lambda function para obtener pedidos del usuario
-    this.getUserOrdersFunction = new SportShopLambda(this, 'GetUserOrdersLambda', {
-      functionName: `${env.prefix}-get-user-orders`,
-      code: Code.fromAsset('lambda-functions/get-user-orders'),
-      environment: {
-        'ORDERS_TABLE': props.ordersTable.tableName
-      }
-    });
-
-    // Dar permisos para leer pedidos
-    props.ordersTable.grantReadData(this.getUserOrdersFunction.function);
-
-    // === LAMBDAS DE RESEÑAS ===
-    
-    // Lambda function para crear reseñas
-    this.createReviewFunction = new SportShopLambda(this, 'CreateReviewLambda', {
-      functionName: `${env.prefix}-create-review`,
-      code: Code.fromAsset('lambda-functions/create-review'),
-      environment: {
-        'PRODUCTS_TABLE': props.productsTable.tableName
-      }
-    });
-
-    // Dar permisos para leer y escribir productos (para agregar reseñas)
-    props.productsTable.grantReadWriteData(this.createReviewFunction.function);
-
-    // Lambda function para obtener reseñas de producto (público)
-    this.getProductReviewsFunction = new SportShopLambda(this, 'GetProductReviewsLambda', {
-      functionName: `${env.prefix}-get-product-reviews`,
-      code: Code.fromAsset('lambda-functions/get-product-reviews'),
-      environment: {
-        'PRODUCTS_TABLE': props.productsTable.tableName
-      }
-    });
-
-    // Dar permisos para leer productos
-    props.productsTable.grantReadData(this.getProductReviewsFunction.function);
-
     // === LAMBDAS DE ADMIN ===
     
     // Lambda function para crear productos (admin)
@@ -241,6 +210,128 @@ export class ComputeStack extends Stack {
 
     // Dar permisos para generar presigned URLs de S3
     props.imagesBucket.grantPut(this.generateUploadUrlFunction.function);
+
+    // === LAMBDAS DE GESTIÓN DE PEDIDOS (ADMIN) ===
+    
+    // Lambda function para completar pedido (admin) - Marca como vendido y reduce stock
+    this.completeOrderFunction = new SportShopLambda(this, 'CompleteOrderLambda', {
+      functionName: `${env.prefix}-complete-order`,
+      code: Code.fromAsset('lambda-functions/complete-order'),
+      environment: {
+        'ORDERS_TABLE': props.ordersTable.tableName,
+        'SALES_TABLE': props.salesTable.tableName,
+        'PRODUCTS_TABLE': props.productsTable.tableName
+      }
+    });
+
+    // Dar permisos para leer/escribir pedidos, crear ventas, actualizar productos
+    props.ordersTable.grantReadWriteData(this.completeOrderFunction.function);
+    props.salesTable.grantWriteData(this.completeOrderFunction.function);
+    props.productsTable.grantReadWriteData(this.completeOrderFunction.function);
+
+    // Lambda function para cancelar pedido (admin) - Elimina pedido sin afectar stock
+    this.cancelOrderFunction = new SportShopLambda(this, 'CancelOrderLambda', {
+      functionName: `${env.prefix}-cancel-order`,
+      code: Code.fromAsset('lambda-functions/cancel-order'),
+      environment: {
+        'ORDERS_TABLE': props.ordersTable.tableName
+      }
+    });
+
+    // Dar permisos para leer/escribir pedidos
+    props.ordersTable.grantReadWriteData(this.cancelOrderFunction.function);
+
+    // === FUNCIONES ADICIONALES DE GESTIÓN DE PEDIDOS (ADMIN) ===
+    
+    // Lambda function para obtener todos los pedidos (admin)
+    this.getAllOrdersFunction = new SportShopLambda(this, 'GetAllOrdersLambda', {
+      functionName: `${env.prefix}-get-all-orders`,
+      code: Code.fromAsset('lambda-functions/get-all-orders'),
+      environment: {
+        'ORDERS_TABLE': props.ordersTable.tableName
+      }
+    });
+
+    // Dar permisos para leer pedidos
+    props.ordersTable.grantReadData(this.getAllOrdersFunction.function);
+
+    // Lambda function para obtener detalle de pedido específico (admin)
+    this.getOrderDetailFunction = new SportShopLambda(this, 'GetOrderDetailLambda', {
+      functionName: `${env.prefix}-get-order-detail`,
+      code: Code.fromAsset('lambda-functions/get-order-detail'),
+      environment: {
+        'ORDERS_TABLE': props.ordersTable.tableName
+      }
+    });
+
+    // Dar permisos para leer pedidos
+    props.ordersTable.grantReadData(this.getOrderDetailFunction.function);
+
+    // === FUNCIONES DE SALES (ADMIN) ===
+    
+    // Lambda function para obtener todas las ventas (admin)
+    this.getAllSalesFunction = new SportShopLambda(this, 'GetAllSalesLambda', {
+      functionName: `${env.prefix}-get-all-sales`,
+      code: Code.fromAsset('lambda-functions/get-all-sales'),
+      environment: {
+        'SALES_TABLE': props.salesTable.tableName
+      }
+    });
+
+    // Dar permisos para leer ventas
+    props.salesTable.grantReadData(this.getAllSalesFunction.function);
+
+    // Lambda function para obtener detalle de venta específica (admin)
+    this.getSalesDetailFunction = new SportShopLambda(this, 'GetSalesDetailLambda', {
+      functionName: `${env.prefix}-get-sales-detail`,
+      code: Code.fromAsset('lambda-functions/get-sales-detail'),
+      environment: {
+        'SALES_TABLE': props.salesTable.tableName
+      }
+    });
+
+    // Dar permisos para leer ventas
+    props.salesTable.grantReadData(this.getSalesDetailFunction.function);
+
+    // Lambda function para actualizar información de ventas (admin)
+    this.updateSalesFunction = new SportShopLambda(this, 'UpdateSalesLambda', {
+      functionName: `${env.prefix}-update-sales`,
+      code: Code.fromAsset('lambda-functions/update-sales'),
+      environment: {
+        'SALES_TABLE': props.salesTable.tableName,
+        'PRODUCTS_TABLE': props.productsTable.tableName
+      }
+    });
+
+    // Dar permisos para leer/escribir ventas y productos
+    props.salesTable.grantReadWriteData(this.updateSalesFunction.function);
+    props.productsTable.grantReadData(this.updateSalesFunction.function);
+
+    // Lambda function para cancelar venta y restaurar stock (admin)
+    this.cancelSaleFunction = new SportShopLambda(this, 'CancelSaleLambda', {
+      functionName: `${env.prefix}-cancel-sale`,
+      code: Code.fromAsset('lambda-functions/cancel-sale'),
+      environment: {
+        'SALES_TABLE': props.salesTable.tableName,
+        'PRODUCTS_TABLE': props.productsTable.tableName
+      }
+    });
+
+    // Dar permisos para leer/escribir ventas y productos
+    props.salesTable.grantReadWriteData(this.cancelSaleFunction.function);
+    props.productsTable.grantReadWriteData(this.cancelSaleFunction.function);
+
+    // Lambda function para estadísticas de ventas (admin)
+    this.getSalesStatisticsFunction = new SportShopLambda(this, 'GetSalesStatisticsLambda', {
+      functionName: `${env.prefix}-get-sales-statistics`,
+      code: Code.fromAsset('lambda-functions/get-sales-statistics'),
+      environment: {
+        'SALES_TABLE': props.salesTable.tableName
+      }
+    });
+
+    // Dar permisos para leer ventas
+    props.salesTable.grantReadData(this.getSalesStatisticsFunction.function);
 
     // Aplicar tags
     Object.entries(env.tags).forEach(([key, value]) => {

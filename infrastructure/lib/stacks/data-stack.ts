@@ -18,6 +18,7 @@ export class DataStack extends Stack {
   public readonly productsTable: Table;
   public readonly cartTable: Table;
   public readonly ordersTable: Table;
+  public readonly salesTable: Table;
 
   constructor(scope: Construct, id: string, props: DataStackProps) {
     super(scope, id, props);
@@ -46,6 +47,14 @@ export class DataStack extends Stack {
       tableName: `${env.prefix}-orders`,
       partitionKey: { name: 'orderId', type: AttributeType.STRING },
       sortKey: { name: 'createdAt', type: AttributeType.STRING },
+      billingMode: DYNAMODB_CONFIG.billingMode
+    });
+
+    // Tabla Sales (pedidos completados/vendidos) con timestamp (sort key)
+    this.salesTable = new Table(this, 'SalesTable', {
+      tableName: `${env.prefix}-sales`,
+      partitionKey: { name: 'saleId', type: AttributeType.STRING },
+      sortKey: { name: 'completedAt', type: AttributeType.STRING },
       billingMode: DYNAMODB_CONFIG.billingMode
     });
 

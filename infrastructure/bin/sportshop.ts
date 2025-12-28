@@ -27,41 +27,42 @@ const dataStack = new DataStack(app, 'SportShop-Dev-Data', {
 });
 
 // Crear stack de storage para desarrollo
-const storageStack = new StorageStack(app, 'SportShop-Dev-Storage-v2', {
+const storageStack = new StorageStack(app, 'SportShop-Dev-Storage-v3', {
   stage: 'dev',
   env: {
     region: 'us-east-1',
     account: '851725386264',
   },
-  description: 'SportShop S3 buckets for development environment - v2'
+  description: 'SportShop S3 buckets for development environment - v3'
 });
 
 // Crear stack de compute para desarrollo
-const computeStack = new ComputeStack(app, 'SportShop-Dev-Compute-v2', {
+const computeStack = new ComputeStack(app, 'SportShop-Dev-Compute-v3', {
   stage: 'dev',
   productsTable: dataStack.productsTable,
   cartTable: dataStack.cartTable,
   ordersTable: dataStack.ordersTable,
+  salesTable: dataStack.salesTable,
   imagesBucket: storageStack.imagesBucket,
   env: {
     region: 'us-east-1',
     account: '851725386264',
   },
-  description: 'SportShop Lambda functions for development environment - v2'
+  description: 'SportShop Lambda functions for development environment - v3'
 });
 
 // Crear stack de autenticación para desarrollo
-const authStack = new AuthStack(app, 'SportShop-Dev-Auth-v2', {
+const authStack = new AuthStack(app, 'SportShop-Dev-Auth-v3', {
   stage: 'dev',
   env: {
     region: 'us-east-1',
     account: '851725386264',
   },
-  description: 'SportShop Cognito User Pool for development environment - v2'
+  description: 'SportShop Cognito User Pool for development environment - v3'
 });
 
 // Crear stack de API para desarrollo
-const apiStack = new ApiStack(app, 'SportShop-Dev-Api-v2', {
+const apiStack = new ApiStack(app, 'SportShop-Dev-Api-v3', {
   stage: 'dev',
   computeStack: computeStack,
   authStack: authStack,
@@ -69,11 +70,11 @@ const apiStack = new ApiStack(app, 'SportShop-Dev-Api-v2', {
     region: 'us-east-1',
     account: '851725386264',
   },
-  description: 'SportShop REST API Gateway for development environment - v2'
+  description: 'SportShop REST API Gateway for development environment - v3'
 });
 
 // Crear stack de CDN para desarrollo
-const cdnStack = new CdnStack(app, 'SportShop-Dev-CDN-v2', {
+const cdnStack = new CdnStack(app, 'SportShop-Dev-CDN-v3', {
   stage: 'dev',
   websiteBucket: storageStack.websiteBucket,
   adminBucket: storageStack.adminBucket,
@@ -81,7 +82,7 @@ const cdnStack = new CdnStack(app, 'SportShop-Dev-CDN-v2', {
     region: 'us-east-1',
     account: '851725386264',
   },
-  description: 'SportShop CloudFront distributions for development environment - v2'
+  description: 'SportShop CloudFront distributions for development environment - v3'
 });
 
 // Agregar dependencias explícitas para orden de deployment

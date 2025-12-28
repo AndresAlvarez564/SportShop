@@ -1,0 +1,3738 @@
+{
+ "Description": "SportShop Lambda functions for development environment - v3",
+ "Resources": {
+  "GetProductsLambdaFunctionServiceRoleDD28CD8B": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "development"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "learning"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "Owner",
+      "Value": "Andres"
+     },
+     {
+      "Key": "Project",
+      "Value": "sportshop"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/GetProductsLambda/Function/ServiceRole/Resource"
+   }
+  },
+  "GetProductsLambdaFunctionServiceRoleDefaultPolicy7C107786": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DescribeTable",
+        "dynamodb:GetItem",
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator",
+        "dynamodb:Query",
+        "dynamodb:Scan"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputFnGetAttProductsTable241ADBFFArn55D06E2D"
+        },
+        {
+         "Ref": "AWS::NoValue"
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "GetProductsLambdaFunctionServiceRoleDefaultPolicy7C107786",
+    "Roles": [
+     {
+      "Ref": "GetProductsLambdaFunctionServiceRoleDD28CD8B"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/GetProductsLambda/Function/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "GetProductsLambdaFunction217CDD7C": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-851725386264-us-east-1",
+     "S3Key": "81a785fe371040f546e7a6291291b545bfb7cddef47f851cece972866bf4ebf7.zip"
+    },
+    "Role": {
+     "Fn::GetAtt": [
+      "GetProductsLambdaFunctionServiceRoleDD28CD8B",
+      "Arn"
+     ]
+    },
+    "Environment": {
+     "Variables": {
+      "PRODUCTS_TABLE": {
+       "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputRefProductsTable241ADBFF4DFBD40D"
+      }
+     }
+    },
+    "FunctionName": "sportshop-dev-v3-get-products",
+    "Handler": "index.handler",
+    "MemorySize": 256,
+    "Runtime": "python3.10",
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "development"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "learning"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "Owner",
+      "Value": "Andres"
+     },
+     {
+      "Key": "Project",
+      "Value": "sportshop"
+     }
+    ],
+    "Timeout": 30
+   },
+   "DependsOn": [
+    "GetProductsLambdaFunctionServiceRoleDefaultPolicy7C107786",
+    "GetProductsLambdaFunctionServiceRoleDD28CD8B"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/GetProductsLambda/Function/Resource",
+    "aws:asset:path": "asset.81a785fe371040f546e7a6291291b545bfb7cddef47f851cece972866bf4ebf7",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "GetProductDetailLambdaFunctionServiceRoleDEAA609C": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "development"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "learning"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "Owner",
+      "Value": "Andres"
+     },
+     {
+      "Key": "Project",
+      "Value": "sportshop"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/GetProductDetailLambda/Function/ServiceRole/Resource"
+   }
+  },
+  "GetProductDetailLambdaFunctionServiceRoleDefaultPolicy84206013": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DescribeTable",
+        "dynamodb:GetItem",
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator",
+        "dynamodb:Query",
+        "dynamodb:Scan"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputFnGetAttProductsTable241ADBFFArn55D06E2D"
+        },
+        {
+         "Ref": "AWS::NoValue"
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "GetProductDetailLambdaFunctionServiceRoleDefaultPolicy84206013",
+    "Roles": [
+     {
+      "Ref": "GetProductDetailLambdaFunctionServiceRoleDEAA609C"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/GetProductDetailLambda/Function/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "GetProductDetailLambdaFunction1D68EDEE": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-851725386264-us-east-1",
+     "S3Key": "6eedfcc579bbddaadbcf7048b993d7e1e021af09e9ca5d0e0df94da98388fb5e.zip"
+    },
+    "Role": {
+     "Fn::GetAtt": [
+      "GetProductDetailLambdaFunctionServiceRoleDEAA609C",
+      "Arn"
+     ]
+    },
+    "Environment": {
+     "Variables": {
+      "PRODUCTS_TABLE": {
+       "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputRefProductsTable241ADBFF4DFBD40D"
+      }
+     }
+    },
+    "FunctionName": "sportshop-dev-v3-get-product-detail",
+    "Handler": "index.handler",
+    "MemorySize": 256,
+    "Runtime": "python3.10",
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "development"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "learning"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "Owner",
+      "Value": "Andres"
+     },
+     {
+      "Key": "Project",
+      "Value": "sportshop"
+     }
+    ],
+    "Timeout": 30
+   },
+   "DependsOn": [
+    "GetProductDetailLambdaFunctionServiceRoleDefaultPolicy84206013",
+    "GetProductDetailLambdaFunctionServiceRoleDEAA609C"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/GetProductDetailLambda/Function/Resource",
+    "aws:asset:path": "asset.6eedfcc579bbddaadbcf7048b993d7e1e021af09e9ca5d0e0df94da98388fb5e",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "GetProductsFilteredLambdaFunctionServiceRole8AA8ADB2": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "development"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "learning"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "Owner",
+      "Value": "Andres"
+     },
+     {
+      "Key": "Project",
+      "Value": "sportshop"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/GetProductsFilteredLambda/Function/ServiceRole/Resource"
+   }
+  },
+  "GetProductsFilteredLambdaFunctionServiceRoleDefaultPolicy0AB93C5D": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DescribeTable",
+        "dynamodb:GetItem",
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator",
+        "dynamodb:Query",
+        "dynamodb:Scan"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputFnGetAttProductsTable241ADBFFArn55D06E2D"
+        },
+        {
+         "Ref": "AWS::NoValue"
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "GetProductsFilteredLambdaFunctionServiceRoleDefaultPolicy0AB93C5D",
+    "Roles": [
+     {
+      "Ref": "GetProductsFilteredLambdaFunctionServiceRole8AA8ADB2"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/GetProductsFilteredLambda/Function/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "GetProductsFilteredLambdaFunctionFF99BF8B": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-851725386264-us-east-1",
+     "S3Key": "555218573cd3f93e11a68384e8c1dff98b673cef508512049373473e2537ce0e.zip"
+    },
+    "Role": {
+     "Fn::GetAtt": [
+      "GetProductsFilteredLambdaFunctionServiceRole8AA8ADB2",
+      "Arn"
+     ]
+    },
+    "Environment": {
+     "Variables": {
+      "PRODUCTS_TABLE": {
+       "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputRefProductsTable241ADBFF4DFBD40D"
+      }
+     }
+    },
+    "FunctionName": "sportshop-dev-v3-get-products-filtered",
+    "Handler": "index.handler",
+    "MemorySize": 256,
+    "Runtime": "python3.10",
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "development"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "learning"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "Owner",
+      "Value": "Andres"
+     },
+     {
+      "Key": "Project",
+      "Value": "sportshop"
+     }
+    ],
+    "Timeout": 30
+   },
+   "DependsOn": [
+    "GetProductsFilteredLambdaFunctionServiceRoleDefaultPolicy0AB93C5D",
+    "GetProductsFilteredLambdaFunctionServiceRole8AA8ADB2"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/GetProductsFilteredLambda/Function/Resource",
+    "aws:asset:path": "asset.555218573cd3f93e11a68384e8c1dff98b673cef508512049373473e2537ce0e",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "AddToCartLambdaFunctionServiceRole29CFCDE8": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "development"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "learning"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "Owner",
+      "Value": "Andres"
+     },
+     {
+      "Key": "Project",
+      "Value": "sportshop"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/AddToCartLambda/Function/ServiceRole/Resource"
+   }
+  },
+  "AddToCartLambdaFunctionServiceRoleDefaultPolicyDADF9B22": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DescribeTable",
+        "dynamodb:GetItem",
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator",
+        "dynamodb:Query",
+        "dynamodb:Scan"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputFnGetAttProductsTable241ADBFFArn55D06E2D"
+        },
+        {
+         "Ref": "AWS::NoValue"
+        }
+       ]
+      },
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:BatchWriteItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:DescribeTable",
+        "dynamodb:GetItem",
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator",
+        "dynamodb:PutItem",
+        "dynamodb:Query",
+        "dynamodb:Scan",
+        "dynamodb:UpdateItem"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputFnGetAttCartTableD1105F87Arn1BE6510E"
+        },
+        {
+         "Ref": "AWS::NoValue"
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "AddToCartLambdaFunctionServiceRoleDefaultPolicyDADF9B22",
+    "Roles": [
+     {
+      "Ref": "AddToCartLambdaFunctionServiceRole29CFCDE8"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/AddToCartLambda/Function/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "AddToCartLambdaFunction401C31C7": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-851725386264-us-east-1",
+     "S3Key": "90d2921fa9f71194275b27919c0554b01bcf16d70001785a939146a4da1baf56.zip"
+    },
+    "Role": {
+     "Fn::GetAtt": [
+      "AddToCartLambdaFunctionServiceRole29CFCDE8",
+      "Arn"
+     ]
+    },
+    "Environment": {
+     "Variables": {
+      "PRODUCTS_TABLE": {
+       "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputRefProductsTable241ADBFF4DFBD40D"
+      },
+      "CART_TABLE": {
+       "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputRefCartTableD1105F87A71B6139"
+      }
+     }
+    },
+    "FunctionName": "sportshop-dev-v3-add-to-cart",
+    "Handler": "index.handler",
+    "MemorySize": 256,
+    "Runtime": "python3.10",
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "development"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "learning"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "Owner",
+      "Value": "Andres"
+     },
+     {
+      "Key": "Project",
+      "Value": "sportshop"
+     }
+    ],
+    "Timeout": 30
+   },
+   "DependsOn": [
+    "AddToCartLambdaFunctionServiceRoleDefaultPolicyDADF9B22",
+    "AddToCartLambdaFunctionServiceRole29CFCDE8"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/AddToCartLambda/Function/Resource",
+    "aws:asset:path": "asset.90d2921fa9f71194275b27919c0554b01bcf16d70001785a939146a4da1baf56",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "GetCartLambdaFunctionServiceRole9E1EB47B": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "development"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "learning"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "Owner",
+      "Value": "Andres"
+     },
+     {
+      "Key": "Project",
+      "Value": "sportshop"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/GetCartLambda/Function/ServiceRole/Resource"
+   }
+  },
+  "GetCartLambdaFunctionServiceRoleDefaultPolicyCB014B0C": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DescribeTable",
+        "dynamodb:GetItem",
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator",
+        "dynamodb:Query",
+        "dynamodb:Scan"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputFnGetAttCartTableD1105F87Arn1BE6510E"
+        },
+        {
+         "Ref": "AWS::NoValue"
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "GetCartLambdaFunctionServiceRoleDefaultPolicyCB014B0C",
+    "Roles": [
+     {
+      "Ref": "GetCartLambdaFunctionServiceRole9E1EB47B"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/GetCartLambda/Function/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "GetCartLambdaFunction4D7A18BA": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-851725386264-us-east-1",
+     "S3Key": "b4209e310602b3db59dde7dd145d4448ee9dad8652c0ff6a0bebee4d7c198dbc.zip"
+    },
+    "Role": {
+     "Fn::GetAtt": [
+      "GetCartLambdaFunctionServiceRole9E1EB47B",
+      "Arn"
+     ]
+    },
+    "Environment": {
+     "Variables": {
+      "CART_TABLE": {
+       "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputRefCartTableD1105F87A71B6139"
+      }
+     }
+    },
+    "FunctionName": "sportshop-dev-v3-get-cart",
+    "Handler": "index.handler",
+    "MemorySize": 256,
+    "Runtime": "python3.10",
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "development"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "learning"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "Owner",
+      "Value": "Andres"
+     },
+     {
+      "Key": "Project",
+      "Value": "sportshop"
+     }
+    ],
+    "Timeout": 30
+   },
+   "DependsOn": [
+    "GetCartLambdaFunctionServiceRoleDefaultPolicyCB014B0C",
+    "GetCartLambdaFunctionServiceRole9E1EB47B"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/GetCartLambda/Function/Resource",
+    "aws:asset:path": "asset.b4209e310602b3db59dde7dd145d4448ee9dad8652c0ff6a0bebee4d7c198dbc",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "RemoveFromCartLambdaFunctionServiceRole2FBE6DB0": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "development"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "learning"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "Owner",
+      "Value": "Andres"
+     },
+     {
+      "Key": "Project",
+      "Value": "sportshop"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/RemoveFromCartLambda/Function/ServiceRole/Resource"
+   }
+  },
+  "RemoveFromCartLambdaFunctionServiceRoleDefaultPolicyB6ED0B83": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:BatchWriteItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:DescribeTable",
+        "dynamodb:GetItem",
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator",
+        "dynamodb:PutItem",
+        "dynamodb:Query",
+        "dynamodb:Scan",
+        "dynamodb:UpdateItem"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputFnGetAttCartTableD1105F87Arn1BE6510E"
+        },
+        {
+         "Ref": "AWS::NoValue"
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "RemoveFromCartLambdaFunctionServiceRoleDefaultPolicyB6ED0B83",
+    "Roles": [
+     {
+      "Ref": "RemoveFromCartLambdaFunctionServiceRole2FBE6DB0"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/RemoveFromCartLambda/Function/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "RemoveFromCartLambdaFunction5671D9F5": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-851725386264-us-east-1",
+     "S3Key": "3170a84fa95dc3c1816842623b135b21fe5dc96a0519b8f9a35232cc588d6404.zip"
+    },
+    "Role": {
+     "Fn::GetAtt": [
+      "RemoveFromCartLambdaFunctionServiceRole2FBE6DB0",
+      "Arn"
+     ]
+    },
+    "Environment": {
+     "Variables": {
+      "CART_TABLE": {
+       "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputRefCartTableD1105F87A71B6139"
+      }
+     }
+    },
+    "FunctionName": "sportshop-dev-v3-remove-from-cart",
+    "Handler": "index.handler",
+    "MemorySize": 256,
+    "Runtime": "python3.10",
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "development"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "learning"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "Owner",
+      "Value": "Andres"
+     },
+     {
+      "Key": "Project",
+      "Value": "sportshop"
+     }
+    ],
+    "Timeout": 30
+   },
+   "DependsOn": [
+    "RemoveFromCartLambdaFunctionServiceRoleDefaultPolicyB6ED0B83",
+    "RemoveFromCartLambdaFunctionServiceRole2FBE6DB0"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/RemoveFromCartLambda/Function/Resource",
+    "aws:asset:path": "asset.3170a84fa95dc3c1816842623b135b21fe5dc96a0519b8f9a35232cc588d6404",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "UpdateCartQuantityLambdaFunctionServiceRole11A37546": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "development"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "learning"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "Owner",
+      "Value": "Andres"
+     },
+     {
+      "Key": "Project",
+      "Value": "sportshop"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/UpdateCartQuantityLambda/Function/ServiceRole/Resource"
+   }
+  },
+  "UpdateCartQuantityLambdaFunctionServiceRoleDefaultPolicyB25C92E1": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DescribeTable",
+        "dynamodb:GetItem",
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator",
+        "dynamodb:Query",
+        "dynamodb:Scan"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputFnGetAttProductsTable241ADBFFArn55D06E2D"
+        },
+        {
+         "Ref": "AWS::NoValue"
+        }
+       ]
+      },
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:BatchWriteItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:DescribeTable",
+        "dynamodb:GetItem",
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator",
+        "dynamodb:PutItem",
+        "dynamodb:Query",
+        "dynamodb:Scan",
+        "dynamodb:UpdateItem"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputFnGetAttCartTableD1105F87Arn1BE6510E"
+        },
+        {
+         "Ref": "AWS::NoValue"
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "UpdateCartQuantityLambdaFunctionServiceRoleDefaultPolicyB25C92E1",
+    "Roles": [
+     {
+      "Ref": "UpdateCartQuantityLambdaFunctionServiceRole11A37546"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/UpdateCartQuantityLambda/Function/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "UpdateCartQuantityLambdaFunctionB9C1A43A": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-851725386264-us-east-1",
+     "S3Key": "b0f2245ef3d3947d585ca1c869d375351c94b2c8edc79851f9913eafda9a6a13.zip"
+    },
+    "Role": {
+     "Fn::GetAtt": [
+      "UpdateCartQuantityLambdaFunctionServiceRole11A37546",
+      "Arn"
+     ]
+    },
+    "Environment": {
+     "Variables": {
+      "CART_TABLE": {
+       "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputRefCartTableD1105F87A71B6139"
+      },
+      "PRODUCTS_TABLE": {
+       "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputRefProductsTable241ADBFF4DFBD40D"
+      }
+     }
+    },
+    "FunctionName": "sportshop-dev-v3-update-cart-quantity",
+    "Handler": "index.handler",
+    "MemorySize": 256,
+    "Runtime": "python3.10",
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "development"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "learning"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "Owner",
+      "Value": "Andres"
+     },
+     {
+      "Key": "Project",
+      "Value": "sportshop"
+     }
+    ],
+    "Timeout": 30
+   },
+   "DependsOn": [
+    "UpdateCartQuantityLambdaFunctionServiceRoleDefaultPolicyB25C92E1",
+    "UpdateCartQuantityLambdaFunctionServiceRole11A37546"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/UpdateCartQuantityLambda/Function/Resource",
+    "aws:asset:path": "asset.b0f2245ef3d3947d585ca1c869d375351c94b2c8edc79851f9913eafda9a6a13",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "CreateOrderLambdaFunctionServiceRole837C6EC3": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "development"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "learning"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "Owner",
+      "Value": "Andres"
+     },
+     {
+      "Key": "Project",
+      "Value": "sportshop"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/CreateOrderLambda/Function/ServiceRole/Resource"
+   }
+  },
+  "CreateOrderLambdaFunctionServiceRoleDefaultPolicy79321542": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:BatchWriteItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:DescribeTable",
+        "dynamodb:GetItem",
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator",
+        "dynamodb:PutItem",
+        "dynamodb:Query",
+        "dynamodb:Scan",
+        "dynamodb:UpdateItem"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputFnGetAttCartTableD1105F87Arn1BE6510E"
+        },
+        {
+         "Ref": "AWS::NoValue"
+        }
+       ]
+      },
+      {
+       "Action": [
+        "dynamodb:BatchWriteItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:DescribeTable",
+        "dynamodb:PutItem",
+        "dynamodb:UpdateItem"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputFnGetAttOrdersTable315BB997ArnB3A07C42"
+        },
+        {
+         "Ref": "AWS::NoValue"
+        }
+       ]
+      },
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DescribeTable",
+        "dynamodb:GetItem",
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator",
+        "dynamodb:Query",
+        "dynamodb:Scan"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputFnGetAttProductsTable241ADBFFArn55D06E2D"
+        },
+        {
+         "Ref": "AWS::NoValue"
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "CreateOrderLambdaFunctionServiceRoleDefaultPolicy79321542",
+    "Roles": [
+     {
+      "Ref": "CreateOrderLambdaFunctionServiceRole837C6EC3"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/CreateOrderLambda/Function/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "CreateOrderLambdaFunction7F06CA72": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-851725386264-us-east-1",
+     "S3Key": "25a17201dcea73f5c5c159d803e1a32da2d2cf619df5b64d9a6ab92f2fca026e.zip"
+    },
+    "Role": {
+     "Fn::GetAtt": [
+      "CreateOrderLambdaFunctionServiceRole837C6EC3",
+      "Arn"
+     ]
+    },
+    "Environment": {
+     "Variables": {
+      "CART_TABLE": {
+       "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputRefCartTableD1105F87A71B6139"
+      },
+      "ORDERS_TABLE": {
+       "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputRefOrdersTable315BB997F7C1D27E"
+      },
+      "PRODUCTS_TABLE": {
+       "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputRefProductsTable241ADBFF4DFBD40D"
+      }
+     }
+    },
+    "FunctionName": "sportshop-dev-v3-create-order",
+    "Handler": "index.handler",
+    "MemorySize": 256,
+    "Runtime": "python3.10",
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "development"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "learning"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "Owner",
+      "Value": "Andres"
+     },
+     {
+      "Key": "Project",
+      "Value": "sportshop"
+     }
+    ],
+    "Timeout": 30
+   },
+   "DependsOn": [
+    "CreateOrderLambdaFunctionServiceRoleDefaultPolicy79321542",
+    "CreateOrderLambdaFunctionServiceRole837C6EC3"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/CreateOrderLambda/Function/Resource",
+    "aws:asset:path": "asset.25a17201dcea73f5c5c159d803e1a32da2d2cf619df5b64d9a6ab92f2fca026e",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "CreateProductLambdaFunctionServiceRole13086EA9": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "development"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "learning"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "Owner",
+      "Value": "Andres"
+     },
+     {
+      "Key": "Project",
+      "Value": "sportshop"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/CreateProductLambda/Function/ServiceRole/Resource"
+   }
+  },
+  "CreateProductLambdaFunctionServiceRoleDefaultPolicy20E3ED2D": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:BatchWriteItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:DescribeTable",
+        "dynamodb:GetItem",
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator",
+        "dynamodb:PutItem",
+        "dynamodb:Query",
+        "dynamodb:Scan",
+        "dynamodb:UpdateItem"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputFnGetAttProductsTable241ADBFFArn55D06E2D"
+        },
+        {
+         "Ref": "AWS::NoValue"
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "CreateProductLambdaFunctionServiceRoleDefaultPolicy20E3ED2D",
+    "Roles": [
+     {
+      "Ref": "CreateProductLambdaFunctionServiceRole13086EA9"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/CreateProductLambda/Function/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "CreateProductLambdaFunction69450C53": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-851725386264-us-east-1",
+     "S3Key": "77702fe7e30d119445f55e3750b41c7adec0bb32760d4c286b242806340e2bde.zip"
+    },
+    "Role": {
+     "Fn::GetAtt": [
+      "CreateProductLambdaFunctionServiceRole13086EA9",
+      "Arn"
+     ]
+    },
+    "Environment": {
+     "Variables": {
+      "PRODUCTS_TABLE": {
+       "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputRefProductsTable241ADBFF4DFBD40D"
+      },
+      "FORCE_UPDATE": "v3"
+     }
+    },
+    "FunctionName": "sportshop-dev-v3-create-product",
+    "Handler": "index.handler",
+    "MemorySize": 256,
+    "Runtime": "python3.10",
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "development"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "learning"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "Owner",
+      "Value": "Andres"
+     },
+     {
+      "Key": "Project",
+      "Value": "sportshop"
+     }
+    ],
+    "Timeout": 30
+   },
+   "DependsOn": [
+    "CreateProductLambdaFunctionServiceRoleDefaultPolicy20E3ED2D",
+    "CreateProductLambdaFunctionServiceRole13086EA9"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/CreateProductLambda/Function/Resource",
+    "aws:asset:path": "asset.77702fe7e30d119445f55e3750b41c7adec0bb32760d4c286b242806340e2bde",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "UpdateProductLambdaFunctionServiceRoleC4737EC7": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "development"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "learning"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "Owner",
+      "Value": "Andres"
+     },
+     {
+      "Key": "Project",
+      "Value": "sportshop"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/UpdateProductLambda/Function/ServiceRole/Resource"
+   }
+  },
+  "UpdateProductLambdaFunctionServiceRoleDefaultPolicyCC51A4A6": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:BatchWriteItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:DescribeTable",
+        "dynamodb:GetItem",
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator",
+        "dynamodb:PutItem",
+        "dynamodb:Query",
+        "dynamodb:Scan",
+        "dynamodb:UpdateItem"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputFnGetAttProductsTable241ADBFFArn55D06E2D"
+        },
+        {
+         "Ref": "AWS::NoValue"
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "UpdateProductLambdaFunctionServiceRoleDefaultPolicyCC51A4A6",
+    "Roles": [
+     {
+      "Ref": "UpdateProductLambdaFunctionServiceRoleC4737EC7"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/UpdateProductLambda/Function/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "UpdateProductLambdaFunction00F9A98B": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-851725386264-us-east-1",
+     "S3Key": "e2bf294cbe80da7e825471ab8f635ff41d1f4a510ffef0fc0162f7d3bb1c15ee.zip"
+    },
+    "Role": {
+     "Fn::GetAtt": [
+      "UpdateProductLambdaFunctionServiceRoleC4737EC7",
+      "Arn"
+     ]
+    },
+    "Environment": {
+     "Variables": {
+      "PRODUCTS_TABLE": {
+       "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputRefProductsTable241ADBFF4DFBD40D"
+      }
+     }
+    },
+    "FunctionName": "sportshop-dev-v3-update-product",
+    "Handler": "index.handler",
+    "MemorySize": 256,
+    "Runtime": "python3.10",
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "development"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "learning"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "Owner",
+      "Value": "Andres"
+     },
+     {
+      "Key": "Project",
+      "Value": "sportshop"
+     }
+    ],
+    "Timeout": 30
+   },
+   "DependsOn": [
+    "UpdateProductLambdaFunctionServiceRoleDefaultPolicyCC51A4A6",
+    "UpdateProductLambdaFunctionServiceRoleC4737EC7"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/UpdateProductLambda/Function/Resource",
+    "aws:asset:path": "asset.e2bf294cbe80da7e825471ab8f635ff41d1f4a510ffef0fc0162f7d3bb1c15ee",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "DeleteProductLambdaFunctionServiceRole8DED9C30": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "development"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "learning"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "Owner",
+      "Value": "Andres"
+     },
+     {
+      "Key": "Project",
+      "Value": "sportshop"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/DeleteProductLambda/Function/ServiceRole/Resource"
+   }
+  },
+  "DeleteProductLambdaFunctionServiceRoleDefaultPolicy4AEDC89A": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:BatchWriteItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:DescribeTable",
+        "dynamodb:GetItem",
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator",
+        "dynamodb:PutItem",
+        "dynamodb:Query",
+        "dynamodb:Scan",
+        "dynamodb:UpdateItem"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputFnGetAttCartTableD1105F87Arn1BE6510E"
+        },
+        {
+         "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputFnGetAttProductsTable241ADBFFArn55D06E2D"
+        },
+        {
+         "Ref": "AWS::NoValue"
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "DeleteProductLambdaFunctionServiceRoleDefaultPolicy4AEDC89A",
+    "Roles": [
+     {
+      "Ref": "DeleteProductLambdaFunctionServiceRole8DED9C30"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/DeleteProductLambda/Function/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "DeleteProductLambdaFunctionBE32D759": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-851725386264-us-east-1",
+     "S3Key": "2060dc2165e0bff4e61f381627f9da3061704e0c90edc07245ef8d98d2debc53.zip"
+    },
+    "Role": {
+     "Fn::GetAtt": [
+      "DeleteProductLambdaFunctionServiceRole8DED9C30",
+      "Arn"
+     ]
+    },
+    "Environment": {
+     "Variables": {
+      "PRODUCTS_TABLE": {
+       "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputRefProductsTable241ADBFF4DFBD40D"
+      },
+      "CART_TABLE": {
+       "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputRefCartTableD1105F87A71B6139"
+      }
+     }
+    },
+    "FunctionName": "sportshop-dev-v3-delete-product",
+    "Handler": "index.handler",
+    "MemorySize": 256,
+    "Runtime": "python3.10",
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "development"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "learning"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "Owner",
+      "Value": "Andres"
+     },
+     {
+      "Key": "Project",
+      "Value": "sportshop"
+     }
+    ],
+    "Timeout": 30
+   },
+   "DependsOn": [
+    "DeleteProductLambdaFunctionServiceRoleDefaultPolicy4AEDC89A",
+    "DeleteProductLambdaFunctionServiceRole8DED9C30"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/DeleteProductLambda/Function/Resource",
+    "aws:asset:path": "asset.2060dc2165e0bff4e61f381627f9da3061704e0c90edc07245ef8d98d2debc53",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "GenerateUploadUrlLambdaFunctionServiceRoleFE5A64B5": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "development"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "learning"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "Owner",
+      "Value": "Andres"
+     },
+     {
+      "Key": "Project",
+      "Value": "sportshop"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/GenerateUploadUrlLambda/Function/ServiceRole/Resource"
+   }
+  },
+  "GenerateUploadUrlLambdaFunctionServiceRoleDefaultPolicyC2D52B1F": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "s3:Abort*",
+        "s3:PutObject",
+        "s3:PutObjectLegalHold",
+        "s3:PutObjectRetention",
+        "s3:PutObjectTagging",
+        "s3:PutObjectVersionTagging"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          {
+           "Fn::ImportValue": "SportShop-Dev-Storage-v3:ExportsOutputFnGetAttProductImagesBucket03BDA4C8Arn5AA48756"
+          },
+          "/*"
+         ]
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "GenerateUploadUrlLambdaFunctionServiceRoleDefaultPolicyC2D52B1F",
+    "Roles": [
+     {
+      "Ref": "GenerateUploadUrlLambdaFunctionServiceRoleFE5A64B5"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/GenerateUploadUrlLambda/Function/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "GenerateUploadUrlLambdaFunction61480CE6": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-851725386264-us-east-1",
+     "S3Key": "6ebaa24f2a9cfa1718cb1daa4c5684c67d4a686cc003fbd46d6afa4e67cadb2c.zip"
+    },
+    "Role": {
+     "Fn::GetAtt": [
+      "GenerateUploadUrlLambdaFunctionServiceRoleFE5A64B5",
+      "Arn"
+     ]
+    },
+    "Environment": {
+     "Variables": {
+      "IMAGES_BUCKET": {
+       "Fn::ImportValue": "SportShop-Dev-Storage-v3:ExportsOutputRefProductImagesBucket03BDA4C8A4D6E2D0"
+      }
+     }
+    },
+    "FunctionName": "sportshop-dev-v3-generate-upload-url",
+    "Handler": "index.handler",
+    "MemorySize": 256,
+    "Runtime": "python3.10",
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "development"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "learning"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "Owner",
+      "Value": "Andres"
+     },
+     {
+      "Key": "Project",
+      "Value": "sportshop"
+     }
+    ],
+    "Timeout": 30
+   },
+   "DependsOn": [
+    "GenerateUploadUrlLambdaFunctionServiceRoleDefaultPolicyC2D52B1F",
+    "GenerateUploadUrlLambdaFunctionServiceRoleFE5A64B5"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/GenerateUploadUrlLambda/Function/Resource",
+    "aws:asset:path": "asset.6ebaa24f2a9cfa1718cb1daa4c5684c67d4a686cc003fbd46d6afa4e67cadb2c",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "CompleteOrderLambdaFunctionServiceRoleE642CC8A": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "development"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "learning"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "Owner",
+      "Value": "Andres"
+     },
+     {
+      "Key": "Project",
+      "Value": "sportshop"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/CompleteOrderLambda/Function/ServiceRole/Resource"
+   }
+  },
+  "CompleteOrderLambdaFunctionServiceRoleDefaultPolicyC5E4D463": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:BatchWriteItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:DescribeTable",
+        "dynamodb:GetItem",
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator",
+        "dynamodb:PutItem",
+        "dynamodb:Query",
+        "dynamodb:Scan",
+        "dynamodb:UpdateItem"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputFnGetAttOrdersTable315BB997ArnB3A07C42"
+        },
+        {
+         "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputFnGetAttProductsTable241ADBFFArn55D06E2D"
+        },
+        {
+         "Ref": "AWS::NoValue"
+        }
+       ]
+      },
+      {
+       "Action": [
+        "dynamodb:BatchWriteItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:DescribeTable",
+        "dynamodb:PutItem",
+        "dynamodb:UpdateItem"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputFnGetAttSalesTable0F73FEFBArn6D640493"
+        },
+        {
+         "Ref": "AWS::NoValue"
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "CompleteOrderLambdaFunctionServiceRoleDefaultPolicyC5E4D463",
+    "Roles": [
+     {
+      "Ref": "CompleteOrderLambdaFunctionServiceRoleE642CC8A"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/CompleteOrderLambda/Function/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "CompleteOrderLambdaFunctionD1C2596B": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-851725386264-us-east-1",
+     "S3Key": "2bc1e7808d0cdfbd7f2d637529a86b27290a70db9f12401f2801add85c9001f2.zip"
+    },
+    "Role": {
+     "Fn::GetAtt": [
+      "CompleteOrderLambdaFunctionServiceRoleE642CC8A",
+      "Arn"
+     ]
+    },
+    "Environment": {
+     "Variables": {
+      "ORDERS_TABLE": {
+       "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputRefOrdersTable315BB997F7C1D27E"
+      },
+      "SALES_TABLE": {
+       "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputRefSalesTable0F73FEFB8F414475"
+      },
+      "PRODUCTS_TABLE": {
+       "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputRefProductsTable241ADBFF4DFBD40D"
+      }
+     }
+    },
+    "FunctionName": "sportshop-dev-v3-complete-order",
+    "Handler": "index.handler",
+    "MemorySize": 256,
+    "Runtime": "python3.10",
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "development"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "learning"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "Owner",
+      "Value": "Andres"
+     },
+     {
+      "Key": "Project",
+      "Value": "sportshop"
+     }
+    ],
+    "Timeout": 30
+   },
+   "DependsOn": [
+    "CompleteOrderLambdaFunctionServiceRoleDefaultPolicyC5E4D463",
+    "CompleteOrderLambdaFunctionServiceRoleE642CC8A"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/CompleteOrderLambda/Function/Resource",
+    "aws:asset:path": "asset.2bc1e7808d0cdfbd7f2d637529a86b27290a70db9f12401f2801add85c9001f2",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "CancelOrderLambdaFunctionServiceRole3B47DA65": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "development"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "learning"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "Owner",
+      "Value": "Andres"
+     },
+     {
+      "Key": "Project",
+      "Value": "sportshop"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/CancelOrderLambda/Function/ServiceRole/Resource"
+   }
+  },
+  "CancelOrderLambdaFunctionServiceRoleDefaultPolicyFC2F1156": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:BatchWriteItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:DescribeTable",
+        "dynamodb:GetItem",
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator",
+        "dynamodb:PutItem",
+        "dynamodb:Query",
+        "dynamodb:Scan",
+        "dynamodb:UpdateItem"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputFnGetAttOrdersTable315BB997ArnB3A07C42"
+        },
+        {
+         "Ref": "AWS::NoValue"
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "CancelOrderLambdaFunctionServiceRoleDefaultPolicyFC2F1156",
+    "Roles": [
+     {
+      "Ref": "CancelOrderLambdaFunctionServiceRole3B47DA65"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/CancelOrderLambda/Function/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "CancelOrderLambdaFunctionD823973F": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-851725386264-us-east-1",
+     "S3Key": "94a453c3daad7eae1fc3d8eac4a909ef9030506382dffda5558c674b04cfd302.zip"
+    },
+    "Role": {
+     "Fn::GetAtt": [
+      "CancelOrderLambdaFunctionServiceRole3B47DA65",
+      "Arn"
+     ]
+    },
+    "Environment": {
+     "Variables": {
+      "ORDERS_TABLE": {
+       "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputRefOrdersTable315BB997F7C1D27E"
+      }
+     }
+    },
+    "FunctionName": "sportshop-dev-v3-cancel-order",
+    "Handler": "index.handler",
+    "MemorySize": 256,
+    "Runtime": "python3.10",
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "development"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "learning"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "Owner",
+      "Value": "Andres"
+     },
+     {
+      "Key": "Project",
+      "Value": "sportshop"
+     }
+    ],
+    "Timeout": 30
+   },
+   "DependsOn": [
+    "CancelOrderLambdaFunctionServiceRoleDefaultPolicyFC2F1156",
+    "CancelOrderLambdaFunctionServiceRole3B47DA65"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/CancelOrderLambda/Function/Resource",
+    "aws:asset:path": "asset.94a453c3daad7eae1fc3d8eac4a909ef9030506382dffda5558c674b04cfd302",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "GetAllOrdersLambdaFunctionServiceRole16C8E4C3": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "development"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "learning"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "Owner",
+      "Value": "Andres"
+     },
+     {
+      "Key": "Project",
+      "Value": "sportshop"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/GetAllOrdersLambda/Function/ServiceRole/Resource"
+   }
+  },
+  "GetAllOrdersLambdaFunctionServiceRoleDefaultPolicy41C73673": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DescribeTable",
+        "dynamodb:GetItem",
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator",
+        "dynamodb:Query",
+        "dynamodb:Scan"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputFnGetAttOrdersTable315BB997ArnB3A07C42"
+        },
+        {
+         "Ref": "AWS::NoValue"
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "GetAllOrdersLambdaFunctionServiceRoleDefaultPolicy41C73673",
+    "Roles": [
+     {
+      "Ref": "GetAllOrdersLambdaFunctionServiceRole16C8E4C3"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/GetAllOrdersLambda/Function/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "GetAllOrdersLambdaFunction9E3AC2F4": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-851725386264-us-east-1",
+     "S3Key": "3a8394562f7a730159f5aff0849da0b2a3fe4f3d17b293b5faa9bd4c70e0f7e0.zip"
+    },
+    "Role": {
+     "Fn::GetAtt": [
+      "GetAllOrdersLambdaFunctionServiceRole16C8E4C3",
+      "Arn"
+     ]
+    },
+    "Environment": {
+     "Variables": {
+      "ORDERS_TABLE": {
+       "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputRefOrdersTable315BB997F7C1D27E"
+      }
+     }
+    },
+    "FunctionName": "sportshop-dev-v3-get-all-orders",
+    "Handler": "index.handler",
+    "MemorySize": 256,
+    "Runtime": "python3.10",
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "development"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "learning"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "Owner",
+      "Value": "Andres"
+     },
+     {
+      "Key": "Project",
+      "Value": "sportshop"
+     }
+    ],
+    "Timeout": 30
+   },
+   "DependsOn": [
+    "GetAllOrdersLambdaFunctionServiceRoleDefaultPolicy41C73673",
+    "GetAllOrdersLambdaFunctionServiceRole16C8E4C3"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/GetAllOrdersLambda/Function/Resource",
+    "aws:asset:path": "asset.3a8394562f7a730159f5aff0849da0b2a3fe4f3d17b293b5faa9bd4c70e0f7e0",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "GetOrderDetailLambdaFunctionServiceRole5B7F1386": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "development"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "learning"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "Owner",
+      "Value": "Andres"
+     },
+     {
+      "Key": "Project",
+      "Value": "sportshop"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/GetOrderDetailLambda/Function/ServiceRole/Resource"
+   }
+  },
+  "GetOrderDetailLambdaFunctionServiceRoleDefaultPolicy53983E0B": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DescribeTable",
+        "dynamodb:GetItem",
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator",
+        "dynamodb:Query",
+        "dynamodb:Scan"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputFnGetAttOrdersTable315BB997ArnB3A07C42"
+        },
+        {
+         "Ref": "AWS::NoValue"
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "GetOrderDetailLambdaFunctionServiceRoleDefaultPolicy53983E0B",
+    "Roles": [
+     {
+      "Ref": "GetOrderDetailLambdaFunctionServiceRole5B7F1386"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/GetOrderDetailLambda/Function/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "GetOrderDetailLambdaFunctionFD449FF7": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-851725386264-us-east-1",
+     "S3Key": "c9d22454203fdf79b56a76167c981e07491cda695aeeffad5f38c7ae8e5641b4.zip"
+    },
+    "Role": {
+     "Fn::GetAtt": [
+      "GetOrderDetailLambdaFunctionServiceRole5B7F1386",
+      "Arn"
+     ]
+    },
+    "Environment": {
+     "Variables": {
+      "ORDERS_TABLE": {
+       "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputRefOrdersTable315BB997F7C1D27E"
+      }
+     }
+    },
+    "FunctionName": "sportshop-dev-v3-get-order-detail",
+    "Handler": "index.handler",
+    "MemorySize": 256,
+    "Runtime": "python3.10",
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "development"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "learning"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "Owner",
+      "Value": "Andres"
+     },
+     {
+      "Key": "Project",
+      "Value": "sportshop"
+     }
+    ],
+    "Timeout": 30
+   },
+   "DependsOn": [
+    "GetOrderDetailLambdaFunctionServiceRoleDefaultPolicy53983E0B",
+    "GetOrderDetailLambdaFunctionServiceRole5B7F1386"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/GetOrderDetailLambda/Function/Resource",
+    "aws:asset:path": "asset.c9d22454203fdf79b56a76167c981e07491cda695aeeffad5f38c7ae8e5641b4",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "GetAllSalesLambdaFunctionServiceRoleF95892F9": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "development"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "learning"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "Owner",
+      "Value": "Andres"
+     },
+     {
+      "Key": "Project",
+      "Value": "sportshop"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/GetAllSalesLambda/Function/ServiceRole/Resource"
+   }
+  },
+  "GetAllSalesLambdaFunctionServiceRoleDefaultPolicy847E43EC": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DescribeTable",
+        "dynamodb:GetItem",
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator",
+        "dynamodb:Query",
+        "dynamodb:Scan"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputFnGetAttSalesTable0F73FEFBArn6D640493"
+        },
+        {
+         "Ref": "AWS::NoValue"
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "GetAllSalesLambdaFunctionServiceRoleDefaultPolicy847E43EC",
+    "Roles": [
+     {
+      "Ref": "GetAllSalesLambdaFunctionServiceRoleF95892F9"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/GetAllSalesLambda/Function/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "GetAllSalesLambdaFunctionA39D0F51": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-851725386264-us-east-1",
+     "S3Key": "136a96756cb97b591a7d425b1f42e5d20d7cb54e41a7a11a827a449003c9c25a.zip"
+    },
+    "Role": {
+     "Fn::GetAtt": [
+      "GetAllSalesLambdaFunctionServiceRoleF95892F9",
+      "Arn"
+     ]
+    },
+    "Environment": {
+     "Variables": {
+      "SALES_TABLE": {
+       "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputRefSalesTable0F73FEFB8F414475"
+      }
+     }
+    },
+    "FunctionName": "sportshop-dev-v3-get-all-sales",
+    "Handler": "index.handler",
+    "MemorySize": 256,
+    "Runtime": "python3.10",
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "development"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "learning"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "Owner",
+      "Value": "Andres"
+     },
+     {
+      "Key": "Project",
+      "Value": "sportshop"
+     }
+    ],
+    "Timeout": 30
+   },
+   "DependsOn": [
+    "GetAllSalesLambdaFunctionServiceRoleDefaultPolicy847E43EC",
+    "GetAllSalesLambdaFunctionServiceRoleF95892F9"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/GetAllSalesLambda/Function/Resource",
+    "aws:asset:path": "asset.136a96756cb97b591a7d425b1f42e5d20d7cb54e41a7a11a827a449003c9c25a",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "GetSalesDetailLambdaFunctionServiceRoleA4D39476": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "development"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "learning"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "Owner",
+      "Value": "Andres"
+     },
+     {
+      "Key": "Project",
+      "Value": "sportshop"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/GetSalesDetailLambda/Function/ServiceRole/Resource"
+   }
+  },
+  "GetSalesDetailLambdaFunctionServiceRoleDefaultPolicy870338BF": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DescribeTable",
+        "dynamodb:GetItem",
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator",
+        "dynamodb:Query",
+        "dynamodb:Scan"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputFnGetAttSalesTable0F73FEFBArn6D640493"
+        },
+        {
+         "Ref": "AWS::NoValue"
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "GetSalesDetailLambdaFunctionServiceRoleDefaultPolicy870338BF",
+    "Roles": [
+     {
+      "Ref": "GetSalesDetailLambdaFunctionServiceRoleA4D39476"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/GetSalesDetailLambda/Function/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "GetSalesDetailLambdaFunctionBA547BB3": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-851725386264-us-east-1",
+     "S3Key": "f69c48b1ad0abf6ecb7e443b54b1ec8385f3883257f4457fb2326fcbaf5fc052.zip"
+    },
+    "Role": {
+     "Fn::GetAtt": [
+      "GetSalesDetailLambdaFunctionServiceRoleA4D39476",
+      "Arn"
+     ]
+    },
+    "Environment": {
+     "Variables": {
+      "SALES_TABLE": {
+       "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputRefSalesTable0F73FEFB8F414475"
+      }
+     }
+    },
+    "FunctionName": "sportshop-dev-v3-get-sales-detail",
+    "Handler": "index.handler",
+    "MemorySize": 256,
+    "Runtime": "python3.10",
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "development"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "learning"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "Owner",
+      "Value": "Andres"
+     },
+     {
+      "Key": "Project",
+      "Value": "sportshop"
+     }
+    ],
+    "Timeout": 30
+   },
+   "DependsOn": [
+    "GetSalesDetailLambdaFunctionServiceRoleDefaultPolicy870338BF",
+    "GetSalesDetailLambdaFunctionServiceRoleA4D39476"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/GetSalesDetailLambda/Function/Resource",
+    "aws:asset:path": "asset.f69c48b1ad0abf6ecb7e443b54b1ec8385f3883257f4457fb2326fcbaf5fc052",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "UpdateSalesLambdaFunctionServiceRoleBB2EE5CF": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "development"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "learning"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "Owner",
+      "Value": "Andres"
+     },
+     {
+      "Key": "Project",
+      "Value": "sportshop"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/UpdateSalesLambda/Function/ServiceRole/Resource"
+   }
+  },
+  "UpdateSalesLambdaFunctionServiceRoleDefaultPolicy9760904B": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:BatchWriteItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:DescribeTable",
+        "dynamodb:GetItem",
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator",
+        "dynamodb:PutItem",
+        "dynamodb:Query",
+        "dynamodb:Scan",
+        "dynamodb:UpdateItem"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputFnGetAttSalesTable0F73FEFBArn6D640493"
+        },
+        {
+         "Ref": "AWS::NoValue"
+        }
+       ]
+      },
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DescribeTable",
+        "dynamodb:GetItem",
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator",
+        "dynamodb:Query",
+        "dynamodb:Scan"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputFnGetAttProductsTable241ADBFFArn55D06E2D"
+        },
+        {
+         "Ref": "AWS::NoValue"
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "UpdateSalesLambdaFunctionServiceRoleDefaultPolicy9760904B",
+    "Roles": [
+     {
+      "Ref": "UpdateSalesLambdaFunctionServiceRoleBB2EE5CF"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/UpdateSalesLambda/Function/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "UpdateSalesLambdaFunction903270C6": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-851725386264-us-east-1",
+     "S3Key": "51f62d846109b9304b953ec905cd980479ea6faecb7e0a13b668a70a9cb7071b.zip"
+    },
+    "Role": {
+     "Fn::GetAtt": [
+      "UpdateSalesLambdaFunctionServiceRoleBB2EE5CF",
+      "Arn"
+     ]
+    },
+    "Environment": {
+     "Variables": {
+      "SALES_TABLE": {
+       "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputRefSalesTable0F73FEFB8F414475"
+      },
+      "PRODUCTS_TABLE": {
+       "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputRefProductsTable241ADBFF4DFBD40D"
+      }
+     }
+    },
+    "FunctionName": "sportshop-dev-v3-update-sales",
+    "Handler": "index.handler",
+    "MemorySize": 256,
+    "Runtime": "python3.10",
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "development"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "learning"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "Owner",
+      "Value": "Andres"
+     },
+     {
+      "Key": "Project",
+      "Value": "sportshop"
+     }
+    ],
+    "Timeout": 30
+   },
+   "DependsOn": [
+    "UpdateSalesLambdaFunctionServiceRoleDefaultPolicy9760904B",
+    "UpdateSalesLambdaFunctionServiceRoleBB2EE5CF"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/UpdateSalesLambda/Function/Resource",
+    "aws:asset:path": "asset.51f62d846109b9304b953ec905cd980479ea6faecb7e0a13b668a70a9cb7071b",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "CancelSaleLambdaFunctionServiceRoleDF53329A": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "development"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "learning"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "Owner",
+      "Value": "Andres"
+     },
+     {
+      "Key": "Project",
+      "Value": "sportshop"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/CancelSaleLambda/Function/ServiceRole/Resource"
+   }
+  },
+  "CancelSaleLambdaFunctionServiceRoleDefaultPolicyDD5D1C10": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:BatchWriteItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:DescribeTable",
+        "dynamodb:GetItem",
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator",
+        "dynamodb:PutItem",
+        "dynamodb:Query",
+        "dynamodb:Scan",
+        "dynamodb:UpdateItem"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputFnGetAttProductsTable241ADBFFArn55D06E2D"
+        },
+        {
+         "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputFnGetAttSalesTable0F73FEFBArn6D640493"
+        },
+        {
+         "Ref": "AWS::NoValue"
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "CancelSaleLambdaFunctionServiceRoleDefaultPolicyDD5D1C10",
+    "Roles": [
+     {
+      "Ref": "CancelSaleLambdaFunctionServiceRoleDF53329A"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/CancelSaleLambda/Function/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "CancelSaleLambdaFunction604E85F8": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-851725386264-us-east-1",
+     "S3Key": "90cf2f68d2c23c577ac283e53633aade499fc9a23d228ca071f0d31c819a5c6e.zip"
+    },
+    "Role": {
+     "Fn::GetAtt": [
+      "CancelSaleLambdaFunctionServiceRoleDF53329A",
+      "Arn"
+     ]
+    },
+    "Environment": {
+     "Variables": {
+      "SALES_TABLE": {
+       "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputRefSalesTable0F73FEFB8F414475"
+      },
+      "PRODUCTS_TABLE": {
+       "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputRefProductsTable241ADBFF4DFBD40D"
+      }
+     }
+    },
+    "FunctionName": "sportshop-dev-v3-cancel-sale",
+    "Handler": "index.handler",
+    "MemorySize": 256,
+    "Runtime": "python3.10",
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "development"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "learning"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "Owner",
+      "Value": "Andres"
+     },
+     {
+      "Key": "Project",
+      "Value": "sportshop"
+     }
+    ],
+    "Timeout": 30
+   },
+   "DependsOn": [
+    "CancelSaleLambdaFunctionServiceRoleDefaultPolicyDD5D1C10",
+    "CancelSaleLambdaFunctionServiceRoleDF53329A"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/CancelSaleLambda/Function/Resource",
+    "aws:asset:path": "asset.90cf2f68d2c23c577ac283e53633aade499fc9a23d228ca071f0d31c819a5c6e",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "GetSalesStatisticsLambdaFunctionServiceRole2C016CFB": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "development"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "learning"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "Owner",
+      "Value": "Andres"
+     },
+     {
+      "Key": "Project",
+      "Value": "sportshop"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/GetSalesStatisticsLambda/Function/ServiceRole/Resource"
+   }
+  },
+  "GetSalesStatisticsLambdaFunctionServiceRoleDefaultPolicyDD9CAED7": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DescribeTable",
+        "dynamodb:GetItem",
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator",
+        "dynamodb:Query",
+        "dynamodb:Scan"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputFnGetAttSalesTable0F73FEFBArn6D640493"
+        },
+        {
+         "Ref": "AWS::NoValue"
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "GetSalesStatisticsLambdaFunctionServiceRoleDefaultPolicyDD9CAED7",
+    "Roles": [
+     {
+      "Ref": "GetSalesStatisticsLambdaFunctionServiceRole2C016CFB"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/GetSalesStatisticsLambda/Function/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "GetSalesStatisticsLambdaFunctionE40E8EB2": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-851725386264-us-east-1",
+     "S3Key": "f5baa0c38987b20b77d8f2b72fed809877d592f6af2d6829c6e5f029c7479cb0.zip"
+    },
+    "Role": {
+     "Fn::GetAtt": [
+      "GetSalesStatisticsLambdaFunctionServiceRole2C016CFB",
+      "Arn"
+     ]
+    },
+    "Environment": {
+     "Variables": {
+      "SALES_TABLE": {
+       "Fn::ImportValue": "SportShop-Dev-Data:ExportsOutputRefSalesTable0F73FEFB8F414475"
+      }
+     }
+    },
+    "FunctionName": "sportshop-dev-v3-get-sales-statistics",
+    "Handler": "index.handler",
+    "MemorySize": 256,
+    "Runtime": "python3.10",
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "development"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "learning"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "Owner",
+      "Value": "Andres"
+     },
+     {
+      "Key": "Project",
+      "Value": "sportshop"
+     }
+    ],
+    "Timeout": 30
+   },
+   "DependsOn": [
+    "GetSalesStatisticsLambdaFunctionServiceRoleDefaultPolicyDD9CAED7",
+    "GetSalesStatisticsLambdaFunctionServiceRole2C016CFB"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/GetSalesStatisticsLambda/Function/Resource",
+    "aws:asset:path": "asset.f5baa0c38987b20b77d8f2b72fed809877d592f6af2d6829c6e5f029c7479cb0",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/zWMwQqDMBBEv6X3dSt6aK+10HPRD5A1prIaE3CTSgn596K2p/dmBqbA6wXzE62SqX7KDHcYG09qAlqljYbmrieMj2CVZ2fh/rJ/T8A0Y6yd0Vu98+kMq88WD0sgZUsi2gveNoCUWAU1aV+R6AS1FhcWpWFfG08D22G/+w0JrOs1jnJ+FwUWOeanUZizJVjPs8b64BdZJTcAyAAAAA=="
+   },
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Compute-v3/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "ExportsOutputFnGetAttGetProductsLambdaFunction217CDD7CArn8EB5A4B4": {
+   "Value": {
+    "Fn::GetAtt": [
+     "GetProductsLambdaFunction217CDD7C",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "SportShop-Dev-Compute-v3:ExportsOutputFnGetAttGetProductsLambdaFunction217CDD7CArn8EB5A4B4"
+   }
+  },
+  "ExportsOutputFnGetAttGetProductsFilteredLambdaFunctionFF99BF8BArnB0353913": {
+   "Value": {
+    "Fn::GetAtt": [
+     "GetProductsFilteredLambdaFunctionFF99BF8B",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "SportShop-Dev-Compute-v3:ExportsOutputFnGetAttGetProductsFilteredLambdaFunctionFF99BF8BArnB0353913"
+   }
+  },
+  "ExportsOutputFnGetAttGetProductDetailLambdaFunction1D68EDEEArn90491C1B": {
+   "Value": {
+    "Fn::GetAtt": [
+     "GetProductDetailLambdaFunction1D68EDEE",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "SportShop-Dev-Compute-v3:ExportsOutputFnGetAttGetProductDetailLambdaFunction1D68EDEEArn90491C1B"
+   }
+  },
+  "ExportsOutputFnGetAttGetCartLambdaFunction4D7A18BAArn05BE36E3": {
+   "Value": {
+    "Fn::GetAtt": [
+     "GetCartLambdaFunction4D7A18BA",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "SportShop-Dev-Compute-v3:ExportsOutputFnGetAttGetCartLambdaFunction4D7A18BAArn05BE36E3"
+   }
+  },
+  "ExportsOutputFnGetAttAddToCartLambdaFunction401C31C7Arn2E73A045": {
+   "Value": {
+    "Fn::GetAtt": [
+     "AddToCartLambdaFunction401C31C7",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "SportShop-Dev-Compute-v3:ExportsOutputFnGetAttAddToCartLambdaFunction401C31C7Arn2E73A045"
+   }
+  },
+  "ExportsOutputFnGetAttRemoveFromCartLambdaFunction5671D9F5Arn4B75A74A": {
+   "Value": {
+    "Fn::GetAtt": [
+     "RemoveFromCartLambdaFunction5671D9F5",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "SportShop-Dev-Compute-v3:ExportsOutputFnGetAttRemoveFromCartLambdaFunction5671D9F5Arn4B75A74A"
+   }
+  },
+  "ExportsOutputFnGetAttUpdateCartQuantityLambdaFunctionB9C1A43AArn4255E0F2": {
+   "Value": {
+    "Fn::GetAtt": [
+     "UpdateCartQuantityLambdaFunctionB9C1A43A",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "SportShop-Dev-Compute-v3:ExportsOutputFnGetAttUpdateCartQuantityLambdaFunctionB9C1A43AArn4255E0F2"
+   }
+  },
+  "ExportsOutputFnGetAttCreateOrderLambdaFunction7F06CA72Arn7EF40EBA": {
+   "Value": {
+    "Fn::GetAtt": [
+     "CreateOrderLambdaFunction7F06CA72",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "SportShop-Dev-Compute-v3:ExportsOutputFnGetAttCreateOrderLambdaFunction7F06CA72Arn7EF40EBA"
+   }
+  },
+  "ExportsOutputFnGetAttCreateProductLambdaFunction69450C53Arn0AFFF14F": {
+   "Value": {
+    "Fn::GetAtt": [
+     "CreateProductLambdaFunction69450C53",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "SportShop-Dev-Compute-v3:ExportsOutputFnGetAttCreateProductLambdaFunction69450C53Arn0AFFF14F"
+   }
+  },
+  "ExportsOutputFnGetAttUpdateProductLambdaFunction00F9A98BArn554A89D0": {
+   "Value": {
+    "Fn::GetAtt": [
+     "UpdateProductLambdaFunction00F9A98B",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "SportShop-Dev-Compute-v3:ExportsOutputFnGetAttUpdateProductLambdaFunction00F9A98BArn554A89D0"
+   }
+  },
+  "ExportsOutputFnGetAttDeleteProductLambdaFunctionBE32D759Arn33E22838": {
+   "Value": {
+    "Fn::GetAtt": [
+     "DeleteProductLambdaFunctionBE32D759",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "SportShop-Dev-Compute-v3:ExportsOutputFnGetAttDeleteProductLambdaFunctionBE32D759Arn33E22838"
+   }
+  },
+  "ExportsOutputFnGetAttGenerateUploadUrlLambdaFunction61480CE6Arn80A68423": {
+   "Value": {
+    "Fn::GetAtt": [
+     "GenerateUploadUrlLambdaFunction61480CE6",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "SportShop-Dev-Compute-v3:ExportsOutputFnGetAttGenerateUploadUrlLambdaFunction61480CE6Arn80A68423"
+   }
+  },
+  "ExportsOutputFnGetAttGetAllOrdersLambdaFunction9E3AC2F4Arn51C6E495": {
+   "Value": {
+    "Fn::GetAtt": [
+     "GetAllOrdersLambdaFunction9E3AC2F4",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "SportShop-Dev-Compute-v3:ExportsOutputFnGetAttGetAllOrdersLambdaFunction9E3AC2F4Arn51C6E495"
+   }
+  },
+  "ExportsOutputFnGetAttGetOrderDetailLambdaFunctionFD449FF7Arn2343D05C": {
+   "Value": {
+    "Fn::GetAtt": [
+     "GetOrderDetailLambdaFunctionFD449FF7",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "SportShop-Dev-Compute-v3:ExportsOutputFnGetAttGetOrderDetailLambdaFunctionFD449FF7Arn2343D05C"
+   }
+  },
+  "ExportsOutputFnGetAttCompleteOrderLambdaFunctionD1C2596BArn03100C63": {
+   "Value": {
+    "Fn::GetAtt": [
+     "CompleteOrderLambdaFunctionD1C2596B",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "SportShop-Dev-Compute-v3:ExportsOutputFnGetAttCompleteOrderLambdaFunctionD1C2596BArn03100C63"
+   }
+  },
+  "ExportsOutputFnGetAttCancelOrderLambdaFunctionD823973FArnDD3CE635": {
+   "Value": {
+    "Fn::GetAtt": [
+     "CancelOrderLambdaFunctionD823973F",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "SportShop-Dev-Compute-v3:ExportsOutputFnGetAttCancelOrderLambdaFunctionD823973FArnDD3CE635"
+   }
+  },
+  "ExportsOutputFnGetAttGetAllSalesLambdaFunctionA39D0F51Arn897AC11F": {
+   "Value": {
+    "Fn::GetAtt": [
+     "GetAllSalesLambdaFunctionA39D0F51",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "SportShop-Dev-Compute-v3:ExportsOutputFnGetAttGetAllSalesLambdaFunctionA39D0F51Arn897AC11F"
+   }
+  },
+  "ExportsOutputFnGetAttGetSalesStatisticsLambdaFunctionE40E8EB2Arn122799D5": {
+   "Value": {
+    "Fn::GetAtt": [
+     "GetSalesStatisticsLambdaFunctionE40E8EB2",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "SportShop-Dev-Compute-v3:ExportsOutputFnGetAttGetSalesStatisticsLambdaFunctionE40E8EB2Arn122799D5"
+   }
+  },
+  "ExportsOutputFnGetAttGetSalesDetailLambdaFunctionBA547BB3Arn999EF8B9": {
+   "Value": {
+    "Fn::GetAtt": [
+     "GetSalesDetailLambdaFunctionBA547BB3",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "SportShop-Dev-Compute-v3:ExportsOutputFnGetAttGetSalesDetailLambdaFunctionBA547BB3Arn999EF8B9"
+   }
+  },
+  "ExportsOutputFnGetAttUpdateSalesLambdaFunction903270C6Arn6B57B8AD": {
+   "Value": {
+    "Fn::GetAtt": [
+     "UpdateSalesLambdaFunction903270C6",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "SportShop-Dev-Compute-v3:ExportsOutputFnGetAttUpdateSalesLambdaFunction903270C6Arn6B57B8AD"
+   }
+  },
+  "ExportsOutputFnGetAttCancelSaleLambdaFunction604E85F8Arn51573AF2": {
+   "Value": {
+    "Fn::GetAtt": [
+     "CancelSaleLambdaFunction604E85F8",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "SportShop-Dev-Compute-v3:ExportsOutputFnGetAttCancelSaleLambdaFunction604E85F8Arn51573AF2"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

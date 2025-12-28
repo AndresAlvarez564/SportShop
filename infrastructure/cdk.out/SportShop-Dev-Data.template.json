@@ -25,7 +25,7 @@
      }
     ],
     "BillingMode": "PAY_PER_REQUEST",
-    "TableName": "sportshop-dev-v2-products",
+    "TableName": "sportshop-dev-v3-products",
     "Tags": [
      {
       "Key": "Component",
@@ -79,7 +79,7 @@
      }
     ],
     "BillingMode": "PAY_PER_REQUEST",
-    "TableName": "sportshop-dev-v2-cart",
+    "TableName": "sportshop-dev-v3-cart",
     "Tags": [
      {
       "Key": "Component",
@@ -133,7 +133,7 @@
      }
     ],
     "BillingMode": "PAY_PER_REQUEST",
-    "TableName": "sportshop-dev-v2-orders",
+    "TableName": "sportshop-dev-v3-orders",
     "Tags": [
      {
       "Key": "Component",
@@ -161,6 +161,60 @@
    "DeletionPolicy": "Retain",
    "Metadata": {
     "aws:cdk:path": "SportShop-Dev-Data/OrdersTable/Resource"
+   }
+  },
+  "SalesTable0F73FEFB": {
+   "Type": "AWS::DynamoDB::Table",
+   "Properties": {
+    "KeySchema": [
+     {
+      "AttributeName": "saleId",
+      "KeyType": "HASH"
+     },
+     {
+      "AttributeName": "completedAt",
+      "KeyType": "RANGE"
+     }
+    ],
+    "AttributeDefinitions": [
+     {
+      "AttributeName": "saleId",
+      "AttributeType": "S"
+     },
+     {
+      "AttributeName": "completedAt",
+      "AttributeType": "S"
+     }
+    ],
+    "BillingMode": "PAY_PER_REQUEST",
+    "TableName": "sportshop-dev-v3-sales",
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "development"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "learning"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "Owner",
+      "Value": "Andres"
+     },
+     {
+      "Key": "Project",
+      "Value": "sportshop"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Data/SalesTable/Resource"
    }
   },
   "CDKMetadata": {
@@ -229,6 +283,25 @@
    },
    "Export": {
     "Name": "SportShop-Dev-Data:ExportsOutputRefOrdersTable315BB997F7C1D27E"
+   }
+  },
+  "ExportsOutputFnGetAttSalesTable0F73FEFBArn6D640493": {
+   "Value": {
+    "Fn::GetAtt": [
+     "SalesTable0F73FEFB",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "SportShop-Dev-Data:ExportsOutputFnGetAttSalesTable0F73FEFBArn6D640493"
+   }
+  },
+  "ExportsOutputRefSalesTable0F73FEFB8F414475": {
+   "Value": {
+    "Ref": "SalesTable0F73FEFB"
+   },
+   "Export": {
+    "Name": "SportShop-Dev-Data:ExportsOutputRefSalesTable0F73FEFB8F414475"
    }
   }
  },
