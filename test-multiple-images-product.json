@@ -1,0 +1,31 @@
+{
+  "name": "Camiseta Premium Multi-Imagen",
+  "description": "Camiseta de alta calidad con múltiples vistas",
+  "price": 45.99,
+  "category": "camisetas",
+  "gender": "hombre",
+  "stock": 15,
+  "images": [
+    {
+      "id": "img1",
+      "url": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=400&fit=crop",
+      "alt": "Vista frontal",
+      "isPrimary": true,
+      "order": 1
+    },
+    {
+      "id": "img2", 
+      "url": "https://images.unsplash.com/photo-1503341504253-dff4815485f1?w=400&h=400&fit=crop",
+      "alt": "Vista trasera",
+      "isPrimary": false,
+      "order": 2
+    },
+    {
+      "id": "img3",
+      "url": "https://images.unsplash.com/photo-1562157873-818bc0726f68?w=400&h=400&fit=crop", 
+      "alt": "Vista lateral",
+      "isPrimary": false,
+      "order": 3
+    }
+  ]
+}

@@ -199,12 +199,13 @@ export class ComputeStack extends Stack {
 
     // === LAMBDA PARA UPLOAD DE IMÁGENES ===
     
-    // Lambda function para generar presigned URLs de S3
+    // Lambda function para generar presigned URLs de S3 (soporta una o múltiples imágenes)
     this.generateUploadUrlFunction = new SportShopLambda(this, 'GenerateUploadUrlLambda', {
       functionName: `${env.prefix}-generate-upload-url`,
       code: Code.fromAsset('lambda-functions/generate-upload-url'),
       environment: {
-        'IMAGES_BUCKET': props.imagesBucket.bucketName
+        'IMAGES_BUCKET': props.imagesBucket.bucketName,
+        'PRODUCT_IMAGES_BUCKET': props.imagesBucket.bucketName
       }
     });
 

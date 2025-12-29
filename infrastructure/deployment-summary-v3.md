@@ -21,7 +21,7 @@
 - **S3 Direct URL**: http://sportshop-dev-v3-admin-v3.s3-website-us-east-1.amazonaws.com
 
 ### API Gateway
-- **REST API Endpoint**: https://v8qfkgmjd5.execute-api.us-east-1.amazonaws.com/prod
+- **REST API Endpoint**: https://c4pm3jczqd.execute-api.us-east-1.amazonaws.com/prod
 
 ## 🗄️ Database Tables (DynamoDB)
 
@@ -45,7 +45,7 @@
 - **Group**: admin
 - **Username**: 942824c8-c0d1-7017-253f-745dd20744f3
 
-## 🔧 Lambda Functions (21 Total)
+## 🔧 Lambda Functions (22 Total)
 
 ### Public Product Functions
 1. `sportshop-dev-v3-get-products` - Get all products
@@ -77,6 +77,7 @@
 19. `sportshop-dev-v3-update-product` - Update product (Admin)
 20. `sportshop-dev-v3-delete-product` - Delete product (Admin)
 21. `sportshop-dev-v3-generate-upload-url` - Generate S3 upload URL (Admin)
+22. `sportshop-dev-v3-upload-multiple-images` - Generate multiple S3 upload URLs (Admin)
 
 ## 📦 S3 Buckets
 
@@ -130,6 +131,7 @@
 - `PUT /admin/products/{id}` - Update product
 - `DELETE /admin/products/{id}` - Delete product
 - `POST /admin/upload-url` - Generate upload URL
+- `POST /admin/upload-multiple-images` - Generate multiple upload URLs
 - `GET /admin/orders` - Get all orders
 - `GET /admin/orders/{orderId}` - Get order details
 - `PUT /admin/orders/{orderId}/complete` - Complete order
@@ -183,10 +185,40 @@ cd frontend && npm run build && aws s3 sync dist/ s3://sportshop-dev-v3-website-
 cd admin-panel && npm run build && aws s3 sync dist/ s3://sportshop-dev-v3-admin-v3 --delete
 ```
 
+## 🖼️ Multiple Images Feature
+
+### New Functionality
+- **Admin Panel**: Support for uploading multiple images per product
+- **Frontend**: Image carousel with navigation dots for products with multiple images
+- **Backend**: New Lambda function for generating multiple presigned URLs
+- **API**: New endpoint `/admin/upload-multiple-images`
+
+### How it Works
+1. **Admin creates product**: Can select multiple images (2-4 recommended)
+2. **Backend generates URLs**: Creates presigned URLs for each image
+3. **Images uploaded to S3**: Each image gets unique filename and public URL
+4. **Product stored with images array**: Contains image metadata (url, order, isPrimary)
+5. **Frontend displays carousel**: Shows navigation dots when multiple images exist
+
+### Data Structure
+```json
+{
+  "images": [
+    {
+      "id": "uuid",
+      "url": "https://bucket.s3.amazonaws.com/products/image1.jpg",
+      "alt": "Product image description",
+      "isPrimary": true,
+      "order": 1
+    }
+  ]
+}
+```
+
 ## 📊 System Status
 
-- ✅ All 21 Lambda functions deployed and operational
-- ✅ API Gateway with 21 endpoints configured
+- ✅ All 22 Lambda functions deployed and operational
+- ✅ API Gateway with 22 endpoints configured
 - ✅ Cognito User Pool with admin group setup
 - ✅ CloudFront distributions active
 - ✅ S3 buckets configured for static hosting
@@ -197,6 +229,6 @@ cd admin-panel && npm run build && aws s3 sync dist/ s3://sportshop-dev-v3-admin
 
 **Deployment Date**: December 27, 2024  
 **Infrastructure Version**: v3  
-**Total Lambda Functions**: 21  
-**Total API Endpoints**: 21  
+**Total Lambda Functions**: 22  
+**Total API Endpoints**: 22  
 **Status**: ✅ FULLY OPERATIONAL

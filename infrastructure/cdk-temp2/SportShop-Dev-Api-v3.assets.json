@@ -1,0 +1,20 @@
+{
+  "version": "32.0.0",
+  "files": {
+    "6da42c58589cff8329be4ec4fe6ad1da57e1b1e314a3a881b58fa63b0c377e69": {
+      "source": {
+        "path": "SportShop-Dev-Api-v3.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "851725386264-us-east-1": {
+          "bucketName": "cdk-hnb659fds-assets-851725386264-us-east-1",
+          "objectKey": "6da42c58589cff8329be4ec4fe6ad1da57e1b1e314a3a881b58fa63b0c377e69.json",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::851725386264:role/cdk-hnb659fds-file-publishing-role-851725386264-us-east-1"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

@@ -1,0 +1,342 @@
+{
+ "Description": "SportShop DynamoDB tables for development environment - v2",
+ "Resources": {
+  "ProductsTable241ADBFF": {
+   "Type": "AWS::DynamoDB::Table",
+   "Properties": {
+    "KeySchema": [
+     {
+      "AttributeName": "id",
+      "KeyType": "HASH"
+     },
+     {
+      "AttributeName": "category",
+      "KeyType": "RANGE"
+     }
+    ],
+    "AttributeDefinitions": [
+     {
+      "AttributeName": "id",
+      "AttributeType": "S"
+     },
+     {
+      "AttributeName": "category",
+      "AttributeType": "S"
+     }
+    ],
+    "BillingMode": "PAY_PER_REQUEST",
+    "TableName": "sportshop-dev-v3-products",
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "development"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "learning"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "Owner",
+      "Value": "Andres"
+     },
+     {
+      "Key": "Project",
+      "Value": "sportshop"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Data/ProductsTable/Resource"
+   }
+  },
+  "CartTableD1105F87": {
+   "Type": "AWS::DynamoDB::Table",
+   "Properties": {
+    "KeySchema": [
+     {
+      "AttributeName": "userId",
+      "KeyType": "HASH"
+     },
+     {
+      "AttributeName": "productId",
+      "KeyType": "RANGE"
+     }
+    ],
+    "AttributeDefinitions": [
+     {
+      "AttributeName": "userId",
+      "AttributeType": "S"
+     },
+     {
+      "AttributeName": "productId",
+      "AttributeType": "S"
+     }
+    ],
+    "BillingMode": "PAY_PER_REQUEST",
+    "TableName": "sportshop-dev-v3-cart",
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "development"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "learning"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "Owner",
+      "Value": "Andres"
+     },
+     {
+      "Key": "Project",
+      "Value": "sportshop"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Data/CartTable/Resource"
+   }
+  },
+  "OrdersTable315BB997": {
+   "Type": "AWS::DynamoDB::Table",
+   "Properties": {
+    "KeySchema": [
+     {
+      "AttributeName": "orderId",
+      "KeyType": "HASH"
+     },
+     {
+      "AttributeName": "createdAt",
+      "KeyType": "RANGE"
+     }
+    ],
+    "AttributeDefinitions": [
+     {
+      "AttributeName": "orderId",
+      "AttributeType": "S"
+     },
+     {
+      "AttributeName": "createdAt",
+      "AttributeType": "S"
+     }
+    ],
+    "BillingMode": "PAY_PER_REQUEST",
+    "TableName": "sportshop-dev-v3-orders",
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "development"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "learning"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "Owner",
+      "Value": "Andres"
+     },
+     {
+      "Key": "Project",
+      "Value": "sportshop"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Data/OrdersTable/Resource"
+   }
+  },
+  "SalesTable0F73FEFB": {
+   "Type": "AWS::DynamoDB::Table",
+   "Properties": {
+    "KeySchema": [
+     {
+      "AttributeName": "saleId",
+      "KeyType": "HASH"
+     },
+     {
+      "AttributeName": "completedAt",
+      "KeyType": "RANGE"
+     }
+    ],
+    "AttributeDefinitions": [
+     {
+      "AttributeName": "saleId",
+      "AttributeType": "S"
+     },
+     {
+      "AttributeName": "completedAt",
+      "AttributeType": "S"
+     }
+    ],
+    "BillingMode": "PAY_PER_REQUEST",
+    "TableName": "sportshop-dev-v3-sales",
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "development"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "learning"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "Owner",
+      "Value": "Andres"
+     },
+     {
+      "Key": "Project",
+      "Value": "sportshop"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Data/SalesTable/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/zXISwqAIBRA0bU015c4qXk7qObx/AT2UfBZEtLeg6LRPVwJbQOiwkxcm5VvTkEZEuqVYabJXB73YBSUEdVmWTf7FzfrLYUj6nf9vpkPxsJC9SklSAGiWsg5Hg+f3G6h//oAv6l623MAAAA="
+   },
+   "Metadata": {
+    "aws:cdk:path": "SportShop-Dev-Data/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "ExportsOutputFnGetAttProductsTable241ADBFFArn55D06E2D": {
+   "Value": {
+    "Fn::GetAtt": [
+     "ProductsTable241ADBFF",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "SportShop-Dev-Data:ExportsOutputFnGetAttProductsTable241ADBFFArn55D06E2D"
+   }
+  },
+  "ExportsOutputRefProductsTable241ADBFF4DFBD40D": {
+   "Value": {
+    "Ref": "ProductsTable241ADBFF"
+   },
+   "Export": {
+    "Name": "SportShop-Dev-Data:ExportsOutputRefProductsTable241ADBFF4DFBD40D"
+   }
+  },
+  "ExportsOutputFnGetAttCartTableD1105F87Arn1BE6510E": {
+   "Value": {
+    "Fn::GetAtt": [
+     "CartTableD1105F87",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "SportShop-Dev-Data:ExportsOutputFnGetAttCartTableD1105F87Arn1BE6510E"
+   }
+  },
+  "ExportsOutputRefCartTableD1105F87A71B6139": {
+   "Value": {
+    "Ref": "CartTableD1105F87"
+   },
+   "Export": {
+    "Name": "SportShop-Dev-Data:ExportsOutputRefCartTableD1105F87A71B6139"
+   }
+  },
+  "ExportsOutputFnGetAttOrdersTable315BB997ArnB3A07C42": {
+   "Value": {
+    "Fn::GetAtt": [
+     "OrdersTable315BB997",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "SportShop-Dev-Data:ExportsOutputFnGetAttOrdersTable315BB997ArnB3A07C42"
+   }
+  },
+  "ExportsOutputRefOrdersTable315BB997F7C1D27E": {
+   "Value": {
+    "Ref": "OrdersTable315BB997"
+   },
+   "Export": {
+    "Name": "SportShop-Dev-Data:ExportsOutputRefOrdersTable315BB997F7C1D27E"
+   }
+  },
+  "ExportsOutputFnGetAttSalesTable0F73FEFBArn6D640493": {
+   "Value": {
+    "Fn::GetAtt": [
+     "SalesTable0F73FEFB",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "SportShop-Dev-Data:ExportsOutputFnGetAttSalesTable0F73FEFBArn6D640493"
+   }
+  },
+  "ExportsOutputRefSalesTable0F73FEFB8F414475": {
+   "Value": {
+    "Ref": "SalesTable0F73FEFB"
+   },
+   "Export": {
+    "Name": "SportShop-Dev-Data:ExportsOutputRefSalesTable0F73FEFB8F414475"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

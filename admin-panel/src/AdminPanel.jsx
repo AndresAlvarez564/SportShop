@@ -59,6 +59,7 @@ const AdminPanel = ({ user }) => {
   });
 
   const [imageFile, setImageFile] = useState(null);
+  const [imageFiles, setImageFiles] = useState([]); // Para múltiples imágenes
   const [uploadingImage, setUploadingImage] = useState(false);
 
   // Estados de estadísticas
@@ -144,6 +145,63 @@ const AdminPanel = ({ user }) => {
     setDashboardStats(prev => ({ ...prev, ...stats }));
   };
 
+  // Función para subir múltiples imágenes
+  const uploadMultipleImages = async () => {
+    if (!imageFiles || imageFiles.length === 0) return [];
+    
+    setUploadingImage(true);
+    try {
+      const headers = await getAuthHeaders();
+      
+      // Obtener URLs presignadas para múltiples archivos usando la lambda unificada
+      const fileNames = imageFiles.map(file => file.name);
+      const uploadResponse = await post({
+        apiName: 'SportShopAPI',
+        path: '/admin/upload-url',
+        options: {
+          headers,
+          body: { fileNames }
+        }
+      }).response;
+
+      const uploadData = await uploadResponse.body.json();
+      
+      // Subir cada archivo a S3
+      const uploadPromises = uploadData.uploadUrls.map(async (urlData, index) => {
+        const file = imageFiles[index];
+        const uploadResponse = await fetch(urlData.uploadUrl, {
+          method: 'PUT',
+          body: file,
+          headers: {
+            'Content-Type': file.type
+          }
+        });
+        
+        if (!uploadResponse.ok) {
+          throw new Error(`Failed to upload ${file.name}`);
+        }
+        
+        return {
+          id: urlData.imageId,
+          url: urlData.publicUrl,
+          alt: `Imagen de ${productFormData.name}`,
+          isPrimary: index === 0, // Primera imagen es principal
+          order: index + 1
+        };
+      });
+      
+      const uploadedImages = await Promise.all(uploadPromises);
+      console.log('Multiple images uploaded successfully:', uploadedImages);
+      return uploadedImages;
+      
+    } catch (error) {
+      console.error('Error uploading multiple images:', error);
+      throw error;
+    } finally {
+      setUploadingImage(false);
+    }
+  };
+
   const handleCreateProduct = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -151,10 +209,22 @@ const AdminPanel = ({ user }) => {
     setSuccess('');
 
     try {
-      let imageUrl = productFormData.imageUrl;
-      
-      if (imageFile) {
-        imageUrl = await uploadImage();
+      let productData = {
+        ...productFormData,
+        price: parseFloat(productFormData.price),
+        stock: parseInt(productFormData.stock)
+      };
+
+      // Prioridad: múltiples imágenes > imagen única > URL
+      if (imageFiles && imageFiles.length > 0) {
+        const images = await uploadMultipleImages();
+        productData.images = images;
+        productData.imageUrl = images[0].url; // Compatibilidad hacia atrás
+      } else if (imageFile) {
+        const imageUrl = await uploadImage();
+        productData.imageUrl = imageUrl;
+      } else if (productFormData.imageUrl) {
+        productData.imageUrl = productFormData.imageUrl;
       }
 
       const headers = await getAuthHeaders();
@@ -163,12 +233,7 @@ const AdminPanel = ({ user }) => {
         path: '/admin/products',
         options: {
           headers,
-          body: {
-            ...productFormData,
-            price: parseFloat(productFormData.price),
-            stock: parseInt(productFormData.stock),
-            imageUrl
-          }
+          body: productData
         }
       }).response;
 
@@ -628,6 +693,7 @@ const AdminPanel = ({ user }) => {
       imageUrl: ''
     });
     setImageFile(null);
+    setImageFiles([]); // Limpiar múltiples imágenes
     setShowProductForm(false);
     setEditingProduct(null);
   };
@@ -1444,7 +1510,42 @@ const AdminPanel = ({ user }) => {
               </div>
               
               <div className="form-group">
-                <label>Imagen del Producto</label>
+                <label>Imágenes del Producto</label>
+                
+                {/* Opción 1: Subir múltiples archivos */}
+                <div className="image-upload-section">
+                  <input
+                    id="product-images-input"
+                    type="file"
+                    accept="image/*"
+                    multiple
+                    onChange={(e) => setImageFiles(Array.from(e.target.files))}
+                    className="file-input"
+                  />
+                  <label htmlFor="product-images-input" className="file-input-label">
+                    📷 {imageFiles.length > 0 ? `${imageFiles.length} imágenes seleccionadas` : 'Seleccionar múltiples imágenes'}
+                  </label>
+                  {imageFiles.length > 0 && (
+                    <div className="selected-images-preview">
+                      {imageFiles.map((file, index) => (
+                        <span key={index} className="image-preview-item">
+                          {file.name}
+                          <button 
+                            type="button" 
+                            onClick={() => setImageFiles(imageFiles.filter((_, i) => i !== index))}
+                            className="remove-image-btn"
+                          >
+                            ×
+                          </button>
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+                
+                <div className="upload-divider">O</div>
+                
+                {/* Opción 2: Una sola imagen (compatibilidad) */}
                 <div className="image-upload-section">
                   <input
                     id="product-image-input"
@@ -1454,9 +1555,10 @@ const AdminPanel = ({ user }) => {
                     className="file-input"
                   />
                   <label htmlFor="product-image-input" className="file-input-label">
-                    📷 {imageFile ? imageFile.name : 'Seleccionar imagen'}
+                    📷 {imageFile ? imageFile.name : 'Seleccionar una imagen'}
                   </label>
                 </div>
+                
                 <small>O ingresa una URL de imagen:</small>
                 <input
                   type="url"

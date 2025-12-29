@@ -17,7 +17,7 @@ Amplify.configure({
   API: {
     REST: {
       SportShopAPI: {
-        endpoint: 'https://v8qfkgmjd5.execute-api.us-east-1.amazonaws.com/prod',
+        endpoint: 'https://4pvxg2nvf4.execute-api.us-east-1.amazonaws.com/prod',
         region: 'us-east-1'
       }
     }

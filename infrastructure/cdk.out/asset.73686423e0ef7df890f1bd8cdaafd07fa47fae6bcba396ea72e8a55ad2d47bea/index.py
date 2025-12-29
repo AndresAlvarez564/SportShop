@@ -1,0 +1,162 @@
+import json
+import boto3
+import os
+import uuid
+from datetime import datetime
+
+# Inicializar cliente S3
+s3_client = boto3.client('s3')
+bucket_name = os.environ['PRODUCT_IMAGES_BUCKET']
+
+def handler(event, context):
+    try:
+        print(f"Event received: {json.dumps(event)}")
+        
+        # Obtener información del usuario desde Cognito (JWT token)
+        claims = event.get('requestContext', {}).get('authorizer', {}).get('claims', {})
+        user_id = claims.get('sub')
+        
+        if not user_id:
+            return {
+                'statusCode': 401,
+                'headers': {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*'
+                },
+                'body': json.dumps({
+                    'message': 'Unauthorized - User authentication required',
+                    'error': 'Missing or invalid JWT token'
+                })
+            }
+        
+        # Verificar que el usuario esté en el grupo admin
+        user_groups = claims.get('cognito:groups', [])
+        if isinstance(user_groups, str):
+            user_groups = [user_groups]
+        
+        if 'admin' not in user_groups:
+            return {
+                'statusCode': 403,
+                'headers': {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*'
+                },
+                'body': json.dumps({
+                    'message': 'Forbidden - Admin access required',
+                    'error': 'User is not in admin group',
+                    'userGroups': user_groups
+                })
+            }
+        
+        # Parsear body de la request
+        body = json.loads(event.get('body', '{}'))
+        file_names = body.get('fileNames', [])
+        
+        if not file_names or not isinstance(file_names, list):
+            return {
+                'statusCode': 400,
+                'headers': {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*'
+                },
+                'body': json.dumps({
+                    'message': 'fileNames array is required',
+                    'error': 'Missing or invalid fileNames parameter'
+                })
+            }
+        
+        print(f"Generating presigned URLs for {len(file_names)} files")
+        
+        # Generar presigned URLs para cada archivo
+        upload_urls = []
+        for file_name in file_names:
+            # Generar nombre único para cada imagen
+            file_extension = file_name.split('.')[-1] if '.' in file_name else 'jpg'
+            unique_name = f"products/{uuid.uuid4()}-{int(datetime.utcnow().timestamp())}.{file_extension}"
+            
+            try:
+                # Generar presigned URL para upload
+                presigned_url = s3_client.generate_presigned_url(
+                    'put_object',
+                    Params={
+                        'Bucket': bucket_name,
+                        'Key': unique_name,
+                        'ContentType': f'image/{file_extension}'
+                    },
+                    ExpiresIn=3600  # 1 hora
+                )
+                
+                # URL pública para acceder a la imagen
+                public_url = f"https://{bucket_name}.s3.amazonaws.com/{unique_name}"
+                
+                upload_urls.append({
+                    'originalFileName': file_name,
+                    'uploadUrl': presigned_url,
+                    'publicUrl': public_url,
+                    'imageId': str(uuid.uuid4()),
+                    'key': unique_name
+                })
+                
+                print(f"Generated URL for {file_name} -> {unique_name}")
+                
+            except Exception as e:
+                print(f"Error generating URL for {file_name}: {str(e)}")
+                return {
+                    'statusCode': 500,
+                    'headers': {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*'
+                    },
+                    'body': json.dumps({
+                        'message': f'Error generating presigned URL for {file_name}',
+                        'error': str(e)
+                    })
+                }
+        
+        print(f"Successfully generated {len(upload_urls)} presigned URLs")
+        
+        return {
+            'statusCode': 200,
+            'headers': {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'POST, OPTIONS',
+                'Access-Control-Allow-Headers': 'Content-Type, Authorization'
+            },
+            'body': json.dumps({
+                'message': 'Presigned URLs generated successfully',
+                'uploadUrls': upload_urls,
+                'count': len(upload_urls),
+                'expiresIn': 3600
+            })
+        }
+        
+    except json.JSONDecodeError as e:
+        print(f"JSON decode error: {str(e)}")
+        return {
+            'statusCode': 400,
+            'headers': {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            },
+            'body': json.dumps({
+                'message': 'Invalid JSON in request body',
+                'error': str(e)
+            })
+        }
+    except Exception as e:
+        print(f"Unexpected error: {str(e)}")
+        import traceback
+        print(f"Traceback: {traceback.format_exc()}")
+        return {
+            'statusCode': 500,
+            'headers': {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            },
+            'body': json.dumps({
+                'message': 'Internal server error',
+                'error': str(e),
+                'type': type(e).__name__
+            })
+        }

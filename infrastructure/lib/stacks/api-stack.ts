@@ -120,7 +120,7 @@ export class ApiStack extends Stack {
       }
     );
 
-    // POST /admin/upload-url - Generar presigned URL para upload (Admin)
+    // POST /admin/upload-url - Generar presigned URL(s) para upload (Admin) - Soporta una o múltiples imágenes
     const adminUploadResource = adminResource.addResource('upload-url');
     adminUploadResource.addMethod('POST',
       new LambdaIntegration(props.computeStack.generateUploadUrlFunction.function),
