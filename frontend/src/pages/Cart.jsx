@@ -212,7 +212,10 @@ function Cart({ user }) {
   return (
     <div className="container">
       <div className="cart-header">
-        <h1>🛒 Mi Carrito</h1>
+        <div className="cart-title-section">
+          <h1 className="cart-title">Carrito</h1>
+          <p className="cart-subtitle">Revisa tus productos seleccionados</p>
+        </div>
         {cartItems.length > 0 && (
           <div className="cart-summary-header">
             <span className="items-count">{getTotalItems()} {getTotalItems() === 1 ? 'artículo' : 'artículos'}</span>
@@ -223,18 +226,21 @@ function Cart({ user }) {
       
       {cartItems.length === 0 ? (
         <div className="empty-cart">
-          <div className="empty-cart-icon">🛒</div>
-          <h3>Tu carrito está vacío</h3>
-          <p>Descubre nuestra increíble colección de ropa deportiva</p>
-          <a href="/" className="btn btn-primary empty-cart-btn">
-            Explorar Catálogo
-          </a>
+          <div className="empty-cart-content">
+            <div className="empty-cart-icon">🛒</div>
+            <h3 className="empty-cart-title">Carrito Vacío</h3>
+            <p className="empty-cart-text">Descubre nuestra colección de ropa deportiva</p>
+            <a href="/" className="empty-cart-btn">
+              Explorar Catálogo
+            </a>
+          </div>
         </div>
       ) : (
         <div className="cart-layout">
           <div className="cart-items-section">
             <div className="cart-items-header">
-              <h2>Productos en tu carrito</h2>
+              <h2 className="cart-section-title">Productos</h2>
+              <span className="cart-items-count">{cartItems.length} {cartItems.length === 1 ? 'producto' : 'productos'}</span>
             </div>
             <div className="cart-items-list">
               {cartItems.map((item) => (
@@ -251,29 +257,31 @@ function Cart({ user }) {
           
           <div className="cart-sidebar">
             <div className="cart-summary-card">
-              <h3>Resumen del pedido</h3>
+              <h3 className="summary-title">Resumen</h3>
               
-              <div className="summary-line">
-                <span>Subtotal ({getTotalItems()} {getTotalItems() === 1 ? 'artículo' : 'artículos'})</span>
-                <span>${calculateTotal()}</span>
-              </div>
-              
-              <div className="summary-line">
-                <span>Envío</span>
-                <span className="free-shipping">Gratis</span>
-              </div>
-              
-              <div className="summary-divider"></div>
-              
-              <div className="summary-total">
-                <span>Total</span>
-                <span>${calculateTotal()}</span>
+              <div className="summary-details">
+                <div className="summary-line">
+                  <span>Subtotal</span>
+                  <span>${calculateTotal()}</span>
+                </div>
+                
+                <div className="summary-line">
+                  <span>Envío</span>
+                  <span className="free-shipping">Gratis</span>
+                </div>
+                
+                <div className="summary-divider"></div>
+                
+                <div className="summary-total">
+                  <span>Total</span>
+                  <span>${calculateTotal()}</span>
+                </div>
               </div>
               
               <button 
                 onClick={createOrder}
                 disabled={processingOrder}
-                className="btn btn-primary checkout-btn"
+                className="checkout-btn"
               >
                 {processingOrder ? (
                   <>
@@ -281,24 +289,19 @@ function Cart({ user }) {
                     Procesando...
                   </>
                 ) : (
-                  <>
-                    💬 Crear Pedido (WhatsApp)
-                  </>
+                  'Crear Pedido'
                 )}
               </button>
               
               <div className="checkout-info">
                 <div className="info-item">
-                  <span className="info-icon">📱</span>
-                  <span>Te contactaremos por WhatsApp</span>
+                  <span>📱 Contacto por WhatsApp</span>
                 </div>
                 <div className="info-item">
-                  <span className="info-icon">🚚</span>
-                  <span>Envío gratis a toda la ciudad</span>
+                  <span>🚚 Envío gratuito</span>
                 </div>
                 <div className="info-item">
-                  <span className="info-icon">💳</span>
-                  <span>Pago contra entrega disponible</span>
+                  <span>💳 Pago contra entrega</span>
                 </div>
               </div>
             </div>
@@ -324,23 +327,22 @@ function CartItem({ item, onUpdateQuantity, onRemove, updating }) {
       
       <div className="cart-item-details">
         <div className="cart-item-info">
+          <div className="product-category">{item.productCategory}</div>
           <h4 className="product-name">{item.productName}</h4>
-          <p className="product-category">{item.productCategory}</p>
           <div className="product-price">
-            <span className="price-label">Precio unitario:</span>
             <span className="price-value">${item.productPrice}</span>
           </div>
         </div>
         
         <div className="cart-item-actions">
           <div className="quantity-section">
-            <label className="quantity-label">Cantidad:</label>
+            <span className="quantity-label">Cantidad</span>
             <div className="quantity-controls">
               <button 
                 onClick={() => onUpdateQuantity(item.productId, item.quantity - 1)}
                 disabled={updating || item.quantity <= 1}
                 className="quantity-btn decrease"
-                title="Disminuir cantidad"
+                aria-label="Disminuir cantidad"
               >
                 −
               </button>
@@ -349,7 +351,7 @@ function CartItem({ item, onUpdateQuantity, onRemove, updating }) {
                 onClick={() => onUpdateQuantity(item.productId, item.quantity + 1)}
                 disabled={updating}
                 className="quantity-btn increase"
-                title="Aumentar cantidad"
+                aria-label="Aumentar cantidad"
               >
                 +
               </button>
@@ -360,24 +362,15 @@ function CartItem({ item, onUpdateQuantity, onRemove, updating }) {
             onClick={() => onRemove(item.productId)}
             disabled={updating}
             className="remove-btn"
-            title="Eliminar producto"
+            aria-label="Eliminar producto"
           >
-            {updating ? (
-              <>
-                <span className="loading-spinner small"></span>
-                Eliminando...
-              </>
-            ) : (
-              <>
-                🗑️ Eliminar
-              </>
-            )}
+            {updating ? 'Eliminando...' : 'Eliminar'}
           </button>
         </div>
       </div>
       
       <div className="cart-item-subtotal">
-        <div className="subtotal-label">Subtotal:</div>
+        <div className="subtotal-label">Subtotal</div>
         <div className="subtotal-value">${(parseFloat(item.productPrice) * item.quantity).toFixed(2)}</div>
       </div>
     </div>

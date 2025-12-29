@@ -38,7 +38,7 @@ body {
 .navbar-brand {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #00d4ff;
+  color: #ffffff;
   text-decoration: none;
 }
 
@@ -56,11 +56,11 @@ body {
 }
 
 .nav-link:hover {
-  color: #00d4ff;
+  color: #ffffff;
 }
 
 .user-email {
-  color: #00d4ff;
+  color: #ffffff;
   font-weight: 500;
 }
 
@@ -76,23 +76,23 @@ body {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #00d4ff, #0099cc);
-  color: white;
+  background: linear-gradient(135deg, #ffffff, #f0f0f0);
+  color: #000000;
 }
 
 .btn-primary:hover {
-  background: linear-gradient(135deg, #0099cc, #007399);
+  background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
   transform: translateY(-1px);
 }
 
 .btn-outline {
   background: transparent;
-  color: #00d4ff;
-  border: 1px solid #00d4ff;
+  color: #ffffff;
+  border: 1px solid #ffffff;
 }
 
 .btn-outline:hover {
-  background: #00d4ff;
+  background: #ffffff;
   color: #1a1a1a;
 }
 
@@ -179,7 +179,7 @@ body {
 }
 
 .image-nav-btn:hover {
-  background: rgba(0, 212, 255, 0.8);
+  background: rgba(255, 255, 255, 0.8);
   transform: translateY(-50%) scale(1.1);
 }
 
@@ -220,13 +220,13 @@ body {
 }
 
 .image-indicator.active {
-  background: #00d4ff;
+  background: #ffffff;
   transform: scale(1.2);
-  box-shadow: 0 2px 6px rgba(0, 212, 255, 0.4);
+  box-shadow: 0 2px 6px rgba(255, 255, 255, 0.4);
 }
 
 .image-indicator:hover {
-  background: rgba(0, 212, 255, 0.8);
+  background: rgba(255, 255, 255, 0.8);
   transform: scale(1.1);
 }
 
@@ -254,7 +254,7 @@ body {
 .product-price {
   font-size: 1.2rem;
   font-weight: bold;
-  color: #00d4ff;
+  color: #ffffff;
   margin-bottom: 1rem;
 }
 
@@ -690,33 +690,425 @@ body {
   text-align: right;
   margin-top: 1rem;
   padding-top: 1rem;
-  border-top: 2px solid #00d4ff;
-  color: #00d4ff;
+  border-top: 2px solid #ffffff;
+  color: #ffffff;
 }
 
-/* Product Detail Styles */
+/* ===== PRODUCT DETAIL STYLES - MINIMAL DESIGN ===== */
+
+/* Header */
+.product-detail-header {
+  margin-bottom: 3rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #333;
+}
+
+.back-btn {
+  background: transparent;
+  color: #888;
+  border: none;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 300;
+}
+
+.back-btn:hover {
+  color: #ffffff;
+}
+
+/* Main Layout */
 .product-detail {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 3rem;
+  gap: 4rem;
   margin-top: 2rem;
 }
 
+/* Image Section */
 .product-detail-image {
-  background: #2d2d2d;
-  border-radius: 12px;
-  padding: 2rem;
+  background: transparent;
+  border-radius: 0;
+  padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 400px;
-  border: 1px solid #404040;
+  min-height: 500px;
+  border: none;
+  position: relative;
 }
 
-.product-detail-image img {
+.product-detail-image-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #2a2a2a;
+}
+
+.product-detail-main-image {
   max-width: 100%;
   max-height: 100%;
-  object-fit: contain;
+  object-fit: cover;
+  width: 100%;
+  height: 500px;
+}
+
+.no-image-detail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 500px;
+  color: #555;
+  background: #2a2a2a;
+}
+
+.no-image-detail span {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.no-image-detail p {
+  font-size: 1.1rem;
+  opacity: 0.7;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Navigation buttons for product detail */
+.product-detail-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  border: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  font-size: 1.8rem;
+  font-weight: 300;
+  cursor: pointer;
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px);
+}
+
+.product-detail-image-container:hover .product-detail-nav-btn {
+  opacity: 1;
+}
+
+.product-detail-nav-btn:hover {
+  background: rgba(255, 255, 255, 0.8);
+  color: #000;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.product-detail-nav-btn.prev-btn {
+  left: 15px;
+}
+
+.product-detail-nav-btn.next-btn {
+  right: 15px;
+}
+
+/* Image indicators for product detail */
+.product-detail-indicators {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.product-detail-image-container:hover .product-detail-indicators {
+  opacity: 1;
+}
+
+.product-detail-indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.product-detail-indicator.active {
+  background: #ffffff;
+  transform: scale(1.3);
+  box-shadow: 0 3px 8px rgba(255, 255, 255, 0.4);
+}
+
+.product-detail-indicator:hover {
+  background: rgba(255, 255, 255, 0.8);
+  transform: scale(1.2);
+}
+
+/* Product Info Section */
+.product-detail-info {
+  padding: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.product-detail-category {
+  color: #888;
+  font-size: 0.8rem;
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 1rem;
+}
+
+.product-detail-name {
+  font-size: 2.5rem;
+  color: #ffffff;
+  font-weight: 300;
+  margin-bottom: 2rem;
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+}
+
+.product-detail-description {
+  color: #b0b0b0;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 3rem;
+  font-weight: 300;
+}
+
+/* Price and Stock Section */
+.product-detail-price-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+  padding: 2rem 0;
+  border-top: 1px solid #333;
+  border-bottom: 1px solid #333;
+}
+
+.price-info, .stock-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.price-label, .stock-label {
+  color: #888;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 300;
+}
+
+.price-value {
+  font-size: 2rem;
+  font-weight: 300;
+  color: #ffffff;
+}
+
+.stock-value {
+  color: #b0b0b0;
+  font-size: 0.9rem;
+}
+
+/* Actions Section */
+.product-detail-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.quantity-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.quantity-label {
+  color: #888;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 300;
+}
+
+.quantity-select {
+  padding: 1rem;
+  background: #2a2a2a;
+  border: 1px solid #333;
+  border-radius: 0;
+  color: #ffffff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  max-width: 100px;
+}
+
+.quantity-select:focus {
+  outline: none;
+  border-color: #ffffff;
+  background: #333;
+}
+
+.add-to-cart-btn-detail {
+  background: #ffffff;
+  color: #000000;
+  border: none;
+  border-radius: 0;
+  padding: 1.5rem 3rem;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.add-to-cart-btn-detail:hover:not(:disabled) {
+  background: #000000;
+  color: #ffffff;
+}
+
+.add-to-cart-btn-detail:disabled {
+  background: #666;
+  color: #999;
+  cursor: not-allowed;
+}
+
+/* Login Notice */
+.login-notice-detail {
+  text-align: center;
+  padding: 2rem;
+  background: transparent;
+  border: 1px solid #333;
+}
+
+.login-notice-detail p {
+  color: #888;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.login-btn {
+  background: transparent;
+  color: #ffffff;
+  border: 1px solid #ffffff;
+  border-radius: 0;
+  padding: 1rem 2rem;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 300;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.login-btn:hover {
+  background: #ffffff;
+  color: #000000;
+}
+
+/* Out of Stock */
+.out-of-stock-detail {
+  text-align: center;
+  padding: 3rem 2rem;
+  background: transparent;
+  border: 1px solid #333;
+}
+
+.out-of-stock-detail p {
+  color: #ffffff;
+  font-size: 1.2rem;
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.5rem;
+}
+
+.out-of-stock-detail span {
+  color: #888;
+  font-size: 0.9rem;
+  font-weight: 300;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .product-detail {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .product-detail-image {
+    min-height: 400px;
+  }
+  
+  .product-detail-main-image {
+    height: 400px;
+  }
+  
+  .no-image-detail {
+    height: 400px;
+  }
+  
+  .product-detail-name {
+    font-size: 2rem;
+  }
+  
+  .price-value {
+    font-size: 1.5rem;
+  }
+  
+  .product-detail-nav-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 1.5rem;
+  }
+  
+  .product-detail-nav-btn.prev-btn {
+    left: 10px;
+  }
+  
+  .product-detail-nav-btn.next-btn {
+    right: 10px;
+  }
+  
+  .product-detail-indicators {
+    bottom: 10px;
+    gap: 8px;
+  }
+  
+  .product-detail-indicator {
+    width: 10px;
+    height: 10px;
+  }
+  
+  .add-to-cart-btn-detail {
+    padding: 1.25rem 2rem;
+  }
 }
 
 .product-detail-info h1 {
@@ -832,7 +1224,7 @@ body {
 
 .cart-item-price {
   font-weight: bold;
-  color: #00d4ff;
+  color: #ffffff;
 }
 
 .cart-item-controls {
@@ -860,7 +1252,7 @@ body {
 }
 
 .quantity-btn:hover {
-  background: #00d4ff;
+  background: #ffffff;
   color: #1a1a1a;
 }
 
@@ -886,11 +1278,11 @@ body {
   text-align: right;
   font-size: 1.1rem;
   font-weight: bold;
-  color: #00d4ff;
+  color: #ffffff;
 }
 
 .cart-summary {
-  border-top: 2px solid #00d4ff;
+  border-top: 2px solid #ffffff;
   padding-top: 2rem;
 }
 
@@ -924,7 +1316,7 @@ body {
   align-items: center;
   margin-bottom: 2rem;
   padding-bottom: 1rem;
-  border-bottom: 2px solid #00d4ff;
+  border-bottom: 2px solid #ffffff;
 }
 
 .admin-form-container {
@@ -978,8 +1370,8 @@ body {
 .form-group select:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: #00d4ff;
-  box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.2);
+  border-color: #ffffff;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2);
 }
 
 .form-actions {
@@ -1010,7 +1402,7 @@ body {
 }
 
 .product-row:hover {
-  border-color: #00d4ff;
+  border-color: #ffffff;
 }
 
 .product-info h4 {
@@ -1024,7 +1416,7 @@ body {
 }
 
 .product-info .product-price {
-  color: #00d4ff;
+  color: #ffffff;
   font-weight: bold;
 }
 
@@ -1070,6 +1462,54 @@ body {
     gap: 2rem;
   }
   
+  .product-detail-image {
+    min-height: 400px;
+  }
+  
+  .product-detail-main-image {
+    height: 400px;
+  }
+  
+  .no-image-detail {
+    height: 400px;
+  }
+  
+  .product-detail-name {
+    font-size: 2rem;
+  }
+  
+  .price-value {
+    font-size: 1.5rem;
+  }
+  
+  .product-detail-nav-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 1.5rem;
+  }
+  
+  .product-detail-nav-btn.prev-btn {
+    left: 10px;
+  }
+  
+  .product-detail-nav-btn.next-btn {
+    right: 10px;
+  }
+  
+  .product-detail-indicators {
+    bottom: 10px;
+    gap: 8px;
+  }
+  
+  .product-detail-indicator {
+    width: 10px;
+    height: 10px;
+  }
+  
+  .add-to-cart-btn-detail {
+    padding: 1.25rem 2rem;
+  }
+  
   .cart-item {
     grid-template-columns: 1fr;
     gap: 1rem;
@@ -1079,5 +1519,1431 @@ body {
   .product-price-section {
     flex-direction: column;
     gap: 0.5rem;
+  }
+}
+
+/* ===== CART STYLES - MINIMAL DESIGN ===== */
+
+/* Cart Header */
+.cart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 4rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #333;
+}
+
+.cart-title-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.cart-title {
+  font-size: 3rem;
+  color: #ffffff;
+  font-weight: 300;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+}
+
+.cart-subtitle {
+  color: #888;
+  font-size: 1rem;
+  font-weight: 300;
+  margin: 0;
+}
+
+.cart-summary-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+
+.items-count {
+  color: #888;
+  font-size: 0.9rem;
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.total-preview {
+  color: #ffffff;
+  font-size: 2rem;
+  font-weight: 300;
+}
+
+/* Empty Cart */
+.empty-cart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+}
+
+.empty-cart-content {
+  text-align: center;
+  max-width: 400px;
+}
+
+.empty-cart-icon {
+  font-size: 5rem;
+  margin-bottom: 2rem;
+  opacity: 0.3;
+}
+
+.empty-cart-title {
+  color: #ffffff;
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.empty-cart-text {
+  color: #888;
+  margin-bottom: 3rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+.empty-cart-btn {
+  background: #ffffff;
+  color: #000000;
+  border: none;
+  border-radius: 0;
+  padding: 1.5rem 3rem;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.empty-cart-btn:hover {
+  background: #000000;
+  color: #ffffff;
+}
+
+/* Cart Layout */
+.cart-layout {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 4rem;
+  align-items: start;
+}
+
+/* Cart Items Section */
+.cart-items-section {
+  background: transparent;
+}
+
+.cart-items-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #333;
+}
+
+.cart-section-title {
+  color: #ffffff;
+  font-size: 1.5rem;
+  font-weight: 300;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.cart-items-count {
+  color: #888;
+  font-size: 0.9rem;
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.cart-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Cart Item Card */
+.cart-item-card {
+  background: transparent;
+  border: 1px solid #333;
+  border-radius: 0;
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: 120px 1fr auto;
+  gap: 2rem;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.cart-item-card:hover {
+  border-color: #555;
+}
+
+.cart-item-image {
+  width: 120px;
+  height: 120px;
+  background: #2a2a2a;
+  border-radius: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cart-item-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.no-image-placeholder {
+  color: #666;
+  font-size: 2rem;
+  opacity: 0.5;
+}
+
+/* Cart Item Details */
+.cart-item-details {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  flex: 1;
+}
+
+.cart-item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.product-category {
+  color: #888;
+  font-size: 0.8rem;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 300;
+}
+
+.product-name {
+  color: #ffffff;
+  font-size: 1.2rem;
+  font-weight: 400;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.product-price {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.price-value {
+  color: #ffffff;
+  font-weight: 300;
+  font-size: 1rem;
+}
+
+/* Cart Item Actions */
+.cart-item-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.quantity-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.quantity-label {
+  color: #888;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 300;
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  background: transparent;
+  border: 1px solid #333;
+  border-radius: 0;
+  overflow: hidden;
+}
+
+.quantity-btn {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 1.2rem;
+  font-weight: 300;
+}
+
+.quantity-btn:hover:not(:disabled) {
+  background: #ffffff;
+  color: #000;
+}
+
+.quantity-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.quantity-btn.decrease {
+  border-right: 1px solid #333;
+}
+
+.quantity-btn.increase {
+  border-left: 1px solid #333;
+}
+
+.quantity-display {
+  min-width: 50px;
+  text-align: center;
+  font-weight: 300;
+  color: #ffffff;
+  background: transparent;
+  padding: 0 1rem;
+  line-height: 40px;
+}
+
+.remove-btn {
+  background: transparent;
+  color: #888;
+  border: 1px solid #333;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 300;
+}
+
+.remove-btn:hover:not(:disabled) {
+  background: #ffffff;
+  color: #000000;
+  border-color: #ffffff;
+}
+
+.remove-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Cart Item Subtotal */
+.cart-item-subtotal {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.subtotal-label {
+  color: #888;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 300;
+}
+
+.subtotal-value {
+  color: #ffffff;
+  font-size: 1.3rem;
+  font-weight: 300;
+}
+
+/* Cart Sidebar */
+.cart-sidebar {
+  position: sticky;
+  top: 2rem;
+}
+
+.cart-summary-card {
+  background: transparent;
+  border: 1px solid #333;
+  border-radius: 0;
+  padding: 2rem;
+}
+
+.summary-title {
+  color: #ffffff;
+  font-size: 1.3rem;
+  font-weight: 300;
+  margin: 0 0 2rem 0;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.summary-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.summary-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  color: #b0b0b0;
+}
+
+.summary-line span:first-child {
+  font-size: 0.9rem;
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.summary-line span:last-child {
+  font-weight: 300;
+  color: #ffffff;
+}
+
+.free-shipping {
+  color: #4ade80 !important;
+  font-weight: 300 !important;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.8rem;
+}
+
+.summary-divider {
+  height: 1px;
+  background: #333;
+  margin: 1rem 0;
+}
+
+.summary-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 0;
+  font-size: 1.2rem;
+  font-weight: 300;
+  color: #ffffff;
+  border-top: 1px solid #333;
+  margin-top: 1rem;
+}
+
+.summary-total span:first-child {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.checkout-btn {
+  width: 100%;
+  padding: 1.5rem;
+  font-size: 1rem;
+  margin: 2rem 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: #ffffff;
+  color: #000000;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.checkout-btn:hover:not(:disabled) {
+  background: #000000;
+  color: #ffffff;
+}
+
+.checkout-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.checkout-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid #333;
+}
+
+.info-item {
+  color: #888;
+  font-size: 0.85rem;
+  font-weight: 300;
+  text-align: center;
+}
+
+/* Responsive Cart Design */
+@media (max-width: 1024px) {
+  .cart-layout {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  
+  .cart-sidebar {
+    position: static;
+    order: -1;
+  }
+}
+
+@media (max-width: 768px) {
+  .cart-header {
+    flex-direction: column;
+    gap: 2rem;
+    text-align: center;
+  }
+  
+  .cart-title {
+    font-size: 2.5rem;
+  }
+  
+  .cart-summary-header {
+    align-items: center;
+  }
+  
+  .cart-item-card {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    text-align: center;
+  }
+  
+  .cart-item-image {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+  }
+  
+  .cart-item-actions {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .quantity-section {
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .cart-item-subtotal {
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 1rem;
+  }
+  
+  .cart-title {
+    font-size: 2rem;
+  }
+  
+  .cart-item-card {
+    padding: 1.5rem;
+  }
+  
+  .cart-summary-card {
+    padding: 1.5rem;
+  }
+  
+  .empty-cart-content {
+    padding: 2rem 1rem;
+  }
+  
+  .empty-cart-title {
+    font-size: 1.5rem;
+  }
+}
+/* ===== COGNITO AUTHENTICATOR STYLES - MINIMAL DESIGN ===== */
+
+/* Override Amplify UI default styles */
+[data-amplify-authenticator] {
+  --amplify-colors-font-primary: #ffffff !important;
+  --amplify-colors-font-secondary: #888888 !important;
+  --amplify-colors-font-tertiary: #666666 !important;
+  --amplify-colors-font-interactive: #ffffff !important;
+  --amplify-colors-font-hover: #000000 !important;
+  --amplify-colors-background-primary: #1a1a1a !important;
+  --amplify-colors-background-secondary: transparent !important;
+  --amplify-colors-background-tertiary: #2a2a2a !important;
+  --amplify-colors-border-primary: #333333 !important;
+  --amplify-colors-border-secondary: #555555 !important;
+  --amplify-colors-border-tertiary: #333333 !important;
+  --amplify-colors-brand-primary-10: #ffffff !important;
+  --amplify-colors-brand-primary-80: #ffffff !important;
+  --amplify-colors-brand-primary-90: #f0f0f0 !important;
+  --amplify-colors-brand-primary-100: #ffffff !important;
+  --amplify-radii-small: 0px !important;
+  --amplify-radii-medium: 0px !important;
+  --amplify-radii-large: 0px !important;
+  --amplify-radii-xl: 0px !important;
+  --amplify-space-small: 0.75rem !important;
+  --amplify-space-medium: 1rem !important;
+  --amplify-space-large: 1.5rem !important;
+  --amplify-space-xl: 2rem !important;
+  --amplify-space-xxl: 3rem !important;
+}
+
+/* Main authenticator container */
+[data-amplify-authenticator] [data-amplify-router] {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  min-height: 100vh !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* Form container */
+[data-amplify-authenticator] form {
+  background: transparent !important;
+  border: 1px solid #333 !important;
+  border-radius: 0 !important;
+  padding: 3rem !important;
+  max-width: 450px !important;
+  width: 100% !important;
+  margin: 2rem !important;
+}
+
+/* Form headers */
+[data-amplify-authenticator] [data-amplify-form-header] {
+  text-align: center !important;
+  margin-bottom: 2rem !important;
+}
+
+[data-amplify-authenticator] [data-amplify-form-header] h1,
+[data-amplify-authenticator] [data-amplify-form-header] h2 {
+  color: #ffffff !important;
+  font-size: 2rem !important;
+  font-weight: 300 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  margin: 0 !important;
+}
+
+/* Form fields */
+[data-amplify-authenticator] [data-amplify-field] {
+  margin-bottom: 1.5rem !important;
+}
+
+[data-amplify-authenticator] label {
+  color: #888 !important;
+  font-size: 0.8rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  font-weight: 300 !important;
+  margin-bottom: 0.5rem !important;
+  display: block !important;
+}
+
+[data-amplify-authenticator] input {
+  background: transparent !important;
+  border: 1px solid #333 !important;
+  border-radius: 0 !important;
+  color: #ffffff !important;
+  padding: 1rem !important;
+  font-size: 1rem !important;
+  width: 100% !important;
+  transition: all 0.3s ease !important;
+}
+
+[data-amplify-authenticator] input:focus {
+  outline: none !important;
+  border-color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  box-shadow: none !important;
+}
+
+[data-amplify-authenticator] input::placeholder {
+  color: #666 !important;
+  font-weight: 300 !important;
+}
+
+/* Buttons */
+[data-amplify-authenticator] button[type="submit"],
+[data-amplify-authenticator] button[data-amplify-form-submit] {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 1.25rem 2rem !important;
+  font-size: 1rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  width: 100% !important;
+  margin-top: 1rem !important;
+}
+
+[data-amplify-authenticator] button[type="submit"]:hover,
+[data-amplify-authenticator] button[data-amplify-form-submit]:hover {
+  background: #000000 !important;
+  color: #ffffff !important;
+}
+
+[data-amplify-authenticator] button[type="submit"]:disabled,
+[data-amplify-authenticator] button[data-amplify-form-submit]:disabled {
+  background: #666 !important;
+  color: #999 !important;
+  cursor: not-allowed !important;
+}
+
+/* Secondary buttons */
+[data-amplify-authenticator] button:not([type="submit"]):not([data-amplify-form-submit]) {
+  background: transparent !important;
+  color: #888 !important;
+  border: 1px solid #333 !important;
+  border-radius: 0 !important;
+  padding: 1rem 2rem !important;
+  font-size: 0.9rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  font-weight: 300 !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  margin-top: 1rem !important;
+}
+
+[data-amplify-authenticator] button:not([type="submit"]):not([data-amplify-form-submit]):hover {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border-color: #ffffff !important;
+}
+
+/* Links */
+[data-amplify-authenticator] a,
+[data-amplify-authenticator] [data-amplify-router-link] {
+  color: #888 !important;
+  text-decoration: none !important;
+  font-size: 0.9rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  font-weight: 300 !important;
+  transition: color 0.3s ease !important;
+}
+
+[data-amplify-authenticator] a:hover,
+[data-amplify-authenticator] [data-amplify-router-link]:hover {
+  color: #ffffff !important;
+}
+
+/* Tab buttons */
+[data-amplify-authenticator] [data-amplify-tabs] button {
+  background: transparent !important;
+  color: #888 !important;
+  border: none !important;
+  border-bottom: 1px solid #333 !important;
+  border-radius: 0 !important;
+  padding: 1rem 2rem !important;
+  font-size: 0.9rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  font-weight: 300 !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  margin: 0 !important;
+}
+
+[data-amplify-authenticator] [data-amplify-tabs] button[aria-selected="true"] {
+  color: #ffffff !important;
+  border-bottom-color: #ffffff !important;
+}
+
+[data-amplify-authenticator] [data-amplify-tabs] button:hover {
+  color: #ffffff !important;
+}
+
+/* Error messages */
+[data-amplify-authenticator] [data-amplify-alert] {
+  background: transparent !important;
+  border: 1px solid #ff6b6b !important;
+  border-radius: 0 !important;
+  color: #ff6b6b !important;
+  padding: 1rem !important;
+  margin-bottom: 1rem !important;
+  font-size: 0.9rem !important;
+  text-align: center !important;
+}
+
+/* Success messages */
+[data-amplify-authenticator] [data-amplify-alert][data-variation="success"] {
+  border-color: #4ade80 !important;
+  color: #4ade80 !important;
+}
+
+/* Loading states */
+[data-amplify-authenticator] [data-amplify-loader] {
+  border-color: #333 #333 #333 #ffffff !important;
+}
+
+/* Footer */
+[data-amplify-authenticator] [data-amplify-form-footer] {
+  text-align: center !important;
+  margin-top: 2rem !important;
+  padding-top: 2rem !important;
+  border-top: 1px solid #333 !important;
+}
+
+/* Custom components within Authenticator */
+[data-amplify-authenticator] .password-requirements {
+  background: transparent !important;
+  border: 1px solid #333 !important;
+  border-radius: 0 !important;
+  padding: 1.5rem !important;
+  margin-top: 1.5rem !important;
+}
+
+[data-amplify-authenticator] .password-requirements h4 {
+  color: #ffffff !important;
+  font-size: 0.9rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  font-weight: 400 !important;
+  margin: 0 0 1rem 0 !important;
+  text-align: center !important;
+}
+
+[data-amplify-authenticator] .password-requirements ul {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.5rem !important;
+}
+
+[data-amplify-authenticator] .password-requirements li {
+  color: #888 !important;
+  font-size: 0.8rem !important;
+  font-weight: 300 !important;
+  line-height: 1.4 !important;
+  padding-left: 0 !important;
+}
+
+[data-amplify-authenticator] .verification-info {
+  background: transparent !important;
+  border: 1px solid #333 !important;
+  border-radius: 0 !important;
+  padding: 1.5rem !important;
+  margin-top: 1.5rem !important;
+  text-align: center !important;
+}
+
+[data-amplify-authenticator] .verification-info p {
+  color: #888 !important;
+  font-size: 0.9rem !important;
+  font-weight: 300 !important;
+  line-height: 1.5 !important;
+  margin: 0 !important;
+}
+
+/* Auth footer */
+[data-amplify-authenticator] .auth-footer {
+  text-align: center !important;
+  margin-top: 1.5rem !important;
+  padding-top: 1.5rem !important;
+  border-top: 1px solid #333 !important;
+}
+
+[data-amplify-authenticator] .auth-footer p {
+  color: #888 !important;
+  font-size: 0.9rem !important;
+  font-weight: 300 !important;
+  margin: 0 !important;
+}
+
+[data-amplify-authenticator] .auth-footer strong {
+  color: #ffffff !important;
+}
+
+/* Custom forgot password section */
+[data-amplify-authenticator] .forgot-password-section {
+  margin-top: 1rem !important;
+}
+
+[data-amplify-authenticator] .forgot-password-btn {
+  display: block !important;
+  width: 100% !important;
+  text-align: center !important;
+  margin-top: 1rem !important;
+  padding: 0.75rem !important;
+  color: #888 !important;
+  background: transparent !important;
+  border: 1px solid #333 !important;
+  border-radius: 0 !important;
+  font-size: 0.9rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  font-weight: 300 !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  text-decoration: none !important;
+}
+
+[data-amplify-authenticator] .forgot-password-btn:hover {
+  color: #ffffff !important;
+  border-color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Force show forgot password link */
+[data-amplify-authenticator] [data-amplify-router="signIn"] [data-amplify-form-footer] {
+  display: block !important;
+  visibility: visible !important;
+}
+
+[data-amplify-authenticator] [data-amplify-router="signIn"] [data-amplify-form-footer] button,
+[data-amplify-authenticator] [data-amplify-router="signIn"] [data-amplify-form-footer] [data-amplify-router-link] {
+  display: block !important;
+  visibility: visible !important;
+  width: 100% !important;
+  text-align: center !important;
+  margin-top: 1.5rem !important;
+  padding: 0.75rem !important;
+  color: #888 !important;
+  background: transparent !important;
+  border: 1px solid #333 !important;
+  border-radius: 0 !important;
+  font-size: 0.9rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  font-weight: 300 !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  text-decoration: none !important;
+}
+
+[data-amplify-authenticator] [data-amplify-router="signIn"] [data-amplify-form-footer] button:hover,
+[data-amplify-authenticator] [data-amplify-router="signIn"] [data-amplify-form-footer] [data-amplify-router-link]:hover {
+  color: #ffffff !important;
+  border-color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Ensure all form footer elements are visible */
+[data-amplify-authenticator] [data-amplify-form-footer] * {
+  display: block !important;
+  visibility: visible !important;
+}
+
+/* Specific styling for forgot password text */
+[data-amplify-authenticator] [data-amplify-form-footer] button[type="button"] {
+  background: transparent !important;
+  border: 1px solid #333 !important;
+  color: #888 !important;
+}
+
+[data-amplify-authenticator] [data-amplify-form-footer] button[type="button"]:hover {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-color: #ffffff !important;
+  color: #ffffff !important;
+}
+
+/* Alternative selectors for forgot password link */
+[data-amplify-authenticator] button[data-amplify-router-link*="resetPassword"],
+[data-amplify-authenticator] button[data-amplify-router-link*="forgotPassword"],
+[data-amplify-authenticator] [role="button"][data-amplify-router-link*="resetPassword"],
+[data-amplify-authenticator] [role="button"][data-amplify-router-link*="forgotPassword"] {
+  display: block !important;
+  visibility: visible !important;
+  width: 100% !important;
+  text-align: center !important;
+  margin-top: 1.5rem !important;
+  padding: 0.75rem !important;
+  color: #888 !important;
+  background: transparent !important;
+  border: 1px solid #333 !important;
+  border-radius: 0 !important;
+  font-size: 0.9rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  font-weight: 300 !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  text-decoration: none !important;
+}
+
+[data-amplify-authenticator] button[data-amplify-router-link*="resetPassword"]:hover,
+[data-amplify-authenticator] button[data-amplify-router-link*="forgotPassword"]:hover,
+[data-amplify-authenticator] [role="button"][data-amplify-router-link*="resetPassword"]:hover,
+[data-amplify-authenticator] [role="button"][data-amplify-router-link*="forgotPassword"]:hover {
+  color: #ffffff !important;
+  border-color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Force display any element containing "forgot" or "reset" text */
+[data-amplify-authenticator] *[class*="forgot"],
+[data-amplify-authenticator] *[class*="reset"],
+[data-amplify-authenticator] *[data-testid*="forgot"],
+[data-amplify-authenticator] *[data-testid*="reset"] {
+  display: block !important;
+  visibility: visible !important;
+}
+
+/* Hide Amplify branding */
+[data-amplify-authenticator] [data-amplify-footer] {
+  display: none !important;
+}
+
+/* Password requirements */
+[data-amplify-authenticator] [data-amplify-password-requirements] {
+  background: transparent !important;
+  border: 1px solid #333 !important;
+  border-radius: 0 !important;
+  padding: 1rem !important;
+  margin-top: 1rem !important;
+}
+
+[data-amplify-authenticator] [data-amplify-password-requirements] ul {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+[data-amplify-authenticator] [data-amplify-password-requirements] li {
+  color: #888 !important;
+  font-size: 0.8rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  font-weight: 300 !important;
+  margin-bottom: 0.5rem !important;
+}
+
+[data-amplify-authenticator] [data-amplify-password-requirements] li[data-valid="true"] {
+  color: #4ade80 !important;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  [data-amplify-authenticator] form {
+    margin: 1rem !important;
+    padding: 2rem !important;
+    max-width: 100% !important;
+  }
+  
+  [data-amplify-authenticator] [data-amplify-form-header] h1,
+  [data-amplify-authenticator] [data-amplify-form-header] h2 {
+    font-size: 1.5rem !important;
+  }
+  
+  [data-amplify-authenticator] [data-amplify-tabs] button {
+    padding: 0.75rem 1rem !important;
+    font-size: 0.8rem !important;
+  }
+  
+  [data-amplify-authenticator] .password-requirements {
+    padding: 1rem !important;
+    margin-top: 1rem !important;
+  }
+  
+  [data-amplify-authenticator] .password-requirements h4 {
+    font-size: 0.8rem !important;
+  }
+  
+  [data-amplify-authenticator] .password-requirements li {
+    font-size: 0.75rem !important;
+  }
+  
+  [data-amplify-authenticator] .verification-info {
+    padding: 1rem !important;
+    margin-top: 1rem !important;
+  }
+  
+  [data-amplify-authenticator] .verification-info p {
+    font-size: 0.8rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  [data-amplify-authenticator] form {
+    margin: 0.5rem !important;
+    padding: 1.5rem !important;
+    max-width: 100% !important;
+  }
+  
+  [data-amplify-authenticator] input {
+    padding: 0.75rem !important;
+  }
+  
+  [data-amplify-authenticator] button[type="submit"],
+  [data-amplify-authenticator] button[data-amplify-form-submit] {
+    padding: 1rem 1.5rem !important;
+  }
+  
+  [data-amplify-authenticator] .password-requirements {
+    padding: 1rem !important;
+    margin-top: 1rem !important;
+  }
+  
+  [data-amplify-authenticator] .password-requirements h4 {
+    font-size: 0.75rem !important;
+  }
+  
+  [data-amplify-authenticator] .password-requirements li {
+    font-size: 0.7rem !important;
+  }
+  
+  [data-amplify-authenticator] .verification-info {
+    padding: 1rem !important;
+    margin-top: 1rem !important;
+  }
+  
+  [data-amplify-authenticator] .verification-info p {
+    font-size: 0.75rem !important;
+  }
+}
+/* ===== AUTH PAGE STYLES ===== */
+
+.auth-page {
+  min-height: 100vh;
+  background: #1a1a1a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #333;
+}
+
+.auth-header h1 {
+  font-size: 2.5rem;
+  color: #ffffff;
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin: 0 0 1rem 0;
+}
+
+.auth-header p {
+  color: #888;
+  font-size: 1rem;
+  font-weight: 300;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ===== APP LOADING STYLES ===== */
+
+.app-loading {
+  min-height: 100vh;
+  background: #1a1a1a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.loading-content h1 {
+  font-size: 3rem;
+  color: #ffffff;
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin: 0;
+}
+
+.loading-content p {
+  color: #888;
+  font-size: 1rem;
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+.loading-content .loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 2px solid #333;
+  border-top: 2px solid #ffffff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* ===== RESPONSIVE AUTH STYLES ===== */
+
+@media (max-width: 768px) {
+  .auth-page {
+    padding: 1rem;
+  }
+  
+  .auth-header h1 {
+    font-size: 2rem;
+  }
+  
+  .loading-content h1 {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .auth-page {
+    padding: 0.5rem;
+  }
+  
+  .auth-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+  }
+  
+  .auth-header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .loading-content h1 {
+    font-size: 2rem;
+  }
+}
+/* ===== FORGOT PASSWORD STYLES ===== */
+
+/* Password requirements component */
+.password-requirements {
+  background: transparent !important;
+  border: 1px solid #333 !important;
+  border-radius: 0 !important;
+  padding: 1.5rem !important;
+  margin-top: 1.5rem !important;
+}
+
+.password-requirements h4 {
+  color: #ffffff !important;
+  font-size: 0.9rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  font-weight: 400 !important;
+  margin: 0 0 1rem 0 !important;
+  text-align: center !important;
+}
+
+.password-requirements ul {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.5rem !important;
+}
+
+.password-requirements li {
+  color: #888 !important;
+  font-size: 0.8rem !important;
+  font-weight: 300 !important;
+  line-height: 1.4 !important;
+  padding-left: 0 !important;
+}
+
+/* Verification info component */
+.verification-info {
+  background: transparent !important;
+  border: 1px solid #333 !important;
+  border-radius: 0 !important;
+  padding: 1.5rem !important;
+  margin-top: 1.5rem !important;
+  text-align: center !important;
+}
+
+.verification-info p {
+  color: #888 !important;
+  font-size: 0.9rem !important;
+  font-weight: 300 !important;
+  line-height: 1.5 !important;
+  margin: 0 !important;
+}
+
+/* Forgot password link */
+[data-amplify-authenticator] [data-amplify-router-link*="resetPassword"],
+[data-amplify-authenticator] [data-amplify-router-link*="forgotPassword"] {
+  display: block !important;
+  text-align: center !important;
+  margin-top: 1.5rem !important;
+  padding: 0.75rem !important;
+  color: #888 !important;
+  text-decoration: none !important;
+  font-size: 0.9rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  font-weight: 300 !important;
+  border: 1px solid #333 !important;
+  border-radius: 0 !important;
+  transition: all 0.3s ease !important;
+}
+
+[data-amplify-authenticator] [data-amplify-router-link*="resetPassword"]:hover,
+[data-amplify-authenticator] [data-amplify-router-link*="forgotPassword"]:hover {
+  color: #ffffff !important;
+  border-color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Reset password form */
+[data-amplify-authenticator] [data-amplify-router="resetPassword"] form,
+[data-amplify-authenticator] [data-amplify-router="forgotPassword"] form {
+  background: transparent !important;
+  border: 1px solid #333 !important;
+  border-radius: 0 !important;
+  padding: 3rem !important;
+  max-width: 400px !important;
+  width: 100% !important;
+  margin: 2rem !important;
+}
+
+/* Reset password header */
+[data-amplify-authenticator] [data-amplify-router="resetPassword"] [data-amplify-form-header],
+[data-amplify-authenticator] [data-amplify-router="forgotPassword"] [data-amplify-form-header] {
+  text-align: center !important;
+  margin-bottom: 2rem !important;
+}
+
+[data-amplify-authenticator] [data-amplify-router="resetPassword"] [data-amplify-form-header] h1,
+[data-amplify-authenticator] [data-amplify-router="forgotPassword"] [data-amplify-form-header] h1 {
+  color: #ffffff !important;
+  font-size: 1.5rem !important;
+  font-weight: 300 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  margin: 0 0 1rem 0 !important;
+}
+
+/* Back to sign in link */
+[data-amplify-authenticator] [data-amplify-router-link*="signIn"] {
+  display: block !important;
+  text-align: center !important;
+  margin-top: 1.5rem !important;
+  padding: 0.75rem !important;
+  color: #888 !important;
+  text-decoration: none !important;
+  font-size: 0.9rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  font-weight: 300 !important;
+  border: 1px solid #333 !important;
+  border-radius: 0 !important;
+  transition: all 0.3s ease !important;
+}
+
+[data-amplify-authenticator] [data-amplify-router-link*="signIn"]:hover {
+  color: #ffffff !important;
+  border-color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Confirmation code input */
+[data-amplify-authenticator] input[name="confirmation_code"] {
+  text-align: center !important;
+  font-size: 1.2rem !important;
+  letter-spacing: 2px !important;
+  font-weight: 500 !important;
+}
+
+/* Instructions text */
+[data-amplify-authenticator] [data-amplify-text*="code"],
+[data-amplify-authenticator] [data-amplify-text*="instructions"] {
+  color: #888 !important;
+  font-size: 0.9rem !important;
+  text-align: center !important;
+  margin-bottom: 1.5rem !important;
+  line-height: 1.5 !important;
+  font-weight: 300 !important;
+}
+
+/* Success message for password reset */
+[data-amplify-authenticator] [data-amplify-alert][data-variation="success"] {
+  background: transparent !important;
+  border: 1px solid #4ade80 !important;
+  border-radius: 0 !important;
+  color: #4ade80 !important;
+  padding: 1rem !important;
+  margin-bottom: 1rem !important;
+  font-size: 0.9rem !important;
+  text-align: center !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  font-weight: 300 !important;
+}
+
+/* Responsive forgot password styles */
+@media (max-width: 768px) {
+  [data-amplify-authenticator] [data-amplify-router="resetPassword"] form,
+  [data-amplify-authenticator] [data-amplify-router="forgotPassword"] form {
+    margin: 1rem !important;
+    padding: 2rem !important;
+    max-width: 100% !important;
+  }
+  
+  [data-amplify-authenticator] [data-amplify-router="resetPassword"] [data-amplify-form-header] h1,
+  [data-amplify-authenticator] [data-amplify-router="forgotPassword"] [data-amplify-form-header] h1 {
+    font-size: 1.3rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  [data-amplify-authenticator] [data-amplify-router="resetPassword"] form,
+  [data-amplify-authenticator] [data-amplify-router="forgotPassword"] form {
+    margin: 0.5rem !important;
+    padding: 1.5rem !important;
+    max-width: 100% !important;
+  }
+  
+  [data-amplify-authenticator] [data-amplify-router="resetPassword"] [data-amplify-form-header] h1,
+  [data-amplify-authenticator] [data-amplify-router="forgotPassword"] [data-amplify-form-header] h1 {
+    font-size: 1.2rem !important;
   }
 }

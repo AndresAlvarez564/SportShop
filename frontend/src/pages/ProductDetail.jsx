@@ -12,6 +12,7 @@ function ProductDetail() {
   const [addingToCart, setAddingToCart] = useState(false)
   const [quantity, setQuantity] = useState(1)
   const [user, setUser] = useState(null)
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
 
   useEffect(() => {
     fetchProduct()
@@ -37,12 +38,40 @@ function ProductDetail() {
       
       const data = await response.body.json()
       setProduct(data.product)
+      setCurrentImageIndex(0) // Reset image index when product changes
     } catch (err) {
       console.error('Error fetching product:', err)
       setError('Producto no encontrado')
     } finally {
       setLoading(false)
     }
+  }
+
+  // Obtener imágenes del producto
+  const getImages = () => {
+    if (!product) return []
+    
+    if (product.images && Array.isArray(product.images) && product.images.length > 0) {
+      return product.images.sort((a, b) => (a.order || 0) - (b.order || 0))
+    } else if (product.imageUrl) {
+      return [{ url: product.imageUrl, alt: product.name }]
+    }
+    return []
+  }
+
+  const images = getImages()
+  const hasMultipleImages = images.length > 1
+
+  const nextImage = () => {
+    setCurrentImageIndex((prev) => (prev + 1) % images.length)
+  }
+
+  const prevImage = () => {
+    setCurrentImageIndex((prev) => prev === 0 ? images.length - 1 : prev - 1)
+  }
+
+  const goToImage = (index) => {
+    setCurrentImageIndex(index)
   }
 
   const addToCart = async () => {
@@ -119,37 +148,93 @@ function ProductDetail() {
 
   return (
     <div className="container">
-      <button onClick={() => navigate('/')} className="btn btn-outline">
-        ← Volver al Catálogo
-      </button>
+      <div className="product-detail-header">
+        <button onClick={() => navigate('/')} className="back-btn">
+          ← Volver al Catálogo
+        </button>
+      </div>
       
       <div className="product-detail">
         <div className="product-detail-image">
-          {product.imageUrl ? (
-            <img src={product.imageUrl} alt={product.name} />
+          {images.length > 0 ? (
+            <div className="product-detail-image-container">
+              <img 
+                src={images[currentImageIndex].url} 
+                alt={images[currentImageIndex].alt || product.name} 
+                className="product-detail-main-image"
+              />
+              
+              {/* Navigation arrows for multiple images */}
+              {hasMultipleImages && (
+                <>
+                  <button
+                    className="product-detail-nav-btn prev-btn"
+                    onClick={prevImage}
+                    aria-label="Imagen anterior"
+                  >
+                    ‹
+                  </button>
+                  <button
+                    className="product-detail-nav-btn next-btn"
+                    onClick={nextImage}
+                    aria-label="Siguiente imagen"
+                  >
+                    ›
+                  </button>
+                </>
+              )}
+
+              {/* Image indicators */}
+              {hasMultipleImages && (
+                <div className="product-detail-indicators">
+                  {images.map((_, index) => (
+                    <button
+                      key={index}
+                      className={`product-detail-indicator ${index === currentImageIndex ? 'active' : ''}`}
+                      onClick={() => goToImage(index)}
+                      aria-label={`Ver imagen ${index + 1}`}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
           ) : (
-            <div className="no-image">Sin imagen disponible</div>
+            <div className="no-image-detail">
+              <span>📷</span>
+              <p>Sin imagen disponible</p>
+            </div>
           )}
         </div>
         
         <div className="product-detail-info">
-          <h1>{product.name}</h1>
-          <p className="product-category">{product.category} - {product.gender}</p>
-          <p className="product-description">{product.description}</p>
+          <div className="product-detail-category">
+            {product.category} • {product.gender}
+          </div>
           
-          <div className="product-price-section">
-            <span className="product-price">${product.price}</span>
-            <span className="product-stock">Stock: {product.stock} unidades</span>
+          <h1 className="product-detail-name">{product.name}</h1>
+          
+          <p className="product-detail-description">{product.description}</p>
+          
+          <div className="product-detail-price-section">
+            <div className="price-info">
+              <span className="price-label">Precio</span>
+              <span className="price-value">${product.price}</span>
+            </div>
+            <div className="stock-info">
+              <span className="stock-label">Stock disponible</span>
+              <span className="stock-value">{product.stock} unidades</span>
+            </div>
           </div>
           
           {product.stock > 0 ? (
-            <div className="add-to-cart-section">
-              <div className="quantity-selector">
-                <label htmlFor="quantity">Cantidad:</label>
+            <div className="product-detail-actions">
+              <div className="quantity-section">
+                <label htmlFor="quantity" className="quantity-label">Cantidad</label>
                 <select 
                   id="quantity"
                   value={quantity} 
                   onChange={(e) => setQuantity(parseInt(e.target.value))}
+                  className="quantity-select"
                 >
                   {[...Array(Math.min(product.stock, 10))].map((_, i) => (
                     <option key={i + 1} value={i + 1}>{i + 1}</option>
@@ -160,22 +245,24 @@ function ProductDetail() {
               <button 
                 onClick={addToCart}
                 disabled={addingToCart}
-                className="btn btn-primary add-to-cart-btn"
+                className="add-to-cart-btn-detail"
               >
                 {addingToCart ? 'Agregando...' : 'Agregar al Carrito'}
               </button>
               
               {!user && (
-                <p className="login-notice">
-                  <button onClick={() => navigate('/login')} className="btn btn-outline">
-                    Inicia sesión
-                  </button> para agregar al carrito
-                </p>
+                <div className="login-notice-detail">
+                  <p>Inicia sesión para agregar al carrito</p>
+                  <button onClick={() => navigate('/login')} className="login-btn">
+                    Iniciar Sesión
+                  </button>
+                </div>
               )}
             </div>
           ) : (
-            <div className="out-of-stock">
-              <p>Producto agotado</p>
+            <div className="out-of-stock-detail">
+              <p>Producto Agotado</p>
+              <span>Este producto no está disponible actualmente</span>
             </div>
           )}
         </div>

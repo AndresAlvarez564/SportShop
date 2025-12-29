@@ -10,7 +10,24 @@ Amplify.configure({
     Cognito: {
       userPoolId: 'us-east-1_rxD1eRJLp',
       userPoolClientId: '898d3gn5iesen0psks0hbm5hd',
-      region: 'us-east-1'
+      region: 'us-east-1',
+      loginWith: {
+        email: true
+      },
+      signUpVerificationMethod: 'code',
+      userAttributes: {
+        email: {
+          required: true
+        }
+      },
+      allowGuestAccess: false,
+      passwordFormat: {
+        minLength: 8,
+        requireLowercase: true,
+        requireUppercase: true,
+        requireNumbers: true,
+        requireSpecialCharacters: true
+      }
       // Removemos identityPoolId por ahora - no lo necesitamos para carrito/admin
     }
   },

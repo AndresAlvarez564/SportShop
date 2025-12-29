@@ -1,5 +1,5 @@
 import { Stack, StackProps, Tags, RemovalPolicy } from 'aws-cdk-lib';
-import { UserPool, UserPoolClient, CfnUserPoolGroup } from 'aws-cdk-lib/aws-cognito';
+import { UserPool, UserPoolClient, CfnUserPoolGroup, AccountRecovery } from 'aws-cdk-lib/aws-cognito';
 import { Construct } from 'constructs';
 import { getEnvironment } from '../config/environments';
 
@@ -23,6 +23,14 @@ export class AuthStack extends Stack {
       selfSignUpEnabled: true,
       signInAliases: { email: true },
       autoVerify: { email: true },
+      passwordPolicy: {
+        minLength: 8,
+        requireLowercase: true,
+        requireUppercase: true,
+        requireDigits: true,
+        requireSymbols: true,
+      },
+      accountRecovery: AccountRecovery.EMAIL_ONLY,
       removalPolicy: RemovalPolicy.DESTROY
     });
 
