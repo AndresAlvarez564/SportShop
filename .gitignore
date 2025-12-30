@@ -29,6 +29,24 @@ Thumbs.db
 # Project specific - exclude requirements file
 contexto
 
+# Test files
+test-*.json
+test-*.js
+*.test.js
+*.spec.js
+
+# CDK temporary directories
+infrastructure/cdk-temp*/
+infrastructure/cdk.out/
+
+# Lambda function zips
+infrastructure/lambda-functions/**/*.zip
+
+# API outputs and temporary files
+infrastructure/api-outputs.json
+infrastructure/deployment-summary-*.md
+infrastructure/redeploy-script.md
+
 # Logs
 *.log
 
