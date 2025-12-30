@@ -310,6 +310,16 @@ const awsConfig = {
 
 ---
 
+## 📄 **Licencia y Copyright**
+
+**© 2024 Andrés Álvarez. Todos los derechos reservados.**
+
+Este proyecto está licenciado bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para más detalles.
+
+**Atribución requerida:** Si usas este código como referencia o base para tu proyecto, por favor incluye una atribución al autor original.
+
+---
+
 **Desarrollado con ❤️ usando AWS Solutions Architecture best practices**
 
 **⭐ Este proyecto demuestra competencias reales de Solutions Architect y desarrollo full-stack empresarial con AWS.**

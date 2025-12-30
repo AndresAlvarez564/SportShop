@@ -1,3 +1,9 @@
+/*
+ * SportShop Admin Panel
+ * Copyright (c) 2024 Andrés Álvarez
+ * Licensed under MIT License
+ */
+
 import React, { useState, useEffect } from 'react';
 import { get, post, put, del } from 'aws-amplify/api';
 import { fetchAuthSession } from 'aws-amplify/auth';

@@ -1,3 +1,12 @@
+/*
+ * SportShop E-commerce Platform
+ * Copyright (c) 2024 Andrés Álvarez
+ * Licensed under MIT License
+ * 
+ * This file is part of SportShop, a complete serverless e-commerce solution
+ * built with AWS CDK, Lambda, DynamoDB, and React.
+ */
+
 import { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { getCurrentUser } from 'aws-amplify/auth'
