@@ -3577,6 +3577,75 @@ body {
   display: none !important;
 }
 
+/* Hide duplicate email fields only */
+[data-amplify-authenticator] [data-amplify-field][data-amplify-field-name="email"] {
+  display: none !important;
+}
+
+/* Ensure forgot password link is visible and styled */
+[data-amplify-authenticator] [data-amplify-form-footer] {
+  display: block !important;
+  visibility: visible !important;
+  text-align: center !important;
+  margin-top: 1.5rem !important;
+}
+
+[data-amplify-authenticator] [data-amplify-form-footer] button,
+[data-amplify-authenticator] [data-amplify-form-footer] [data-amplify-router-link] {
+  display: block !important;
+  visibility: visible !important;
+  width: 100% !important;
+  text-align: center !important;
+  margin-top: 1rem !important;
+  padding: 0.75rem !important;
+  color: #888 !important;
+  background: transparent !important;
+  border: 1px solid #333 !important;
+  border-radius: 0 !important;
+  font-size: 0.9rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  font-weight: 300 !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  text-decoration: none !important;
+}
+
+[data-amplify-authenticator] [data-amplify-form-footer] button:hover,
+[data-amplify-authenticator] [data-amplify-form-footer] [data-amplify-router-link]:hover {
+  color: #ffffff !important;
+  border-color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Force show any forgot password related elements */
+[data-amplify-authenticator] *[data-amplify-router-link*="resetPassword"],
+[data-amplify-authenticator] *[data-amplify-router-link*="forgotPassword"],
+[data-amplify-authenticator] *[data-amplify-router-link*="forgot"] {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Show native Amplify forgot password elements */
+[data-amplify-authenticator] button[type="button"]:not(.forgot-password-btn) {
+  display: block !important;
+  visibility: visible !important;
+}
+
+/* Style for forgot password text in footer */
+.forgot-password-text {
+  color: #888 !important;
+  font-size: 0.85rem !important;
+  font-weight: 300 !important;
+  text-align: center !important;
+  margin-top: 1rem !important;
+  padding: 0.75rem !important;
+  border: 1px solid #333 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+}
+
 /* Password requirements */
 [data-amplify-authenticator] [data-amplify-password-requirements] {
   background: transparent !important;
@@ -4116,6 +4185,40 @@ body {
   margin: 0 !important;
 }
 
+/* Style for forgot password text in footer */
+.forgot-password-text {
+  color: #888 !important;
+  font-size: 0.85rem !important;
+  font-weight: 300 !important;
+  text-align: center !important;
+  margin-top: 1rem !important;
+  padding: 0.75rem !important;
+  border: 1px solid #333 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+}
+
+/* Ensure reset password forms are visible */
+[data-amplify-authenticator] [data-amplify-router="resetPassword"],
+[data-amplify-authenticator] [data-amplify-router="forgotPassword"],
+[data-amplify-authenticator] [data-amplify-router="confirmResetPassword"] {
+  display: block !important;
+  visibility: visible !important;
+}
+
+/* Reset password form styling */
+[data-amplify-authenticator] [data-amplify-router="resetPassword"] form,
+[data-amplify-authenticator] [data-amplify-router="forgotPassword"] form,
+[data-amplify-authenticator] [data-amplify-router="confirmResetPassword"] form {
+  background: transparent !important;
+  border: 1px solid #333 !important;
+  border-radius: 0 !important;
+  padding: 3rem !important;
+  max-width: 450px !important;
+  width: 100% !important;
+  margin: 2rem !important;
+}
+
 /* Forgot password link */
 [data-amplify-authenticator] [data-amplify-router-link*="resetPassword"],
 [data-amplify-authenticator] [data-amplify-router-link*="forgotPassword"] {
@@ -4439,4 +4542,62 @@ body {
   .product-grid {
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   }
+}
+
+/* ===== CUSTOM FORGOT PASSWORD BUTTON ===== */
+
+/* Custom forgot password button */
+.forgot-password-section {
+  margin-top: 1rem !important;
+}
+
+.forgot-password-btn {
+  display: block !important;
+  width: 100% !important;
+  text-align: center !important;
+  margin-top: 1rem !important;
+  padding: 0.75rem !important;
+  color: #888 !important;
+  background: transparent !important;
+  border: 1px solid #333 !important;
+  border-radius: 0 !important;
+  font-size: 0.9rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  font-weight: 300 !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  text-decoration: none !important;
+}
+
+.forgot-password-btn:hover {
+  color: #ffffff !important;
+  border-color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Ensure the custom button works within Authenticator */
+[data-amplify-authenticator] .forgot-password-btn {
+  display: block !important;
+  width: 100% !important;
+  text-align: center !important;
+  margin-top: 1rem !important;
+  padding: 0.75rem !important;
+  color: #888 !important;
+  background: transparent !important;
+  border: 1px solid #333 !important;
+  border-radius: 0 !important;
+  font-size: 0.9rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  font-weight: 300 !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  text-decoration: none !important;
+}
+
+[data-amplify-authenticator] .forgot-password-btn:hover {
+  color: #ffffff !important;
+  border-color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.05) !important;
 }

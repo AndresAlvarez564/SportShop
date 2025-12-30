@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { getCurrentUser } from 'aws-amplify/auth'
-import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react'
+import { Authenticator, translations } from '@aws-amplify/ui-react'
 import '@aws-amplify/ui-react/styles.css'
 
 import Navbar from './components/Navbar'
@@ -10,16 +10,32 @@ import Cart from './pages/Cart'
 import ProductDetail from './pages/ProductDetail'
 import './App.css'
 
+// Traducciones en español
+const spanishTranslations = {
+  'Forgot your password?': '¿Olvidaste tu contraseña?',
+  'Reset password': 'Recuperar contraseña',
+  'Send code': 'Enviar código',
+  'Code': 'Código',
+  'New Password': 'Nueva contraseña',
+  'Confirm Password': 'Confirmar contraseña',
+  'Change Password': 'Cambiar contraseña',
+  'Back to Sign In': 'Volver al inicio de sesión',
+  'We Emailed You': 'Te enviamos un email',
+  'Your code is on the way. To log in, enter the code we emailed to': 'Tu código está en camino. Para iniciar sesión, ingresa el código que enviamos a',
+  'It may take a minute to arrive.': 'Puede tardar un minuto en llegar.',
+  'Lost your code?': '¿Perdiste tu código?',
+  'Resend Code': 'Reenviar código'
+}
+
+// Configurar las traducciones
+translations.es = spanishTranslations
+
 // Custom Authenticator components
 const formFields = {
   signIn: {
     username: {
       placeholder: 'Ingresa tu email',
       label: 'Email'
-    },
-    password: {
-      placeholder: 'Ingresa tu contraseña',
-      label: 'Contraseña'
     }
   },
   signUp: {
@@ -83,28 +99,6 @@ const components = {
         <div className="auth-header">
           <h1>SportShop</h1>
           <p>Inicia sesión</p>
-        </div>
-      )
-    },
-    Footer() {
-      const { toResetPassword } = useAuthenticator();
-      
-      return (
-        <div className="auth-footer">
-          <p>¿No tienes cuenta? <strong>Regístrate arriba</strong></p>
-          <div className="forgot-password-section">
-            <button 
-              type="button" 
-              className="forgot-password-btn"
-              onClick={() => {
-                if (toResetPassword) {
-                  toResetPassword();
-                }
-              }}
-            >
-              ¿Olvidaste tu contraseña?
-            </button>
-          </div>
         </div>
       )
     }
@@ -241,15 +235,7 @@ function App() {
                   formFields={formFields}
                   components={components}
                   hideSignUp={false}
-                  loginMechanisms={['email']}
-                  signUpAttributes={['email']}
-                  services={{
-                    async handleSignUp(formData) {
-                      let { username, password, attributes } = formData;
-                      username = username.toLowerCase();
-                      return { username, password, attributes };
-                    },
-                  }}
+                  locale="es"
                 >
                   {({ user: authUser }) => {
                     setUser(authUser)
@@ -268,15 +254,7 @@ function App() {
                   formFields={formFields}
                   components={components}
                   hideSignUp={false}
-                  loginMechanisms={['email']}
-                  signUpAttributes={['email']}
-                  services={{
-                    async handleSignUp(formData) {
-                      let { username, password, attributes } = formData;
-                      username = username.toLowerCase();
-                      return { username, password, attributes };
-                    },
-                  }}
+                  locale="es"
                 >
                   {({ user: authUser }) => {
                     setUser(authUser)
