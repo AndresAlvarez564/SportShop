@@ -54,17 +54,21 @@ function ProductCatalog() {
 
   if (loading) {
     return (
-      <div className="container">
-        <div className="loading">Cargando productos...</div>
+      <div className="products-container">
+        <div className="loading">
+          <div className="loading-spinner"></div>
+          Cargando productos...
+        </div>
       </div>
     )
   }
 
   if (error) {
     return (
-      <div className="container">
-        <div className="error">
-          <h2>Error</h2>
+      <div className="products-container">
+        <div className="empty-state">
+          <div className="empty-state-icon">⚠️</div>
+          <h3>Error al cargar productos</h3>
           <p>{error}</p>
           <button onClick={fetchProducts} className="btn btn-primary">
             Reintentar
@@ -75,15 +79,15 @@ function ProductCatalog() {
   }
 
   return (
-    <div className="container">
+    <div className="products-container fade-in">
       {/* Header del Catálogo */}
-      <div className="catalog-header">
-        <h1>Catálogo SportShop</h1>
-        <p>Descubre nuestra colección de ropa deportiva premium</p>
+      <div className="products-header">
+        <h1 className="products-title">Nueva Colección</h1>
+        <p>Descubre las últimas tendencias en moda deportiva</p>
       </div>
 
       {/* Filtros y Búsqueda */}
-      <div className="catalog-filters">
+      <div className="filters-container">
         <div className="search-section">
           <input
             type="text"
@@ -96,13 +100,13 @@ function ProductCatalog() {
 
         <div className="filter-section">
           <div className="filter-group">
-            <label>Categoría:</label>
+            <label className="filter-label">Categoría</label>
             <select
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
               className="filter-select"
             >
-              <option value="all">Todas las categorías</option>
+              <option value="all">Todas</option>
               {categories.map(category => (
                 <option key={category} value={category}>
                   {category.charAt(0).toUpperCase() + category.slice(1)}
@@ -112,7 +116,7 @@ function ProductCatalog() {
           </div>
 
           <div className="filter-group">
-            <label>Género:</label>
+            <label className="filter-label">Género</label>
             <select
               value={selectedGender}
               onChange={(e) => setSelectedGender(e.target.value)}
@@ -127,8 +131,11 @@ function ProductCatalog() {
             </select>
           </div>
 
-          <div className="filter-results">
-            {filteredProducts.length} productos encontrados
+          <div className="filter-group">
+            <span className="filter-label">Resultados</span>
+            <span style={{ fontSize: '12px', color: 'var(--neutral-600)' }}>
+              {filteredProducts.length} productos
+            </span>
           </div>
         </div>
       </div>
@@ -169,7 +176,7 @@ function ProductCatalog() {
       ) : (
         // Vista de grid simple (cuando hay filtros activos)
         <div className="filtered-view">
-          <div className="product-grid">
+          <div className="products-grid">
             {filteredProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
@@ -194,11 +201,11 @@ function CategorySection({ category, products, selectedGender }) {
           {category.charAt(0).toUpperCase() + category.slice(1)}
         </h2>
         <span className="category-count">
-          {filteredProducts.length} productos
+          {filteredProducts.length}
         </span>
       </div>
 
-      <div className="product-grid">
+      <div className="products-grid">
         {filteredProducts.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
@@ -231,18 +238,15 @@ function ProductCard({ product }) {
     setCurrentImageIndex((prev) => prev === 0 ? images.length - 1 : prev - 1)
   }
 
-  const goToImage = (index) => {
-    setCurrentImageIndex(index)
-  }
-
   return (
-    <div className="product-card">
-      <div className="product-image">
+    <Link to={`/products/${product.id}`} className="product-card">
+      <div className="product-image-container">
         {images.length > 0 ? (
           <>
             <img 
               src={images[currentImageIndex].url} 
-              alt={images[currentImageIndex].alt || product.name} 
+              alt={images[currentImageIndex].alt || product.name}
+              className="product-image"
             />
             
             {/* Navigation arrows for multiple images */}
@@ -251,6 +255,7 @@ function ProductCard({ product }) {
                 <button
                   className="image-nav-btn prev-btn"
                   onClick={(e) => {
+                    e.preventDefault()
                     e.stopPropagation()
                     prevImage()
                   }}
@@ -261,6 +266,7 @@ function ProductCard({ product }) {
                 <button
                   className="image-nav-btn next-btn"
                   onClick={(e) => {
+                    e.preventDefault()
                     e.stopPropagation()
                     nextImage()
                   }}
@@ -279,8 +285,9 @@ function ProductCard({ product }) {
                     key={index}
                     className={`image-indicator ${index === currentImageIndex ? 'active' : ''}`}
                     onClick={(e) => {
+                      e.preventDefault()
                       e.stopPropagation()
-                      goToImage(index)
+                      setCurrentImageIndex(index)
                     }}
                     aria-label={`Ver imagen ${index + 1}`}
                   />
@@ -295,67 +302,39 @@ function ProductCard({ product }) {
           </div>
         )}
 
-        {/* Badge de stock bajo */}
+        {/* Badge de stock */}
         {product.stock <= 5 && product.stock > 0 && (
-          <div className="stock-badge low-stock">
-            ¡Últimas {product.stock}!
+          <div className="product-badge">
+            Últimas {product.stock}
           </div>
         )}
 
-        {/* Badge de sin stock */}
         {product.stock === 0 && (
-          <div className="stock-badge out-of-stock">
+          <div className="product-badge" style={{ background: 'var(--accent-red)' }}>
             Agotado
           </div>
         )}
       </div>
 
       <div className="product-info">
-        <div className="product-category-badge">
-          {product.category} • {product.gender}
-        </div>
-
-        <h3 className="product-name">{product.name}</h3>
-
+        <div className="product-name">{product.name}</div>
+        
         {product.description && (
-          <p className="product-description">
-            {product.description.length > 80
-              ? product.description.substring(0, 80) + '...'
+          <div className="product-description">
+            {product.description.length > 60
+              ? product.description.substring(0, 60) + '...'
               : product.description
             }
-          </p>
+          </div>
         )}
 
-        <div className="product-footer">
-          <div className="product-price">
-            <span className="price-label">Precio:</span>
-            <span className="price-value">${product.price}</span>
-          </div>
+        <div className="product-price">${product.price}</div>
 
-          <div className="product-actions">
-            <Link
-              to={`/products/${product.id}`}
-              className="btn btn-primary"
-            >
-              Ver Detalles
-            </Link>
-          </div>
+        <div className="product-actions">
+          <span className="btn">Ver Producto</span>
         </div>
-
-        {/* Rating si existe */}
-        {product.averageRating > 0 && (
-          <div className="product-rating">
-            <span className="stars">
-              {'★'.repeat(Math.floor(product.averageRating))}
-              {'☆'.repeat(5 - Math.floor(product.averageRating))}
-            </span>
-            <span className="rating-text">
-              ({product.reviewCount} reseñas)
-            </span>
-          </div>
-        )}
       </div>
-    </div>
+    </Link>
   )
 }
 
